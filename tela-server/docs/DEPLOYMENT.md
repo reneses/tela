@@ -6,7 +6,7 @@ This document covers the process of building, configuring, packaging and running
 
 The Tela Framework contains a server already configured with two modules (Instagram & Twitter), which can be started by running the `main` method at `io.reneses.tela.App`.
 
-In case we would like to register different modules, or integrate Tela within an existing app, the process is quite straighforward. First, we have to import the `TelaServer` and the `Assembler`:
+In case we would like to register different modules, or integrate Tela within an existing app, the process is quite straightforward. First, we have to import the `TelaServer` and the `Assembler`:
 
 ```java
 import io.reneses.tela.Assembler;
@@ -15,7 +15,7 @@ import io.reneses.tela.core.api.server.TelaServer;
 
 The `Assembler` is the component responsible of reading the configuration, configuring and injecting the rest of components and instantiating the server. Although its usage is not required as this process can be done manually, it is quite advisable to use it.
 
-Then, whe import the modules we will register:
+Then, we import the modules we will register:
 
 ```java
 import io.reneses.tela.modules.instagram.InstagramTelaModule;
@@ -169,7 +169,7 @@ If other configuration is needed, the environmental variables can be changed by 
 
 ### Heroku
 
-A Heroku's `Procfile` is provied with Tela, and the framework uses the `PORT` environmental variable as [Heroku requires](https://devcenter.heroku.com/articles/runtime-principles#web-servers). Therefore, the deployment on Heroku is straightforward. For example, if [Git deployment is configured](https://devcenter.heroku.com/articles/git), it can be done executing:
+A Heroku's `Procfile` is provided with Tela, and the framework uses the `PORT` environmental variable as [Heroku requires](https://devcenter.heroku.com/articles/runtime-principles#web-servers). Therefore, the deployment on Heroku is straightforward. For example, if [Git deployment is configured](https://devcenter.heroku.com/articles/git), it can be done executing:
 
 ```
 git push heroku
@@ -217,3 +217,45 @@ ORIENTDB_MODE=remote
 
 ![Deployment Diagram](deployment-diagram.png)
 
+### Redis
+
+>Redis is an open source (BSD licensed), in-memory data structure store, used as database, cache and message broker ([redis.io](http://redis.io))
+
+There are [plenty](http://redis.io/topics/quickstart) of [tutorials](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-redis) for installing and configuring Redis. Running Redis with Docker is extremely straightforward, and can be done executing the script `scripts/docker-redis.sh`:
+
+```bash
+#!/usr/bin/env bash
+docker run -p 6379:6379 redis
+```
+
+### OrientDB
+
+[OrientDB](http://orientdb.com) is the main database of Tela. A OrientDB Docker container can be started with the script `scripts/docker-orientdb.sh`:
+
+```bash
+#!/usr/bin/env bash
+docker run -p 2424:2424 -p 2480:2480 -e ORIENTDB_ROOT_PASSWORD=root orientdb
+```
+
+If we are seeking maximum performance, a OrientDB server is advised. Its deployment can be easily with any cloud provider. For example, if we are using Amazon EC2, the script `scripts/install-orientdb-server.sh` will prepare everything for us (using `yum`, the commands for `apt-get` should be similar):
+
+```bash
+#!/bin/bash
+
+# This prepared to run on an Amazon Linux distribution, which already include Docker in their repositories
+# If this is not the case, please, add it first to yum
+
+sudo yum update -y
+sudo yum install -y docker
+sudo service docker start
+sudo usermod -a -G docker ec2-user
+docker run --restart=always -d \
+    -p 2424:2424 \
+    -p 2480:2480 \
+    -e ORIENTDB_ROOT_PASSWORD=root \
+    -v /opt/orientdb/databases:/orientdb/databases \
+    -v /opt/orientdb/backup:/orientdb/backup \
+    orientdb:latest
+```
+
+**Important: keep in mind that you should replace `root` by a secure password**

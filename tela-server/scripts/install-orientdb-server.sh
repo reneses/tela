@@ -1,6 +1,7 @@
 #!/bin/bash
 
-# This script is conceived to run on Amazon Linux distributions, which already include Docker in their repository
+# This prepared to run on an Amazon Linux distribution, which already include Docker in their repositories
+# If this is not the case, please, add it first to yum
 
 sudo yum update -y
 sudo yum install -y docker
