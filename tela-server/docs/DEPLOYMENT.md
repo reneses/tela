@@ -97,7 +97,7 @@ cache.ttl=3600
 The available options, as well as their environmental properties, keys within the properties file, and default values can be found in the following table:
 
 Option            | Default value | Env property      | File property     | Description
-:----------------:|:-------------:|:-----------------:|:-----------------:|:------------:
+:----------------:|:-------------:|:-----------------:|:-----------------:|:------------
 Tela port         | 80            | PORT              | port              | Port Tela will be binded to
 Scheduler delay   | 300           | SCHEDULER_DELAY   | scheduler.delay   | Delay for the scheduler
 Cache TTL         | 3600          | CACHE_TTL         | cache.ttl         | TTL of the cache &history entries
