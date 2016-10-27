@@ -1,0 +1,20 @@
+{
+  "data": [
+    {
+      "username": "michael",
+      "profile_picture": "michael.jpg",
+      "full_name": "Michael",
+      "id": "4"
+    },
+    {
+      "username": "Kobe",
+      "profile_picture": "kobe.jpg",
+      "full_name": "kobe",
+      "id": "5"
+    }
+  ],
+  "pagination": {
+    "next_url": "next.com",
+    "next_cursor": "2"
+  }
+}
