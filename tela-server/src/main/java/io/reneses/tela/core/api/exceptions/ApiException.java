@@ -6,7 +6,7 @@ package io.reneses.tela.core.api.exceptions;
  */
 public abstract class ApiException extends Exception {
 
-    private int statusCode;
+    private final int statusCode;
 
     /**
      * API Exception constructor

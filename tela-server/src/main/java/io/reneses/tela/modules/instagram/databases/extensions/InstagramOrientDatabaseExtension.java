@@ -218,7 +218,6 @@ public class InstagramOrientDatabaseExtension extends OrientDatabaseExtension {
         boolean isInitiated = telaGraph.existsClass(graph, User.CLASS)
                 && telaGraph.existsClass(graph, User.Count.CLASS)
                 && telaGraph.existsClass(graph, Media.CLASS)
-                && telaGraph.existsClass(graph, Media.CLASS)
                 && telaGraph.existsClass(graph, Media.Location.CLASS)
                 && telaGraph.existsClass(graph, Comment.CLASS)
                 && telaGraph.existsClass(graph, Relationship.CLASS);

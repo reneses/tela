@@ -64,10 +64,10 @@ public class AuthController extends TelaController {
             return buildResponse(accessToken);
 
         } catch (ApiException e) {
-            LOGGER.error("{} [Auth] Create session with '{}' token '{}' - {}", request.getRemoteAddr(), module, token, e.getMessage());
+            LOGGER.error(String.format("%s [Auth] Create session with '%s' token '%s' - %s", request.getRemoteAddr(), module, token, e.getMessage()), e);
             return buildErrorResponse(e.getStatusCode(), e.getMessage());
         } catch (Exception e) {
-            LOGGER.error(request.getRemoteAddr() + " [Auth] Create session with '" + module + "' token '" + token + "' - Unknown server error", e);
+            LOGGER.error(String.format("%s [Auth] Create session with '%s' token '%s' - Unknown server error", request.getRemoteAddr(), module, token), e);
             return buildErrorResponse(500, e.getMessage());
         }
     }
@@ -92,10 +92,10 @@ public class AuthController extends TelaController {
             sessionManager.delete(session);
             return buildResponse("Success");
         } catch (ApiException e) {
-            LOGGER.error("{}:{} [Auth] Delete session - {}", request.getRemoteAddr(), session, e.getMessage());
+            LOGGER.error(String.format("%s:%s [Auth] Delete session - %s", request.getRemoteAddr(), session, e.getMessage()), e);
             return buildErrorResponse(e.getStatusCode(), e.getMessage());
         } catch (Exception e) {
-            LOGGER.error(request.getRemoteAddr() + ":" + session + " [Auth] Delete session - Unknown server error", e);
+            LOGGER.error(String.format("%s:%s [Auth] Delete session - Unknown server error", request.getRemoteAddr(), session), e);
             return buildErrorResponse(500, e.getMessage());
         }
 
@@ -133,10 +133,12 @@ public class AuthController extends TelaController {
             return buildResponse("Success");
 
         } catch (ApiException e) {
-            LOGGER.error("{}:{} [Auth] Edit session add '{}' token '{}' - {}", request.getRemoteAddr(), session, module, token, e.getMessage());
+            LOGGER.error(String.format("%s:%s [Auth] Edit session add '%s' token '%s' - %s",
+                    request.getRemoteAddr(), session, module, token, e.getMessage()), e);
             return buildErrorResponse(e.getStatusCode(), e.getMessage());
         } catch (Exception e) {
-            LOGGER.error(request.getRemoteAddr() + ":" + session + " - [Auth] Edit session add '" + module + "' token '" + token + "' - Unknown server error", e);
+            LOGGER.error(String.format("%s:%s [Auth] Edit session add '%s' token '%s' - Unknown server error",
+                    request.getRemoteAddr(), session, module, token), e);
             return buildErrorResponse(500, e.getMessage());
         }
 
@@ -160,17 +162,18 @@ public class AuthController extends TelaController {
 
         Session session = null;
         try {
-
             session = extractSession(authorization);
             LOGGER.info("{}:{} [Auth] Delete '{}' token", request.getRemoteAddr(), session, module);
             sessionManager.deleteModuleToken(session, module);
             return buildResponse("Success");
 
         } catch (ApiException e) {
-            LOGGER.error("{}:{} [Auth] Delete '{}' token - {}", request.getRemoteAddr(), session, module, e.getMessage());
+            LOGGER.error(String.format("%s:%s [Auth] Delete '%s' token - %s",
+                    request.getRemoteAddr(), session, module, e.getMessage()), e);
             return buildErrorResponse(e.getStatusCode(), e.getMessage());
         } catch (Exception e) {
-            LOGGER.error(request.getRemoteAddr() + ":" + session + " - [Auth] Delete '" + module + "' token - Unknown server error", e);
+            LOGGER.error(String.format("%s:%s [Auth] Delete '%s' token - Unknown server error",
+                    request.getRemoteAddr(), session, module), e);
             return buildErrorResponse(500, e.getMessage());
         }
 

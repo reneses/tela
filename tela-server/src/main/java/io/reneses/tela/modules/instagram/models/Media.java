@@ -432,9 +432,7 @@ public class Media {
      * @param taggedUsers a {@link java.util.List} object.
      */
     public void setTaggedUsers(List<TaggedUser> taggedUsers) {
-        if (taggedUsers == null)
-            taggedUsers = new ArrayList<>();
-        this.taggedUsers = taggedUsers;
+        this.taggedUsers = taggedUsers == null? new ArrayList<>() : taggedUsers;
     }
 
     @Override

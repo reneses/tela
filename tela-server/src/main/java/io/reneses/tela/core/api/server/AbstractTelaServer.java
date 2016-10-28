@@ -1,7 +1,7 @@
 package io.reneses.tela.core.api.server;
 
-import java.io.IOException;
 import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 /**
  * Common functionality for a Tela Server
@@ -40,8 +40,10 @@ abstract class AbstractTelaServer implements TelaServer {
         if (localIp == null) {
             try {
                 localIp = InetAddress.getLocalHost().getHostAddress();
+            } catch (UnknownHostException e) {
+                localIp = "";
             }
-            catch (IOException ignored) {}
+
         }
         return localIp;
     }

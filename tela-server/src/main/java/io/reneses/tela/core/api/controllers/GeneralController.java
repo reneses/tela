@@ -2,6 +2,9 @@ package io.reneses.tela.core.api.controllers;
 
 
 import io.reneses.tela.core.dispatcher.exceptions.ModuleNotDefinedException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -14,6 +17,8 @@ import javax.ws.rs.core.Response;
  */
 @Path("/")
 public class GeneralController extends TelaController {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(ActionController.class);
 
     /**
      * Constructor for GeneralController.
@@ -60,6 +65,7 @@ public class GeneralController extends TelaController {
             return buildResponse(dispatcher.getHelp(module));
         }
         catch (ModuleNotDefinedException e) {
+            LOGGER.error(String.format("[General] Help - Module '%s' not defined", module), e);
             return buildErrorResponse(404, "The module '" + module + "' is not configured");
         }
     }

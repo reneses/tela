@@ -67,10 +67,12 @@ public class SchedulerController extends TelaController {
             return buildResponse(jsonResponse);
 
         } catch (ApiException e) {
-            LOGGER.error("{}:{} [Schedule] {}/{} each {}s - {}", request.getRemoteAddr(), session, module, action, delay, e.getMessage());
+            LOGGER.error(String.format("%s:%s [Schedule] %s/%s each %ss - %s",
+                    request.getRemoteAddr(), session, module, action, delay, e.getMessage()), e);
             return buildErrorResponse(e.getStatusCode(), e.getMessage());
         } catch (Exception e) {
-            LOGGER.error(request.getRemoteAddr() + ":" + session + " [Schedule] " + module + "/" + action + " each " + delay + "s - Unknown server error", e);
+            LOGGER.error(String.format("%s:%s [Schedule] %s/%s each %ss - Unknown server error",
+                    request.getRemoteAddr(), session, module, action, delay), e);
             return buildErrorResponse(500, e.getMessage());
         }
     }
@@ -97,10 +99,12 @@ public class SchedulerController extends TelaController {
             return buildResponse(tasks);
 
         } catch (ApiException e) {
-            LOGGER.error("{}:{} [Schedule] Get all scheduled - {}", request.getRemoteAddr(), session, e.getMessage());
+            LOGGER.error(String.format("%s:%s [Schedule] Get all scheduled - %s",
+                    request.getRemoteAddr(), session, e.getMessage()), e);
             return buildErrorResponse(e.getStatusCode(), e.getMessage());
         } catch (Exception e) {
-            LOGGER.error(request.getRemoteAddr() + ":" + session + " [Schedule] Get all scheduled - Unknown server error", e);
+            LOGGER.error(String.format("%s:%s [Schedule] Get all scheduled - Unknown server error",
+                    request.getRemoteAddr(), session), e);
             return buildErrorResponse(500, e.getMessage());
         }
     }
@@ -127,10 +131,12 @@ public class SchedulerController extends TelaController {
             return buildResponse("Success");
 
         } catch (ApiException e) {
-            LOGGER.error("{}:{} [Schedule] Cancel all scheduled - {}", request.getRemoteAddr(), session, e.getMessage());
+            LOGGER.error(String.format("%s:%s [Schedule] Cancel all scheduled - %s",
+                    request.getRemoteAddr(), session, e.getMessage()), e);
             return buildErrorResponse(e.getStatusCode(), e.getMessage());
         } catch (Exception e) {
-            LOGGER.error(request.getRemoteAddr() + ":" + session + " [Schedule] Cancel all scheduled - Unknown server error", e);
+            LOGGER.error(String.format("%s:%s [Schedule] Cancel all scheduled - Unknown server error",
+                    request.getRemoteAddr(), session), e);
             return buildErrorResponse(500, e.getMessage());
         }
     }
@@ -160,10 +166,12 @@ public class SchedulerController extends TelaController {
             return buildResponse("Success");
 
         } catch (ApiException e) {
-            LOGGER.error("{}:{} [Schedule] Cancel scheduled action {} - {}", request.getRemoteAddr(), session, actionId, e.getMessage());
+            LOGGER.error(String.format("%s:%s [Schedule] Cancel scheduled action %s - %s",
+                    request.getRemoteAddr(), session, actionId, e.getMessage()), e);
             return buildErrorResponse(e.getStatusCode(), e.getMessage());
         } catch (Exception e) {
-            LOGGER.error(request.getRemoteAddr() + ":" + session + " [Schedule] Cancel scheduled action " + actionId + " - Unknown server error", e);
+            LOGGER.error(String.format("%s:%s [Schedule] Cancel scheduled action %s - Unknown server error",
+                    request.getRemoteAddr(), session, actionId), e);
             return buildErrorResponse(500, e.getMessage());
         }
     }

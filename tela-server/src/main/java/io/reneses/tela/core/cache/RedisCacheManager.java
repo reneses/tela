@@ -3,8 +3,6 @@ package io.reneses.tela.core.cache;
 import io.reneses.tela.core.databases.redis.JedisFactory;
 import redis.clients.jedis.Jedis;
 
-import static redis.clients.jedis.Protocol.Command.TTL;
-
 /**
  * Redis cache manager implementation
  */
@@ -28,12 +26,12 @@ class RedisCacheManager extends AbstractCacheManager {
     @Override
     public void put(String module, String key, String value) {
         Jedis jedis = JedisFactory.get();
-        key = getKey(module, key);
+        String redisKey = getKey(module, key);
         if (value == null) {
-            jedis.del(key);
+            jedis.del(redisKey);
         } else {
-            jedis.set(key, value);
-            jedis.expire(key, ttl);
+            jedis.set(redisKey, value);
+            jedis.expire(redisKey, ttl);
         }
         jedis.close();
     }

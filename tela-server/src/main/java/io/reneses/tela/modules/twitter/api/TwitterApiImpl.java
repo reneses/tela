@@ -2,11 +2,10 @@ package io.reneses.tela.modules.twitter.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.reneses.tela.core.util.HttpClient;
-import io.reneses.tela.modules.instagram.api.responses.UserResponse;
-import io.reneses.tela.modules.twitter.api.exceptions.TwitterException;
-import io.reneses.tela.modules.twitter.models.User;
-import io.reneses.tela.modules.twitter.api.responses.*;
 import io.reneses.tela.core.util.JettyHttpClient;
+import io.reneses.tela.modules.twitter.api.exceptions.TwitterException;
+import io.reneses.tela.modules.twitter.api.responses.UsersResponse;
+import io.reneses.tela.modules.twitter.models.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,24 +42,24 @@ class TwitterApiImpl implements TwitterApi {
             throws TwitterException {
 
         try {
-            if (limit <= 0)
-                limit = Integer.MAX_VALUE;
+            int limitToUse = limit > 0? limit : Integer.MAX_VALUE;
             List<User> users = new ArrayList<>();
+            String nextCursor = cursor;
             while (true) {
                 String stringResponse = httpClient.authorizedGetRequest(
                         accessToken, getUrl(endpoint),
                         "screen_name", username,
-                        "count", String.valueOf(limit),
-                        "cursor", cursor,
+                        "count", String.valueOf(limitToUse),
+                        "cursor", nextCursor,
                         "skip_status", "true",
                         "include_user_entities", "false");
                 UsersResponse response = new ObjectMapper().readValue(stringResponse, UsersResponse.class);
                 users.addAll(response.getUsers());
-                cursor = response.getNextCursor();
-                if (cursor == null || cursor.isEmpty() || users.size() >= limit)
+                nextCursor = response.getNextCursor();
+                if (nextCursor == null || nextCursor.isEmpty() || users.size() >= limitToUse)
                     break;
             }
-            return users.size() > limit ? users.subList(0, limit) : users;
+            return users.size() > limitToUse ? users.subList(0, limitToUse) : users;
         } catch (Exception e) {
             throw new TwitterException("Unknown:" + e.getMessage(), 500);
         }
