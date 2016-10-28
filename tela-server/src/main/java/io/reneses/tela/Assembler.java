@@ -58,8 +58,7 @@ public class Assembler {
     // Configure the action dispatcher registering the modules
     private static ActionDispatcher configureActionDispatcher(TelaModule... modules) {
         for (TelaModule module : modules) {
-            ActionDispatcherFactory.addClassesToScan(module.getActionClasses());
-            ActionDispatcherFactory.addPackagesToScan(module.getActionPackages());
+            ActionDispatcherFactory.addPackagesToScan(module.getClass().getPackage());
         }
         return ActionDispatcherFactory.create();
     }

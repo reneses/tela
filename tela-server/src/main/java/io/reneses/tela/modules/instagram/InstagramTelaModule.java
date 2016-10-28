@@ -22,8 +22,6 @@ public class InstagramTelaModule extends TelaModule {
         super(NAME);
         Iterable<DatabaseExtension> extensions = Arrays.asList(new InstagramOrientDatabaseExtension());
         setExtensions(extensions);
-        Iterable<Package> packages = Arrays.asList(UserActions.class.getPackage());
-        setActionPackages(packages);
     }
 
 }
