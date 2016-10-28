@@ -1,1 +1,2 @@
-tela-server/.sonar
+db
+*.log
