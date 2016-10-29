@@ -65,7 +65,7 @@ public class GeneralController extends TelaController {
             return buildResponse(dispatcher.getHelp(module));
         }
         catch (ModuleNotDefinedException e) {
-            LOGGER.error(String.format("[General] Help - Module '%s' not defined", module), e);
+            LOGGER.error(String.format("[General] Help - Module '%s' not defined", module));
             return buildErrorResponse(404, "The module '" + module + "' is not configured");
         }
     }

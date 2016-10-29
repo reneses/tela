@@ -253,7 +253,7 @@ class ActionDispatcherImpl extends AbstractActionDispatcher {
         if (action == null || params == null)
             throw new IllegalArgumentException("The parameters cannot be null");
         if (action.requiresToken() && (token == null || token.isEmpty()))
-            throw new ModuleTokenNotFoundException("A valid token is required to executeAndFetch " + action.getName());
+            throw new ModuleTokenNotFoundException("A valid token is required to execute " + action.getName());
         Object[] input = prepareInput(token, action, params);
         try {
             return (T) action.invoke(input);

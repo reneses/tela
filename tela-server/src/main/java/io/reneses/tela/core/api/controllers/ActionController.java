@@ -57,7 +57,7 @@ public class ActionController extends TelaController {
 
         } catch (ApiException e) {
             LOGGER.error(String.format("%s (%s) - [Action] %s/%s - %s",
-                    request.getRemoteAddr(), session, module, action, e.getMessage()), e);
+                    request.getRemoteAddr(), session, module, action, e.getMessage()));
             return buildErrorResponse(e.getStatusCode(), e.getMessage());
         } catch (Exception e) {
             LOGGER.error(String.format("%s (%s) - [Action] %s/%s - Unknown server error",
