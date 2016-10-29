@@ -17,14 +17,14 @@ public interface UserRepository {
     User find(String username);
 
     /**
-     * Create an user
+     * Create a user
      *
      * @param user User
      */
     void create(User user);
 
     /**
-     * Save the followers of an user. All the users will be updated/created.
+     * Save the followers of a user. All the users will be updated/created.
      *
      * @param followers Following users
      * @param followed Followed user
@@ -32,7 +32,7 @@ public interface UserRepository {
     void setFollowers(Iterable<User> followers, User followed);
 
     /**
-     * Save the users an user is following. All the users will be updated/created.
+     * Save the users a user is following. All the users will be updated/created.
      *
      * @param followers Following user
      * @param followed Followed users
@@ -40,7 +40,7 @@ public interface UserRepository {
     void setFollowing(User followers, Iterable<User> followed);
 
     /**
-     * Find the followers of an user
+     * Find the followers of a user
      *
      * @param username Username
      * @return User followers
@@ -48,7 +48,7 @@ public interface UserRepository {
     List<User> findFollowers(String username);
 
     /**
-     * Find the users an user is following
+     * Find the users a user is following
      *
      * @param username Username
      * @return Users the user is following
@@ -56,7 +56,7 @@ public interface UserRepository {
     List<User> findFollowing(String username);
 
     /**
-     * Find the friends of an user, this is, the intersection of followers and following
+     * Find the friends of a user, this is, the intersection of followers and following
      *
      * @param username Username
      * @return User friends

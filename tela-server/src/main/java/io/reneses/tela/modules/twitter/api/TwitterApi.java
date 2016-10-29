@@ -26,7 +26,7 @@ interface TwitterApi {
     User self(String accessToken) throws TwitterException;
 
     /**
-     * Retrieve the followers of an user
+     * Retrieve the followers of a user
      * Documentation: https://dev.twitter.com/rest/reference/get/followers/list
      *
      * @param accessToken Access token
@@ -38,7 +38,7 @@ interface TwitterApi {
     List<User> followers(String accessToken, String username, int limit) throws TwitterException;
 
     /**
-     * Retrieve the followers of an user
+     * Retrieve the followers of a user
      * Documentation: https://dev.twitter.com/rest/reference/get/followers/list
      *
      * @param accessToken Access token
@@ -49,7 +49,7 @@ interface TwitterApi {
     List<User> followers(String accessToken, String username) throws TwitterException;
 
     /**
-     * Retrieve the user an user is following
+     * Retrieve the user a user is following
      * Documentation: https://dev.twitter.com/rest/reference/get/friends/list
      *
      * @param accessToken Access token
@@ -61,7 +61,7 @@ interface TwitterApi {
     List<User> following(String accessToken, String username, int limit) throws TwitterException;
 
     /**
-     * Retrieve the user an user is following
+     * Retrieve the user a user is following
      * Documentation: https://dev.twitter.com/rest/reference/get/friends/list
      *
      * @param accessToken Access token

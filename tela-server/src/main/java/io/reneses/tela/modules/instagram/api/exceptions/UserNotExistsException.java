@@ -14,7 +14,7 @@ public class UserNotExistsException extends InstagramException {
      * @param user a {@link java.lang.String} object.
      */
     public UserNotExistsException(String user) {
-        super("The requested user '" + user + "' does  not exist", 404);
+        super("The requested user '" + user + "' does not exist", 404);
         this.user = user;
     }
 

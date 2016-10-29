@@ -62,14 +62,14 @@ public interface UserRepository {
     List<User> findAll();
 
     /**
-     * Create an user
+     * Create a user
      *
      * @param user User
      */
     void createOrUpdate(User user);
 
     /**
-     * Store the followers of an user
+     * Store the followers of a user
      *
      * @param followers Followers
      * @param followed  User being followed
@@ -85,7 +85,7 @@ public interface UserRepository {
     void setFollowing(User follower, List<User> followed);
 
     /**
-     * Find the followers of an user
+     * Find the followers of a user
      *
      * @param followedId Followed user ID
      * @return Followers of the user
@@ -101,7 +101,7 @@ public interface UserRepository {
     List<User> findFollowing(long followerId);
 
     /**
-     * Find the friends of an user (intersection of followers and following)
+     * Find the friends of a user (intersection of followers and following)
      *
      * @param userId User ID
      * @return Friends of the given user
@@ -109,7 +109,7 @@ public interface UserRepository {
     List<User> findFriends(long userId);
 
     /**
-     * Obtain the counts of an user
+     * Obtain the counts of a user
      *
      * @param userId User ID
      * @return Counts of the given user

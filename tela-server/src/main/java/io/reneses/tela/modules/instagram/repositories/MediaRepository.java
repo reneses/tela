@@ -20,7 +20,7 @@ public interface MediaRepository {
     Media find(String mediaId);
 
     /**
-     * Find all the media posted by an user
+     * Find all the media posted by a user
      *
      * @param userId User ID
      * @return Media posted by the given user
@@ -28,7 +28,7 @@ public interface MediaRepository {
     List<Media> findAll(long userId);
 
     /**
-     * Find the latest media of an user
+     * Find the latest media of a user
      *
      * @param userId User ID
      * @param limit Maximum number of media to return

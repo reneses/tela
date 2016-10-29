@@ -186,7 +186,7 @@ GET /help
       "token: String",
       "userId: long"
     ],
-    "description": "Get the information about an user"
+    "description": "Get the information about a user"
   }
 ]
 ```

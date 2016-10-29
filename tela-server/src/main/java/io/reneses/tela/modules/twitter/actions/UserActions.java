@@ -50,7 +50,7 @@ public class UserActions {
     }
 
     /**
-     * Retrieve the user an user is following
+     * Retrieve the user a user is following
      *
      * @param accessToken Access token
      * @param username    Username
@@ -65,7 +65,7 @@ public class UserActions {
     }
 
     /**
-     * Retrieve the user an user is following
+     * Retrieve the user a user is following
      *
      * @param accessToken Access token
      * @param username    Username
@@ -79,7 +79,7 @@ public class UserActions {
     }
 
     /**
-     * Retrieve the followers of an user
+     * Retrieve the followers of a user
      *
      * @param accessToken Access token
      * @param username    Username
@@ -87,35 +87,35 @@ public class UserActions {
      * @return List of followers
      * @throws TwitterException if any.
      */
-    @Action(description = "Get the followers of an user", parameters = {"token", "username", "limit"})
+    @Action(description = "Get the followers of a user", parameters = {"token", "username", "limit"})
     @Schedulable(minimumDelay = 3600)
     public List<User> followers(String accessToken, String username, int limit) throws TwitterException {
         return api.followers(accessToken, username, limit);
     }
 
     /**
-     * Retrieve the followers of an user
+     * Retrieve the followers of a user
      *
      * @param accessToken Access token
      * @param username    Username
      * @return List of followers
      * @throws TwitterException if any.
      */
-    @Action(description = "Get the followers of an user", parameters = {"token", "username"})
+    @Action(description = "Get the followers of a user", parameters = {"token", "username"})
     @Schedulable(minimumDelay = 3600)
     public List<User> followers(String accessToken, String username) throws TwitterException {
         return api.followers(accessToken, username);
     }
 
     /**
-     * Retrieve the friends of an user (intersection between followers and following)
+     * Retrieve the friends of a user (intersection between followers and following)
      *
      * @param accessToken Access token
      * @param username    Username
      * @return User friends
      * @throws TwitterException if any.
      */
-    @Action(description = "Get the friends of an user", parameters = {"token", "username"})
+    @Action(description = "Get the friends of a user", parameters = {"token", "username"})
     @Schedulable(minimumDelay = 3600)
     public List<User> friends(String accessToken, String username) throws TwitterException {
         return api.friends(accessToken, username);

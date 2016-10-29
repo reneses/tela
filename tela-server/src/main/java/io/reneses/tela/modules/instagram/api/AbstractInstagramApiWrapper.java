@@ -41,7 +41,7 @@ public abstract class AbstractInstagramApiWrapper implements InstagramApi {
     }
 
     /**
-     * Retrieve the information about an user
+     * Retrieve the information about a user
      *
      * @param accessToken Access token
      * @param username    User username
@@ -60,7 +60,7 @@ public abstract class AbstractInstagramApiWrapper implements InstagramApi {
     public abstract List<User> friends(String accessToken) throws InstagramException;
 
     /**
-     * Retrieve the counts of an user
+     * Retrieve the counts of a user
      *
      * @param accessToken Access token
      * @param userId    User ID
@@ -70,7 +70,7 @@ public abstract class AbstractInstagramApiWrapper implements InstagramApi {
     public abstract List<Counts> counts(String accessToken, long userId) throws InstagramException;
 
     /**
-     * Retrieve the counts of an user
+     * Retrieve the counts of a user
      *
      * @param accessToken Access token
      * @param username    User username

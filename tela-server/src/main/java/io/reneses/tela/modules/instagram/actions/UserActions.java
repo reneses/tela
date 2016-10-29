@@ -43,43 +43,43 @@ public class UserActions extends InstagramActions {
     }
 
     /**
-     * Search an user by his username and return its basic information
-     * This action is commonly used to obtain the ID of an user
+     * Search a user by his username and return its basic information
+     * This action is commonly used to obtain the ID of a user
      *
      * @param accessToken Access token
      * @param username    Username
      * @return User
      * @throws InstagramException if any.
      */
-    @Action(name = "user-basic",
-            description = "Get the basic information about an user",
+    @Action(name = "search",
+            description = "Get the basic information about a user",
             parameters = {"token", "username"})
     public User search(String accessToken, String username) throws InstagramException {
         return api.search(accessToken, username);
     }
 
     /**
-     * Obtain the information about an user
+     * Obtain the information about a user
      *
      * @param accessToken Access token
      * @param userId      User ID
      * @return User
      * @throws InstagramException if any.
      */
-    @Action(description = "Get the information about an user", parameters = {"token", "userId"})
+    @Action(description = "Get the information about a user", parameters = {"token", "userId"})
     public User user(String accessToken, long userId) throws InstagramException {
         return api.user(accessToken, userId);
     }
 
     /**
-     * Retrieve the information about an user
+     * Retrieve the information about a user
      *
      * @param accessToken Access token
      * @param username    User username
      * @return Username with the given username
      * @throws InstagramException If any exception is thrown
      */
-    @Action(description = "Get the information about an user", parameters = {"token", "username"})
+    @Action(description = "Get the information about a user", parameters = {"token", "username"})
     public User user(String accessToken, String username) throws InstagramException {
         return api.user(accessToken, username);
     }
@@ -174,7 +174,7 @@ public class UserActions extends InstagramActions {
     }
 
     /**
-     * Retrieve the counts of an user
+     * Retrieve the counts of a user
      *
      * @param accessToken Access token
      * @param userId      User ID
@@ -187,7 +187,7 @@ public class UserActions extends InstagramActions {
     }
 
     /**
-     * Retrieve the counts of an user
+     * Retrieve the counts of a user
      *
      * @param accessToken Access token
      * @param username    User username

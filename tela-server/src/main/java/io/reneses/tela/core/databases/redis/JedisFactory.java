@@ -62,7 +62,7 @@ public class JedisFactory {
     }
 
     /**
-     * Connect to a Redis server with an user and password
+     * Connect to a Redis server with a user and password
      *
      * @param host Redis host
      * @param port Redis port

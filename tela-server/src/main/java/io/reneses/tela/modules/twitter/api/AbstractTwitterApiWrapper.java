@@ -36,7 +36,7 @@ public abstract class AbstractTwitterApiWrapper implements TwitterApi {
     }
 
     /**
-     * Retrieve the friends of an user (intersection between followers and following)
+     * Retrieve the friends of a user (intersection between followers and following)
      *
      * @param accessToken Access token
      * @param username    Username

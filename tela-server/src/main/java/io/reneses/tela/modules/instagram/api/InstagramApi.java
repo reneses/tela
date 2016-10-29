@@ -28,7 +28,7 @@ interface InstagramApi {
     User self(String accessToken) throws InstagramException;
 
     /**
-     * Retrieve the basic information of an user given its username
+     * Retrieve the basic information of a user given its username
      * Documentation: https://www.instagram.com/developer/endpoints/users/
      *
      * @param accessToken Access token
@@ -39,7 +39,7 @@ interface InstagramApi {
     User search(String accessToken, String username) throws InstagramException;
 
     /**
-     * Retrieve the information about an user
+     * Retrieve the information about a user
      * Documentation: https://www.instagram.com/developer/endpoints/users/
      * Required scope: public_content
      *
