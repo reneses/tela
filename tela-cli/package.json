@@ -1,0 +1,30 @@
+{
+  "name": "tela-cli",
+  "description": "Command line interface for the Tela Framework",
+  "version": "0.0.5",
+  "author": "Alvaro Reneses <alvaroreneses@gmail.com> (http://reneses.io)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/reneses/tela.git"
+  },
+  "private": false,
+  "main": "./dist/TelaCli.js",
+  "bin": {
+    "tela-cli": "./dist/bin/cli.js"
+  },
+  "scripts": {
+    "prepublish": "tsc"
+  },
+  "dependencies": {
+    "open": "0.0.5",
+    "request": "^2.72.0",
+    "typescript": "^2.0.6"
+  },
+  "devDependencies": {
+    "@types/node": "^6.0.46",
+    "chai": "^3.5.0",
+    "mocha": "^2.5.3",
+    "typings": "^1.4.0"
+  }
+}

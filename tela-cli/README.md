@@ -1,0 +1,152 @@
+# TELA CLI
+
+Tela CLI is eases interaction with a Tela Server from the command line.
+
+## Installation
+
+### NPM
+
+**Tela CLI** is a **Node** application and can be installed directly from **npm**:
+
+```bash
+npm install -g tela-cli
+```
+
+Then, you should be able to execute:
+
+```bash
+tela-cli --help
+```
+
+### Manually installation
+
+Assuming that we are inside the folder of the application, first install the NPM packages:
+
+```bash
+npm install
+```
+
+Then, you are ready to use the CLI tool:
+
+```bash
+./bin/cli --help
+```
+
+
+## Connection to the Tela Server
+
+### Connection
+
+In order to create a connection with our Tela Server, execute:
+
+```bash
+tela-cli connect <host> [<port>]
+``` 
+
+For example, using the public server:
+
+```bash
+tela-cli connect tela.herokuapp.com
+```
+
+This command will create a session in the server, and write it into a `.tela` file, which stores the details of the connection.
+
+### Disconnection
+
+It is not necessary to explicitly disconnect from the Tela Server. However, if you want to, it can be done executing:
+
+```bash
+tela-cli disconnect
+```
+
+Or by manually removing the `.tela` file.
+
+## Executing actions
+
+Actions can be executed with the `execute` command:
+
+```bash
+tela-cli execute <module> <action> [<param1>=<value1> [<param2>=<value2> ...]]
+```
+
+The result is printed into the system output, encoded as JSON. This allows to use the Tela CLI along with console commands. For example, save the results into a file: 
+
+```bash
+tela-cli execute <module> <action> > result.txt
+```
+
+### Help
+
+To obtain all the available modules and actions configured in the Tela Server we are connected to, execute:
+
+
+```bash
+tela-cli help
+```
+
+Or, just for a certain module:
+
+```bash
+tela-cli help <module>
+```
+
+*Note: the `help` command returns all the modules and actions configured within the Tela Server. Some of them might not be supported in this CLI tool.*
+
+
+
+## Modules 
+
+### Configuring modules
+
+Modules might have specific properties which can be configured, by executing: 
+
+```bash
+tela-cli configure <module> <property> <value>
+```
+
+### Linking & Unlinking modules
+
+Linking a module is the process of obtaining an access token for it, and storing it in our Tela session. This process is only needed if the module requires a token.
+
+```bash
+tela-cli link <module>
+```
+
+On the other hand, the `unlink` command deletes the module token from the Session.
+
+```bash
+tela-cli unlink <module>
+```
+
+### Supported modules
+
+#### Instagram
+
+The Instagram module requires the configuration properties `clientId` and `clientSecret`, which can be obtained creating an [Instagram Application](https://www.instagram.com/developer/clients/manage/).
+
+##### Setting up
+
+```bash
+tela-cli connect <host> <port>
+tela-cli configure instagram clientId <client_id>
+tela-cli configure instagram clientSecret <client_secret>
+tela-cli link instagram
+```
+
+##### Executing actions
+
+Once the Instagram module has been set up, you can execute actions with:
+
+```bash
+tela-cli execute instagram <action> [<param1>=<value1> [<param2>=<value2> ...]]
+```
+
+For example:
+
+```bash
+# Obtain info about the logged user
+tela-cli execute instagram self
+
+# Search a user
+tela-cli execute instagram user username=themedizine
+```
