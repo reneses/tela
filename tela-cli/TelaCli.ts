@@ -1,27 +1,40 @@
-import {ConnectionManager} from "./ConnectionManager";
-import {TelaApi} from "./TelaApi";
+import {ConnectionManager} from "./connection/ConnectionManager";
+import {TelaApi} from "./api/TelaApi";
 import {Module} from "./modules/Module";
 import {InstagramModule} from "./modules/InstagramModule";
-import {Action} from "./models/Action";
+import {Action} from "./api/Action";
 
 export class TelaCli {
 
     private static readonly DEFAULT_PORT = 80;
-    private connectionManager = new ConnectionManager();
     private modules: { [name: string]: Module } = {};
+    private connectionManager = new ConnectionManager();
+    private telaApi: TelaApi;
 
     constructor() {
         this.addModule(new InstagramModule());
+        if (this.connectionManager.isConnected()) {
+            let connection = this.connectionManager.get();
+            this.telaApi = new TelaApi(connection.host, connection.port, connection.accessToken);
+        }
     }
 
     private addModule(module: Module) {
         this.modules[module.name] = module;
     }
 
+    private getApi(): TelaApi {
+        if (!this.telaApi) {
+            console.error("A Tela connection is required. Connect with: connect [url] [port]");
+            throw new Error();
+        }
+        return this.telaApi;
+    }
+
     /**
      * Print the available commands
      */
-    public static printCommands() {
+    public printCommands() {
         console.log(`Usage:
             tela-cli connect <host> [<port>]
             tela-cli link <module>
@@ -29,7 +42,7 @@ export class TelaCli {
             tela-cli disconnect
             tela-cli configure <module> <property> <value>
             tela-cli execute <module> <action> [<param1>=<value1> [<param2>=<value2> ...]]
-            tela-cli help [<module>]`)
+            tela-cli help [<module>]`);
     }
 
     /**
@@ -40,17 +53,18 @@ export class TelaCli {
      */
     public connect(host?: string, port = TelaCli.DEFAULT_PORT) {
         if (!host) {
-            console.error('Incorrect parameters, usage:  connect <url> [port]');
+            console.error("Incorrect parameters, usage:  connect <url> [port]");
             return;
         }
-        console.log('Establishing connection with Tela at ' + host + ':' + port + "...");
+        console.log(`Establishing connection with Tela at ${host}:${port}...`);
         new TelaApi(host, port).createSession((accessToken: string) => {
             if (!accessToken) {
-                console.error('The connection could not be saved! Please, try again.');
+                console.error("The connection could not be saved! Please, try again.");
                 return;
             }
             this.connectionManager.create(host, port, accessToken);
-            console.log('Connection established with token \'' + accessToken + '\'');
+            this.telaApi = new TelaApi(host, port, accessToken);
+            console.log(`Connection established with token '${accessToken}'`);
         });
     }
 
@@ -59,7 +73,7 @@ export class TelaCli {
      */
     public disconnect() {
         this.connectionManager.destroy();
-        console.log('Connection destroyed');
+        console.log("Connection destroyed");
     }
 
     /**
@@ -69,15 +83,16 @@ export class TelaCli {
      * @param module
      */
     public help(module: string) {
-        let connection = this.connectionManager.load();
-        new TelaApi(connection.host, connection.port).help(module, (help) => {
+        this.getApi().help(module, (help) => {
             help
                 .forEach((action: Action) => {
-                    console.log(action.module + '/' + action.name);
-                    if (action.description)
-                        console.log(' - Description: ' + action.description);
-                    if (action.params.length)
-                        console.log(' - Parameters: ' + action.params.join(', '));
+                    console.log(`${action.module}/${action.name}`);
+                    if (action.description) {
+                        console.log(` - Description:  ${action.description}`);
+                    }
+                    if (action.params.length) {
+                        console.log(` - Parameters: ${action.params.join(", ")}`);
+                    }
                 });
         });
     }
@@ -91,7 +106,7 @@ export class TelaCli {
      */
     public configure(module: string, property: string, value: any) {
         if (!module || !property || !value) {
-            console.error('Incorrect parameters, usage:  configure <module> <property> <value>');
+            console.error("Incorrect parameters, usage:  configure <module> <property> <value>");
             return;
         }
         this.connectionManager.setProperty(module, property, value);
@@ -112,14 +127,13 @@ export class TelaCli {
         }
 
         // Link it
-        let connection = this.connectionManager.load();
         module.connect((moduleAccessToken: string) => {
-            let tela = new TelaApi(connection.host, connection.port);
-            tela.addModuleToken(connection.accessToken, moduleName, moduleAccessToken, (err: any) => {
-                if (err)
-                    console.error('The Instagram could not be linked due to an internal error', err);
-                else
-                    console.log('Module linked to Tela');
+            this.getApi().addModuleToken(moduleName, moduleAccessToken, (err: any) => {
+                if (err) {
+                    console.error("The Instagram could not be linked due to an internal error", err);
+                } else {
+                    console.log("Module linked to Tela");
+                }
             });
         });
 
@@ -130,13 +144,12 @@ export class TelaCli {
      * @param moduleName
      */
     public unlinkModule(moduleName: string) {
-        let connection = this.connectionManager.load();
-        let tela = new TelaApi(connection.host, connection.port);
-        tela.deleteModuleToken(connection.accessToken, moduleName, (err) => {
-            if (err)
+        this.getApi().deleteModuleToken(moduleName, (err) => {
+            if (err) {
                 console.error(`The module '${moduleName}' was not linked before`);
-            else
+            } else {
                 console.log(`The module '${moduleName}' was successfully unlinked`);
+            }
         });
     }
 
@@ -149,17 +162,16 @@ export class TelaCli {
      */
     public executeAction(module: string, action: string, params: string[]) {
         if (!module || !action) {
-            console.error('Incorrect parameters, usage:  execute <module> <action> [<param1>=<value1> [<param2>=<value2> ...]]');
+            console.error("Incorrect parameters, usage:  " +
+                "execute <module> <action> [<param1>=<value1> [<param2>=<value2> ...]]");
             return;
         }
-        var paramsObj: { [param: string]: string} = {};
+        let paramsObj: { [param: string]: string} = {};
         params.forEach((param) => {
-            let p = param.split('=');
+            let p = param.split("=");
             paramsObj[p[0]] = p[1];
         });
-        let connection = this.connectionManager.load();
-        let tela = new TelaApi(connection.host, connection.port);
-        tela.executeAction(connection.accessToken, module, action, paramsObj, (code, result) => {
+        this.getApi().executeAction(module, action, paramsObj, (code, result) => {
             switch (code) {
                 case 200:
                     console.log(result);

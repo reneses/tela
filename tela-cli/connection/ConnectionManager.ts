@@ -1,16 +1,17 @@
-import {Connection} from "./models/Connection";
-var fs = require('fs'), path = require('path');
+import {Connection} from "./Connection";
+import fs = require("fs");
+import path = require("path");
 
 /**
  * Connection utility
  *
  * @param filename
- * @returns {{save: save, destroy: destroy, load: load}}
+ * @returns {{save: save, destroy: destroy, load: get}}
  * @constructor
  */
 export class ConnectionManager {
 
-    private static readonly DEFAULT_FILENAME = '.tela';
+    private static readonly DEFAULT_FILENAME = ".tela";
     private static connection: Connection;
     private filename: string;
 
@@ -36,36 +37,38 @@ export class ConnectionManager {
      * @param accessToken
      */
     public create(host: string, port: number, accessToken: string) {
-        let connection = this.load();
+        let connection = this.get();
         connection.host = host;
         connection.port = port;
         connection.accessToken = accessToken;
         this.save(connection);
-    };
+    }
 
     /**
      * Destroy the existing connection
      */
-    public destroy = function () {
+    public destroy () {
         ConnectionManager.connection = null;
-        fs.existsSync(this.filename) && fs.unlinkSync(this.filename);
-    };
+        if (fs.existsSync(this.filename)) {
+            fs.unlinkSync(this.filename);
+        }
+    }
 
     /**
      * Load a connection
      *
      * @returns connection
      */
-    public load(): Connection {
+    public get(): Connection {
         if (!ConnectionManager.connection) {
-            if (!fs.existsSync(this.filename))
-                return new Connection();
-            let obj = JSON.parse(fs.readFileSync(this.filename));
-            let host = obj['host'];
-            let port = obj['port'];
-            let accessToken = obj['accessToken'];
-            let configuration = obj['configuration'];
-            ConnectionManager.connection = new Connection(host, port, accessToken, configuration);
+            if (!fs.existsSync(this.filename)) {
+                return {};
+            }
+            let connection: Connection = JSON.parse(fs.readFileSync(this.filename).toString());
+            if (!connection.configuration) {
+                connection.configuration = {};
+            }
+            ConnectionManager.connection = connection;
         }
         return ConnectionManager.connection;
     };
@@ -78,8 +81,8 @@ export class ConnectionManager {
      * @returns value or {null}
      */
     public getProperty(module: string, property: string): any {
-        return ConnectionManager.connection.configuration[module] ?
-            ConnectionManager.connection.configuration[module][property] : null;
+        let connection = this.get();
+        return connection.configuration[module] ? connection.configuration[module][property] : null;
     };
 
     /**
@@ -90,9 +93,10 @@ export class ConnectionManager {
      * @param value
      */
     public setProperty(module: string, property: string, value: any) {
-        let connection = ConnectionManager.connection;
-        if (!connection.configuration[module])
+        let connection = this.get();
+        if (!connection.configuration[module]) {
             connection.configuration[module] = {};
+        }
         connection.configuration[module][property] = value;
         this.save(connection);
     }
@@ -107,5 +111,13 @@ export class ConnectionManager {
     public existsProperty(module: string, property: string) {
         return !!this.getProperty(module, property);
     };
+
+    /**
+     * Check if connected
+     */
+    public isConnected(): boolean {
+        let connection = this.get();
+        return !!connection.host && !!connection.port && !!connection.accessToken;
+    }
 
 }

@@ -1,9 +1,6 @@
 .idea/
-*.iml
 .tela
-config.json
 node_modules/
-src/
-typings.json
-typings/
-test
+*.ts
+*.js.map
+tslint.json

@@ -6,11 +6,10 @@
     "noLib": false,
     "noImplicitAny": true,
     "removeComments": true,
-    "preserveConstEnums": true,
-    "outDir": "dist"
+    "preserveConstEnums": true
   },
   "include": [
-    "src/**/*"
+    "**/*.ts"
   ],
   "exclude": [
     "node_modules",

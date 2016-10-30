@@ -9,9 +9,9 @@
     "url": "https://github.com/reneses/tela.git"
   },
   "private": false,
-  "main": "./dist/TelaCli.js",
+  "main": "TelaCli.js",
   "bin": {
-    "tela-cli": "./dist/bin/cli.js"
+    "tela-cli": "./bin/cli.js"
   },
   "scripts": {
     "prepublish": "tsc"

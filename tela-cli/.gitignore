@@ -1,5 +1,4 @@
-*.iml
-.idea/
 .tela
 node_modules/
-dist
+*.js
+*.js.map
