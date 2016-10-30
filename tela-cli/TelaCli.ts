@@ -26,7 +26,7 @@ export class TelaCli {
     private getApi(): TelaApi {
         if (!this.telaApi) {
             console.error("A Tela connection is required. Connect with: connect [url] [port]");
-            throw new Error();
+            process.exit();
         }
         return this.telaApi;
     }
@@ -59,7 +59,7 @@ export class TelaCli {
         console.log(`Establishing connection with Tela at ${host}:${port}...`);
         new TelaApi(host, port).createSession((accessToken: string) => {
             if (!accessToken) {
-                console.error("The connection could not be saved! Please, try again.");
+                console.error("The connection could not established.");
                 return;
             }
             this.connectionManager.create(host, port, accessToken);
