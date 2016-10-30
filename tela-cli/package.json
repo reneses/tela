@@ -14,7 +14,8 @@
     "tela-cli": "./bin/cli.js"
   },
   "scripts": {
-    "prepublish": "tsc"
+    "tslint": "tslint -c ./tslint.json ./**/*.ts",
+    "prepublish": "tsc && npm run tslint"
   },
   "dependencies": {
     "open": "0.0.5",
@@ -25,6 +26,7 @@
     "@types/request": "0.0.32",
     "chai": "^3.5.0",
     "mocha": "^2.5.3",
+    "tslint": "^3.15.1",
     "typescript": "^2.0.6"
   }
 }
