@@ -18,13 +18,13 @@
   },
   "dependencies": {
     "open": "0.0.5",
-    "request": "^2.72.0",
-    "typescript": "^2.0.6"
+    "request": "^2.72.0"
   },
   "devDependencies": {
     "@types/node": "^6.0.46",
+    "@types/request": "0.0.32",
     "chai": "^3.5.0",
     "mocha": "^2.5.3",
-    "typings": "^1.4.0"
+    "typescript": "^2.0.6"
   }
 }
