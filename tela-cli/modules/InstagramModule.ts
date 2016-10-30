@@ -1,6 +1,7 @@
 import {IModule} from "./IModule";
 import {ConnectionManager} from "../connection/ConnectionManager";
 import request = require("request");
+import open = require("open");
 
 export class InstagramModule implements IModule {
 
@@ -53,7 +54,7 @@ export class InstagramModule implements IModule {
     }
 
     private static openBrowser(url: string) {
-        require("open")(url);
+        open(url);
     }
 
     public connect(callback: (accessToken: string) => void) {

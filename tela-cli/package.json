@@ -22,9 +22,10 @@
     "request": "^2.72.0"
   },
   "devDependencies": {
-    "@types/node": "^6.0.46",
-    "@types/request": "0.0.32",
+    "typescript": "^2.0.6",
     "tslint": "^3.15.1",
-    "typescript": "^2.0.6"
+    "@types/node": "^6.0.46",
+    "@types/open": "0.0.29",
+    "@types/request": "0.0.32"
   }
 }
