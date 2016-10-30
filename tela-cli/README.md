@@ -6,7 +6,7 @@ Tela CLI is eases interaction with a Tela Server from the command line.
 
 ### NPM
 
-**Tela CLI** is a **Node** application and can be installed directly from **npm**:
+**Tela CLI** is a **Node** application and can be installed directly from [**npm**](https://www.npmjs.com/package/tela-cli):
 
 ```bash
 npm install -g tela-cli
