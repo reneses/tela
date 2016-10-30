@@ -2,8 +2,6 @@
   "extends": "tslint:recommended",
   "rules": {
     "no-console": false,
-    "member-ordering": "fields-first",
-    "interface-name": false,
-    "object-literal-sort-keys": false
+    "member-ordering": "fields-first"
   }
 }

@@ -1,9 +1,9 @@
-import {Connection} from "./Connection";
+import {IConnection} from "./IConnection";
 import fs = require("fs");
 import path = require("path");
 
 /**
- * Connection utility
+ * IConnection utility
  *
  * @param filename
  * @returns {{save: save, destroy: destroy, load: get}}
@@ -12,7 +12,7 @@ import path = require("path");
 export class ConnectionManager {
 
     private static readonly DEFAULT_FILENAME = ".tela";
-    private static connection: Connection;
+    private static connection: IConnection;
     private filename: string;
 
     constructor(filename?: string) {
@@ -24,7 +24,7 @@ export class ConnectionManager {
      *
      * @param connection
      */
-    private save(connection: Connection) {
+    private save(connection: IConnection) {
         fs.writeFileSync(this.filename, JSON.stringify(connection));
         ConnectionManager.connection = connection;
     };
@@ -59,12 +59,12 @@ export class ConnectionManager {
      *
      * @returns connection
      */
-    public get(): Connection {
+    public get(): IConnection {
         if (!ConnectionManager.connection) {
             if (!fs.existsSync(this.filename)) {
                 return {};
             }
-            let connection: Connection = JSON.parse(fs.readFileSync(this.filename).toString());
+            let connection: IConnection = JSON.parse(fs.readFileSync(this.filename).toString());
             if (!connection.configuration) {
                 connection.configuration = {};
             }

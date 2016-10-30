@@ -1,4 +1,4 @@
-export interface Module {
+export interface IModule {
 
     readonly name: string;
     isConfigured(): boolean;

@@ -1,13 +1,13 @@
 import {ConnectionManager} from "./connection/ConnectionManager";
 import {TelaApi} from "./api/TelaApi";
-import {Module} from "./modules/Module";
+import {IModule} from "./modules/IModule";
 import {InstagramModule} from "./modules/InstagramModule";
-import {Action} from "./api/Action";
+import {IAction} from "./api/IAction";
 
 export class TelaCli {
 
     private static readonly DEFAULT_PORT = 80;
-    private modules: { [name: string]: Module } = {};
+    private modules: { [name: string]: IModule } = {};
     private connectionManager = new ConnectionManager();
     private telaApi: TelaApi;
 
@@ -19,7 +19,7 @@ export class TelaCli {
         }
     }
 
-    private addModule(module: Module) {
+    private addModule(module: IModule) {
         this.modules[module.name] = module;
     }
 
@@ -85,7 +85,7 @@ export class TelaCli {
     public help(module: string) {
         this.getApi().help(module, (help) => {
             help
-                .forEach((action: Action) => {
+                .forEach((action: IAction) => {
                     console.log(`${action.module}/${action.name}`);
                     if (action.description) {
                         console.log(` - Description:  ${action.description}`);

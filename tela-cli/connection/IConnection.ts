@@ -1,7 +1,7 @@
 /**
- * Connection model
+ * IConnection model
  */
-export interface Connection {
+export interface IConnection {
 
     host?: string;
     port?: number;

@@ -1,4 +1,4 @@
-import {Action} from "./Action";
+import {IAction} from "./IAction";
 import request = require("request");
 
 export class TelaApi {
@@ -34,7 +34,7 @@ export class TelaApi {
      * @param module
      * @param callback
      */
-    public help(module: string, callback: (help: Action[]) => void) {
+    public help(module: string, callback: (help: IAction[]) => void) {
         let url = this.getTelaUrl("/help/" + (module || ""));
         request(url, (error: any, response: any, body: string) => {
             callback(JSON.parse(body));
@@ -52,8 +52,8 @@ export class TelaApi {
         request.post(
             this.getTelaUrl(`/auth/${module}?`),
             {
-                form: {token: token},
                 auth: {bearer: this.accessToken},
+                form: {token: token},
             },
             (error: any, response: any, body: string) => callback(error || response.statusCode !== 200));
     }

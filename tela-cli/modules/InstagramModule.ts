@@ -1,8 +1,8 @@
-import {Module} from "./Module";
+import {IModule} from "./IModule";
 import {ConnectionManager} from "../connection/ConnectionManager";
 import request = require("request");
 
-export class InstagramModule implements Module {
+export class InstagramModule implements IModule {
 
     public readonly name = "instagram";
     private connectionManager = new ConnectionManager();
@@ -17,14 +17,14 @@ export class InstagramModule implements Module {
 
         request.post(
             {
-                url: "https://api.instagram.com/oauth/access_token",
                 form: {
                     client_id: clientId,
                     client_secret: clientSecret,
+                    code: code,
                     grant_type: "authorization_code",
                     redirect_uri: redirectUri,
-                    code: code,
                 },
+                url: "https://api.instagram.com/oauth/access_token",
             }, (err: any, httpResponse: any, body: string) => {
                 let obj = JSON.parse(body);
                 console.log("Logged into Instagram account @" + obj.user.username);
