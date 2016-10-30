@@ -18,22 +18,22 @@ Then, you should be able to execute:
 tela-cli --help
 ```
 
-### Manually installation
+### Manual installation
 
-Assuming that we are inside the folder of the application, first install the NPM packages:
+Assuming that we are inside the folder of the application, we just have to install the project with npm:
 
 ```bash
 npm install
 ```
 
-Then, you are ready to use the CLI tool:
+Then, we are ready to use the CLI tool:
 
 ```bash
-./bin/cli --help
+node /bin/cli --help
 ```
 
 
-## Connection to the Tela Server
+## Connection to a Tela Server
 
 ### Connection
 
@@ -112,7 +112,7 @@ Linking a module is the process of obtaining an access token for it, and storing
 tela-cli link <module>
 ```
 
-On the other hand, the `unlink` command deletes the module token from the Session.
+On the other hand, the `unlink` command deletes the module token from the session:
 
 ```bash
 tela-cli unlink <module>
