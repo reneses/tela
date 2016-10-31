@@ -27,7 +27,15 @@ public class ScheduledActionTest {
         assertFalse(json.isEmpty());
         ScheduledAction back = mapper.readValue(json, ScheduledAction.class);
 
-        assertEquals(action, back);
+        assertEquals(action.getActionName(), back.getActionName());
+        assertEquals(action.getModuleName(), back.getModuleName());
+        assertEquals(action.getDelay(), back.getDelay());
+        assertEquals(action.getParams().size(), back.getParams().size());
+        assertEquals(action.getParams().keySet(), back.getParams().keySet());
+        for (String key : action.getParams().keySet()) {
+            assertArrayEquals(action.getParams().get(key), back.getParams().get(key));
+        }
+        assertEquals(action.getId(), back.getId());
         assertEquals(action.getCreatedAt(), back.getCreatedAt());
         assertEquals(action.getNextExecution(), back.getNextExecution());
 

@@ -52,7 +52,7 @@ public class InstagramOrientDatabaseExtension extends OrientDatabaseExtension {
         public static class Resource {
             public static final String
                     CLASS = "InstagramResource", VIDEO = "InstagramVideo", IMAGE = "InstagramImage",
-                    URL = "url", WIDTH = "width", HEIGHT = "height", CODE = "code";
+                    URL = "url", WIDTH = "width", HEIGHT = "height", SIZE = "size";
         }
     }
 
@@ -173,7 +173,7 @@ public class InstagramOrientDatabaseExtension extends OrientDatabaseExtension {
         properties.put(Media.Resource.URL, OType.STRING);
         properties.put(Media.Resource.WIDTH, OType.INTEGER);
         properties.put(Media.Resource.HEIGHT, OType.INTEGER);
-        properties.put(Media.Resource.CODE, OType.STRING);
+        properties.put(Media.Resource.SIZE, OType.STRING);
         telaGraph.createVertexClass(graph, Media.Resource.CLASS, properties);
 
     }

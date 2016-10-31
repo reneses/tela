@@ -90,7 +90,7 @@ public class Media {
     @JsonProperty("likes")
     public Map<String, Object> getJsonLikes() {
         Map<String, Object> json = new HashMap<>();
-        json.put("count", this.likes.size());
+        json.put("count", this.numberOfLikes);
         json.put("data", this.likes);
         return json;
     }
@@ -134,7 +134,7 @@ public class Media {
     @JsonProperty("comments")
     public Map<String, Object> getJsonComments() {
         Map<String, Object> json = new HashMap<>();
-        json.put("count", this.comments.size());
+        json.put("count", this.numberOfComments);
         json.put("data", this.comments);
         return json;
     }
@@ -218,6 +218,7 @@ public class Media {
      *
      * @return a boolean.
      */
+    @JsonProperty("is_video")
     public boolean isVideo() {
         return this.type.equals(VIDEO);
     }
@@ -227,6 +228,7 @@ public class Media {
      *
      * @return a boolean.
      */
+    @JsonProperty("is_image")
     public boolean isImage() {
         return this.type.equals(IMAGE);
     }
@@ -392,7 +394,7 @@ public class Media {
     public void setImages(Map<String, MediaResource> images) {
         this.images = images;
         for (Map.Entry<String, MediaResource> image : images.entrySet()) {
-            image.getValue().setCode(image.getKey());
+            image.getValue().setSize(image.getKey());
         }
     }
 
@@ -413,7 +415,7 @@ public class Media {
     public void setVideos(Map<String, MediaResource> videos) {
         this.videos = videos;
         for (Map.Entry<String, MediaResource> video : videos.entrySet()) {
-            video.getValue().setCode(video.getKey());
+            video.getValue().setSize(video.getKey());
         }
     }
 

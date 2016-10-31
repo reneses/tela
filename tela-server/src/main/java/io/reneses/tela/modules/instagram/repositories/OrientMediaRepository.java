@@ -61,7 +61,7 @@ public class OrientMediaRepository extends AbstractOrientRepository implements M
             resource.setWidth(resourceVertex.getProperty(InstagramOrientDatabaseExtension.Media.Resource.WIDTH));
             resource.setHeight(resourceVertex.getProperty(InstagramOrientDatabaseExtension.Media.Resource.HEIGHT));
             resource.setUrl(resourceVertex.getProperty(InstagramOrientDatabaseExtension.Media.Resource.URL));
-            String code = resourceVertex.getProperty(InstagramOrientDatabaseExtension.Media.Resource.CODE);
+            String code = resourceVertex.getProperty(InstagramOrientDatabaseExtension.Media.Resource.SIZE);
             resources.put(code, resource);
         }
         return resources;
@@ -205,7 +205,7 @@ public class OrientMediaRepository extends AbstractOrientRepository implements M
             Map<String, Object> properties = new HashMap<>();
             properties.put(InstagramOrientDatabaseExtension.Media.Resource.WIDTH, resource.getWidth());
             properties.put(InstagramOrientDatabaseExtension.Media.Resource.HEIGHT, resource.getHeight());
-            properties.put(InstagramOrientDatabaseExtension.Media.Resource.CODE, resource.getCode());
+            properties.put(InstagramOrientDatabaseExtension.Media.Resource.SIZE, resource.getSize());
             properties.put(InstagramOrientDatabaseExtension.Media.Resource.URL, resource.getUrl());
             OrientVertex resourceVertex = telaGraph.addVertex(
                     graph,

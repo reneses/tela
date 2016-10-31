@@ -6,11 +6,11 @@ package io.reneses.tela.modules.instagram.models;
  */
 public class MediaResource {
 
-    private String url, code;
+    private String url, size;
     private int width, height;
 
     /**
-     * Getter for the field <code>url</code>.
+     * Getter for the field <size>url</size>.
      *
      * @return a {@link java.lang.String} object.
      */
@@ -19,7 +19,7 @@ public class MediaResource {
     }
 
     /**
-     * Setter for the field <code>url</code>.
+     * Setter for the field <size>url</size>.
      *
      * @param url a {@link java.lang.String} object.
      */
@@ -28,25 +28,25 @@ public class MediaResource {
     }
 
     /**
-     * Getter for the field <code>code</code>.
+     * Getter for the field <size>size</size>.
      *
      * @return a {@link java.lang.String} object.
      */
-    public String getCode() {
-        return code;
+    public String getSize() {
+        return size;
     }
 
     /**
-     * Setter for the field <code>code</code>.
+     * Setter for the field <size>size</size>.
      *
-     * @param code a {@link java.lang.String} object.
+     * @param size a {@link java.lang.String} object.
      */
-    public void setCode(String code) {
-        this.code = code;
+    public void setSize(String size) {
+        this.size = size;
     }
 
     /**
-     * Getter for the field <code>width</code>.
+     * Getter for the field <size>width</size>.
      *
      * @return a int.
      */
@@ -55,7 +55,7 @@ public class MediaResource {
     }
 
     /**
-     * Setter for the field <code>width</code>.
+     * Setter for the field <size>width</size>.
      *
      * @param width a int.
      */
@@ -64,7 +64,7 @@ public class MediaResource {
     }
 
     /**
-     * Getter for the field <code>height</code>.
+     * Getter for the field <size>height</size>.
      *
      * @return a int.
      */
@@ -73,7 +73,7 @@ public class MediaResource {
     }
 
     /**
-     * Setter for the field <code>height</code>.
+     * Setter for the field <size>height</size>.
      *
      * @param height a int.
      */
@@ -81,7 +81,9 @@ public class MediaResource {
         this.height = height;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -95,7 +97,9 @@ public class MediaResource {
 
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int hashCode() {
         int result = url.hashCode();

@@ -1,6 +1,5 @@
 package io.reneses.tela.core.scheduler.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -16,11 +15,10 @@ import java.util.stream.Collectors;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ScheduledAction {
 
-    @JsonProperty("delay")
-    private int delay;
-
-    @JsonIgnore
+    private int id, delay;
     private String accessToken;
+    private Map<String, String[]> params;
+    private LocalDateTime createdAt, nextExecution;
 
     @JsonProperty("module")
     private String moduleName;
@@ -28,16 +26,10 @@ public class ScheduledAction {
     @JsonProperty("action")
     private String actionName;
 
-    @JsonProperty("params")
-    private Map<String, String[]> params;
-
-    private LocalDateTime createdAt, nextExecution;
-
-
     /**
      * Init the object
      *
-     * @param session       Session
+     * @param accessToken       Session
      * @param delay         Delay (in seconds) for the execution
      * @param actionPrefix  Action prefix
      * @param actionName    Action name
@@ -45,15 +37,16 @@ public class ScheduledAction {
      * @param createdAt     Creation date of the scheduled action
      * @param nextExecution Datetime of the next execution
      */
-    private void init(String session, int delay, String actionPrefix, String actionName, Map<String, String[]> params,
+    private void init(String accessToken, int delay, String actionPrefix, String actionName, Map<String, String[]> params,
                       LocalDateTime createdAt, LocalDateTime nextExecution) {
-        this.accessToken = session;
+        this.accessToken = accessToken;
         this.delay = delay;
         this.moduleName = actionPrefix;
         this.actionName = actionName;
         this.params = params;
         this.createdAt = createdAt;
         this.nextExecution = nextExecution;
+        this.id = hashCode();
     }
 
     /**
@@ -110,13 +103,21 @@ public class ScheduledAction {
     //----------------------------------- OTHER -----------------------------------//
 
     /**
-     * Get the ID computed property
+     * Set the ID property
+     *
+     * @param id Scheduled action ID
+     */
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    /**
+     * Get the ID property
      *
      * @return Scheduled action ID
      */
-    @JsonProperty("id")
     public int getId() {
-        return hashCode();
+        return this.id;
     }
 
     /**
