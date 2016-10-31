@@ -60,7 +60,8 @@ class SchedulerImpl extends AbstractScheduler {
         LOGGER.debug("Scheduler executed");
         repository.findReadyToExecute().parallelStream().forEach(task -> {
             try {
-                LOGGER.info("[Scheduler] Executing scheduled task: {}, next: {}", task, task.getNextExecution());
+                LOGGER.info("[Scheduler] Executing scheduled task: {} with ID {}, next: {}",
+                        task, task.getId(), task.getNextExecution());
                 executeScheduled(task);
                 task.updateNextExecution();
                 repository.updateNextExecution(task);
@@ -114,7 +115,8 @@ class SchedulerImpl extends AbstractScheduler {
         T result = executeScheduled(action);
         if (!repository.create(action))
             throw new ActionAlreadyScheduledException(action);
-        LOGGER.info("[Scheduler] Scheduled action: {}, next execution: {}", action, action.getNextExecution());
+        LOGGER.info("[Scheduler] Scheduled action: {} with ID {}, next: {}",
+                action, action.getId(), action.getNextExecution());
         return result;
     }
 

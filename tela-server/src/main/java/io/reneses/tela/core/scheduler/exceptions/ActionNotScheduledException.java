@@ -23,7 +23,7 @@ public class ActionNotScheduledException extends ApiException {
      * @param actionId Scheduled Action ID
      */
     public ActionNotScheduledException(int actionId) {
-        super("There is not scheduled action with ID'" + actionId + "'", 404);
+        super("There is not scheduled action with ID '" + actionId + "'", 404);
     }
 
 }

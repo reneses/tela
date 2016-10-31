@@ -14,7 +14,7 @@ public class ActionAlreadyScheduledException extends ApiException {
      * @param action Scheduled action
      */
     public ActionAlreadyScheduledException(ScheduledAction action) {
-        super("The scheduled action '" + action + "' is already scheduled from the same session '", 409);
+        super("The scheduled action '" + action + "' is already scheduled from the same session", 409);
     }
 
 }

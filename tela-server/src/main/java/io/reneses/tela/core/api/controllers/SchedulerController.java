@@ -68,7 +68,7 @@ public class SchedulerController extends TelaController {
 
         } catch (ApiException e) {
             LOGGER.error(String.format("%s:%s [Schedule] %s/%s each %ss - %s",
-                    request.getRemoteAddr(), session, module, action, delay, e.getMessage()), e);
+                    request.getRemoteAddr(), session, module, action, delay, e.getMessage()));
             return buildErrorResponse(e.getStatusCode(), e.getMessage());
         } catch (Exception e) {
             LOGGER.error(String.format("%s:%s [Schedule] %s/%s each %ss - Unknown server error",
@@ -100,7 +100,7 @@ public class SchedulerController extends TelaController {
 
         } catch (ApiException e) {
             LOGGER.error(String.format("%s:%s [Schedule] Get all scheduled - %s",
-                    request.getRemoteAddr(), session, e.getMessage()), e);
+                    request.getRemoteAddr(), session, e.getMessage()));
             return buildErrorResponse(e.getStatusCode(), e.getMessage());
         } catch (Exception e) {
             LOGGER.error(String.format("%s:%s [Schedule] Get all scheduled - Unknown server error",
@@ -132,7 +132,7 @@ public class SchedulerController extends TelaController {
 
         } catch (ApiException e) {
             LOGGER.error(String.format("%s:%s [Schedule] Cancel all scheduled - %s",
-                    request.getRemoteAddr(), session, e.getMessage()), e);
+                    request.getRemoteAddr(), session, e.getMessage()));
             return buildErrorResponse(e.getStatusCode(), e.getMessage());
         } catch (Exception e) {
             LOGGER.error(String.format("%s:%s [Schedule] Cancel all scheduled - Unknown server error",
@@ -167,7 +167,7 @@ public class SchedulerController extends TelaController {
 
         } catch (ApiException e) {
             LOGGER.error(String.format("%s:%s [Schedule] Cancel scheduled action %s - %s",
-                    request.getRemoteAddr(), session, actionId, e.getMessage()), e);
+                    request.getRemoteAddr(), session, actionId, e.getMessage()));
             return buildErrorResponse(e.getStatusCode(), e.getMessage());
         } catch (Exception e) {
             LOGGER.error(String.format("%s:%s [Schedule] Cancel scheduled action %s - Unknown server error",
