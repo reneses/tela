@@ -1,5 +1,6 @@
 package io.reneses.tela.core.scheduler.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -18,7 +19,7 @@ public class ScheduledAction {
     @JsonProperty("delay")
     private int delay;
 
-    @JsonProperty("accessToken")
+    @JsonIgnore
     private String accessToken;
 
     @JsonProperty("module")
