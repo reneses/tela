@@ -42,7 +42,7 @@ export class InstagramModule implements IModule {
                 let url = require("url").parse(req.url, true);
                 let authCode = url.query.code;
                 this.exchangeCodeForToken(clientId, clientSecret, redirectUri, authCode, callback);
-                res.end("Login successful! You can now close this window", () => {
+                res.end("Login successful! You can now close this window <script>close();</script>", () => {
                     req.connection.unref();
                     authServer.close();
                 });
