@@ -18,7 +18,7 @@ Then, you should be able to execute:
 tela-cli --help
 ```
 
-### Manual installation
+### Manual Installation
 
 Assuming that we are inside the folder of the application, we just have to install the project with npm:
 
@@ -53,15 +53,15 @@ This command will create a session in the server, and write it into a `.tela` fi
 
 ### Disconnection
 
-It is not necessary to explicitly disconnect from the Tela Server. However, if you want to, it can be done executing:
+Disconnection from the Tela Server can be achieve by executing:
 
 ```bash
 tela-cli disconnect
 ```
 
-Or by manually removing the `.tela` file.
+This will delete the session from the server, as well as all its associated tokens.
 
-## Executing actions
+## Executing Actions
 
 Actions can be executed with the `execute` command:
 
@@ -75,7 +75,37 @@ The result is printed into the system output, encoded as JSON. This allows to us
 tela-cli execute <module> <action> > result.txt
 ```
 
-### Help
+## Scheduling
+
+### Schedule an Action
+
+In order to schedule an action, execute the `schedule` command, followed by the delay of execution (in seconds) and the same arguments than the `execute` command:
+
+```bash
+tela-cli schedule <delay> <module> <action> [<param1>=<value1> [<param2>=<value2> ...]]
+```
+
+The information of the scheduled task, as well as the result of its execution, will be outputted to the console.
+
+### Get the Scheduled Actions
+
+It is possible to retrieve all the actions that the authorized user has scheduled, by running:
+
+```bash
+tela-cli scheduled
+```
+
+### Cancel Scheduled Action(s)
+
+It is possible to stop the scheduled execution of an action using the `cancel` command:
+
+```bash
+tela-cli cancel (<scheduled_action_id> | all)
+```
+
+If an ID is provided, only that action will be cancelled. In case `all` is supplied, all the actions scheduled by the authorized user will be cancelled.
+
+## Help
 
 To obtain all the available modules and actions configured in the Tela Server we are connected to, execute:
 
@@ -96,7 +126,7 @@ tela-cli help <module>
 
 ## Modules 
 
-### Configuring modules
+### Configuring Modules
 
 Modules might have specific properties which can be configured, by executing: 
 
@@ -104,7 +134,7 @@ Modules might have specific properties which can be configured, by executing:
 tela-cli configure <module> <property> <value>
 ```
 
-### Linking & Unlinking modules
+### Linking & Unlinking Modules
 
 Linking a module is the process of obtaining an access token for it, and storing it in our Tela session. This process is only needed if the module requires a token.
 
@@ -118,13 +148,13 @@ On the other hand, the `unlink` command deletes the module token from the sessio
 tela-cli unlink <module>
 ```
 
-### Supported modules
+### Supported Modules
 
 #### Instagram
 
 The Instagram module requires the configuration properties `clientId` and `clientSecret`, which can be obtained creating an [Instagram Application](https://www.instagram.com/developer/clients/manage/).
 
-##### Setting up
+##### Setting Up
 
 ```bash
 tela-cli connect <host> <port>
@@ -133,7 +163,7 @@ tela-cli configure instagram clientSecret <client_secret>
 tela-cli link instagram
 ```
 
-##### Executing actions
+##### Executing Actions
 
 Once the Instagram module has been set up, you can execute actions with:
 

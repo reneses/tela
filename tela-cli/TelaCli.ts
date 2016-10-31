@@ -35,14 +35,17 @@ export class TelaCli {
      * Print the available commands
      */
     public printCommands() {
-        console.log(`Usage:
-            tela-cli connect <host> [<port>]
-            tela-cli link <module>
-            tela-cli unlink <module>
-            tela-cli disconnect
-            tela-cli configure <module> <property> <value>
-            tela-cli execute <module> <action> [<param1>=<value1> [<param2>=<value2> ...]]
-            tela-cli help [<module>]`);
+        console.log("Usage:\n" +
+            "tela-cli connect <host> [<port>]\n" +
+            "tela-cli link <module>\n" +
+            "tela-cli unlink <module>\n" +
+            "tela-cli disconnect\n" +
+            "tela-cli configure <module> <property> <value>\n" +
+            "tela-cli execute <module> <action> [<param1>=<value1> [<param2>=<value2> ...]]\n" +
+            "tela-cli help [<module>]\n" +
+            "tela-cli schedule <delay> <module> <action> [<param1>=<value1> [<param2>=<value2> ...]]\n" +
+            "tela-cli scheduled\n" +
+            "tela-cli cancel (<scheduled_action_id> | all)");
     }
 
     /**
@@ -53,7 +56,7 @@ export class TelaCli {
      */
     public connect(host?: string, port = TelaCli.DEFAULT_PORT) {
         if (!host) {
-            console.error("Incorrect parameters, usage:  connect <url> [port]");
+            console.error("Incorrect parameters, usage: tela-cli connect <url> [port]");
             return;
         }
         console.log(`Establishing connection with Tela at ${host}:${port}...`);
@@ -72,8 +75,14 @@ export class TelaCli {
      * Disconnect from the server
      */
     public disconnect() {
-        this.connectionManager.destroy();
-        console.log("Connection destroyed");
+        this.getApi().deleteSession((err) => {
+            if (err) {
+                console.error(`Error destroying the connection: ${err}`);
+                return;
+            }
+            this.connectionManager.destroy();
+            console.log("Connection destroyed");
+        });
     }
 
     /**
@@ -106,7 +115,7 @@ export class TelaCli {
      */
     public configure(module: string, property: string, value: any) {
         if (!module || !property || !value) {
-            console.error("Incorrect parameters, usage:  configure <module> <property> <value>");
+            console.error("Incorrect parameters, usage: tela-cli configure <module> <property> <value>");
             return;
         }
         this.connectionManager.setProperty(module, property, value);
@@ -160,10 +169,10 @@ export class TelaCli {
      * @param action
      * @param params
      */
-    public executeAction(module: string, action: string, params: string[]) {
+    public execute(module: string, action: string, params: string[]) {
         if (!module || !action) {
-            console.error("Incorrect parameters, usage:  " +
-                "execute <module> <action> [<param1>=<value1> [<param2>=<value2> ...]]");
+            console.error("Incorrect parameters, usage: " +
+                "tela-cli execute <module> <action> [<param1>=<value1> [<param2>=<value2> ...]]");
             return;
         }
         let paramsObj: { [param: string]: string} = {};
@@ -171,7 +180,7 @@ export class TelaCli {
             let p = param.split("=");
             paramsObj[p[0]] = p[1];
         });
-        this.getApi().executeAction(module, action, paramsObj, (code, result) => {
+        this.getApi().execute(module, action, paramsObj, (code, result) => {
             switch (code) {
                 case 200:
                     console.log(result);
@@ -191,6 +200,91 @@ export class TelaCli {
                         `The action '${module}/${action}' could not be executed (Error ${code}).`;
                     console.error(message);
             }
+        });
+    }
+
+    /**
+     * Schedule an action
+     *
+     * @param delay
+     * @param module
+     * @param action
+     * @param params
+     */
+    public schedule(delay: number, module: string, action: string, params: string[]) {
+        if (!delay || !module || !action) {
+            console.error("Incorrect parameters, usage:  " +
+                "tela-cli schedule <delay> <module> <action> [<param1>=<value1> [<param2>=<value2> ...]]");
+            return;
+        }
+        let paramsObj: { [param: string]: string} = {};
+        params.forEach((param) => {
+            let p = param.split("=");
+            paramsObj[p[0]] = p[1];
+        });
+        this.getApi().schedule(delay, module, action, paramsObj, (code, result) => {
+            switch (code) {
+                case 200:
+                    console.log(result);
+                    break;
+                case 403:
+                    let message403 = result ? result :
+                        `The action '${module}/${action}' requires a token. Please, link the module first.`;
+                    console.error(message403);
+                    break;
+                case 404:
+                    let message404 = result ? result :
+                        `The action '${module}/${action}' was not found with the supplied parameters.`;
+                    console.error(message404);
+                    break;
+                default:
+                    let message = result ? result :
+                        `The action '${module}/${action}' could not be executed (Error ${code}).`;
+                    console.error(message);
+            }
+        });
+    }
+
+    /**
+     * Get the scheduled actions
+     */
+    public getScheduled() {
+        this.getApi().getScheduled((code, result) => {
+            switch (code) {
+                case 200:
+                    console.log(result);
+                    break;
+                default:
+                    console.error(`Error ${code} obtaining the scheduled actions: ${result}`);
+            }
+        });
+    }
+
+    /**
+     * Get the scheduled actions
+     */
+    public cancelScheduled(action: string) {
+        if (action === "all") {
+            this.getApi().cancelAllScheduled((err) => {
+                if (err) {
+                    console.error(`Error canceling the all the scheduled actions: ${err}`);
+                    return;
+                }
+                console.log("All the scheduled actions have been cancelled");
+            });
+            return;
+        }
+        let actionId = +action;
+        if (isNaN(actionId)) {
+            console.error("Incorrect parameters, usage: tela-cli cancel (<scheduled_action_id> | all)");
+            return;
+        }
+        this.getApi().cancelScheduled(actionId, (err) => {
+            if (err) {
+                console.error(`Error canceling the scheduled action ${actionId}: ${err}`);
+                return;
+            }
+            console.log("Scheduled action has been cancelled");
         });
     }
 

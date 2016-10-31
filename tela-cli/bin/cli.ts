@@ -38,10 +38,19 @@ function execute(telaCli: TelaCli, command: string, args: any[]) {
             telaCli.unlinkModule(args[0]);
             break;
         case "execute":
-            telaCli.executeAction(args[0], args[1], args.slice(2));
+            telaCli.execute(args[0], args[1], args.slice(2));
             break;
         case "help":
             telaCli.help(args[0]);
+            break;
+        case "schedule":
+            telaCli.schedule(args[0], args[1], args[2], args.slice(3));
+            break;
+        case "scheduled":
+            telaCli.getScheduled();
+            break;
+        case "cancel":
+            telaCli.cancelScheduled(args[0]);
             break;
         default:
             console.error("Command not found");
