@@ -75,6 +75,12 @@ The result is printed into the system output, encoded as JSON. This allows to us
 tela-cli execute <module> <action> > result.txt
 ```
 
+Or format the JSON output:
+
+```bash
+tela-cli execute <module> <action> | jq
+```
+
 ## Scheduling
 
 ### Schedule an Action

@@ -98,16 +98,13 @@ export class TelaApi {
      */
     public execute(module: string, action: string,
                    params: {[param: string]: string},
-                   callback: (code: number, result: any) => void) {
+                   callback: (code: number, result: string) => void) {
 
         let url = this.getTelaUrl(`/action/${module}/${action}?`);
         Object.keys(params).forEach((key) => url += key + "=" + params[key] + "&");
 
         request(url, {auth: {bearer: this.accessToken}},
-            (err: any, response: any, body: string) => {
-                let result = !err && response.statusCode === 200 ? JSON.parse(body) : body;
-                callback(response.statusCode, result);
-            });
+            (err: any, response: any, body: string) => callback(response.statusCode, body));
     };
 
     /**
@@ -122,16 +119,13 @@ export class TelaApi {
     public schedule(delay: number,
                     module: string, action: string,
                     params: {[param: string]: string},
-                    callback: (code: number, result: any) => void) {
+                    callback: (code: number, result: string) => void) {
 
         let url = this.getTelaUrl(`/schedule/${module}/${action}?delay=${delay}`);
         Object.keys(params).forEach((key) => url += "&" + key + "=" + params[key]);
 
         request(url, {auth: {bearer: this.accessToken}},
-            (err: any, response: any, body: string) => {
-                let result = !err && response.statusCode === 200 ? JSON.parse(body) : body;
-                callback(response.statusCode, result);
-            });
+            (err: any, response: any, body: string) => callback(response.statusCode, body));
     };
 
     /**
@@ -139,13 +133,10 @@ export class TelaApi {
      *
      * @param callback
      */
-    public getScheduled(callback: (code: number, result: any) => void) {
+    public getScheduled(callback: (code: number, result: string) => void) {
         let url = this.getTelaUrl(`/schedule/`);
         request(url, {auth: {bearer: this.accessToken}},
-            (err: any, response: any, body: string) => {
-                let result = !err && response.statusCode === 200 ? JSON.parse(body) : body;
-                callback(response.statusCode, result);
-            });
+            (err: any, response: any, body: string) => callback(response.statusCode, body));
     };
 
     /**
