@@ -38,13 +38,13 @@ public class UserActions extends InstagramActions {
     @Action(description = "Get the information about the logged user", parameters = {"token"})
     @Schedulable(minimumDelay = 3600)
     public User self(String accessToken) throws InstagramException {
-        User user = api.self(accessToken);
-        return user;
+        return api.self(accessToken);
     }
 
     /**
      * Search a user by his username and return its basic information
      * This action is commonly used to obtain the ID of a user
+     * Required scope: public_content
      *
      * @param accessToken Access token
      * @param username    Username
@@ -60,6 +60,7 @@ public class UserActions extends InstagramActions {
 
     /**
      * Obtain the information about a user
+     * Required scope: public_content
      *
      * @param accessToken Access token
      * @param userId      User ID
@@ -67,12 +68,14 @@ public class UserActions extends InstagramActions {
      * @throws InstagramException if any.
      */
     @Action(description = "Get the information about a user", parameters = {"token", "userId"})
+    @Schedulable(minimumDelay = 3600)
     public User user(String accessToken, long userId) throws InstagramException {
         return api.user(accessToken, userId);
     }
 
     /**
      * Retrieve the information about a user
+     * Required scope: public_content
      *
      * @param accessToken Access token
      * @param username    User username
@@ -80,12 +83,14 @@ public class UserActions extends InstagramActions {
      * @throws InstagramException If any exception is thrown
      */
     @Action(description = "Get the information about a user", parameters = {"token", "username"})
+    @Schedulable(minimumDelay = 3600)
     public User user(String accessToken, String username) throws InstagramException {
         return api.user(accessToken, username);
     }
 
     /**
      * Retrieve the users the logged user is following
+     * Required scope: follower_list
      *
      * @param accessToken Access token
      * @param limit       Maximum number of users to return
@@ -93,24 +98,28 @@ public class UserActions extends InstagramActions {
      * @throws InstagramException If any exception is thrown
      */
     @Action(description = "Get the following of the logged user", parameters = {"token", "limit"})
+    @Schedulable(minimumDelay = 3600)
     public List<User> following(String accessToken, int limit) throws InstagramException {
         return api.following(accessToken, limit);
     }
 
     /**
      * Retrieve the users the logged user is following
+     * Required scope: follower_list
      *
      * @param accessToken Access token
      * @return All the users the logged user is following
      * @throws InstagramException If any exception is thrown
      */
     @Action(description = "Get the following of the logged user", parameters = {"token"})
+    @Schedulable(minimumDelay = 3600)
     public List<User> following(String accessToken) throws InstagramException {
         return following(accessToken, Integer.MAX_VALUE);
     }
 
     /**
      * Retrieve the followers of the logged user
+     * Required scope: follower_list
      *
      * @param accessToken Access token
      * @param limit       Maximum number of users to return
@@ -118,24 +127,28 @@ public class UserActions extends InstagramActions {
      * @throws InstagramException If any exception is thrown
      */
     @Action(description = "Get the followers of the logged user", parameters = {"token", "limit"})
+    @Schedulable(minimumDelay = 3600)
     public List<User> followers(String accessToken, int limit) throws InstagramException {
         return api.followers(accessToken, limit);
     }
 
     /**
      * Retrieve the followers of the logged user
+     * Required scope: follower_list
      *
      * @param accessToken Access token
      * @return All the followers of the logged user
      * @throws InstagramException If any exception is thrown
      */
     @Action(description = "Get the followers of the logged user", parameters = {"token"})
+    @Schedulable(minimumDelay = 3600)
     public List<User> followers(String accessToken) throws InstagramException {
         return followers(accessToken, Integer.MAX_VALUE);
     }
 
     /**
      * Retrieve the relationship of the logged user with other user
+     * Required scope: follower_list
      *
      * @param accessToken Access token
      * @param userId      User ID of the target user
@@ -143,12 +156,14 @@ public class UserActions extends InstagramActions {
      * @throws InstagramException If any exception is thrown
      */
     @Action(description = "Get the relationship between the logged user and a user", parameters = {"token", "userId"})
+    @Schedulable(minimumDelay = 3600)
     public UserRelationship relationship(String accessToken, long userId) throws InstagramException {
         return api.relationship(accessToken, userId);
     }
 
     /**
      * Retrieve the relationship of the logged user with other user
+     * Required scope: follower_list
      *
      * @param accessToken Access token
      * @param username    Username
@@ -156,25 +171,28 @@ public class UserActions extends InstagramActions {
      * @throws InstagramException If any exception is thrown
      */
     @Action(description = "Get the relationship between the logged user and a user", parameters = {"token", "username"})
+    @Schedulable(minimumDelay = 3600)
     public UserRelationship relationship(String accessToken, String username) throws InstagramException {
         return api.relationship(accessToken, username);
     }
 
     /**
      * Retrieve the friends of the logged user (intersections between followers and following)
+     * Required scope: follower_list
      *
      * @param accessToken Access token
      * @return All the users the logged user is following
      * @throws InstagramException If any exception is thrown
      */
     @Action(description = "Get the findFriends of the logged user", parameters = {"token"})
+    @Schedulable(minimumDelay = 3600)
     public List<User> friends(String accessToken) throws InstagramException {
         return api.friends(accessToken);
-
     }
 
     /**
      * Retrieve the counts of a user
+     * Required scope: public_content
      *
      * @param accessToken Access token
      * @param userId      User ID
@@ -182,12 +200,14 @@ public class UserActions extends InstagramActions {
      * @throws InstagramException If any exception is thrown
      */
     @Action(name = "counts", description = "", parameters = {"token", "userId"})
+    @Schedulable(minimumDelay = 3600)
     public List<Counts> counts(String accessToken, long userId) throws InstagramException {
         return api.counts(accessToken, userId);
     }
 
     /**
      * Retrieve the counts of a user
+     * Required scope: public_content
      *
      * @param accessToken Access token
      * @param username    User username
@@ -195,6 +215,7 @@ public class UserActions extends InstagramActions {
      * @throws InstagramException If any exception is thrown
      */
     @Action(name = "counts", description = "", parameters = {"token", "username"})
+    @Schedulable(minimumDelay = 3600)
     public List<Counts> counts(String accessToken, String username) throws InstagramException {
         return api.counts(accessToken, username);
     }

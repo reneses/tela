@@ -30,6 +30,7 @@ interface InstagramApi {
     /**
      * Retrieve the basic information of a user given its username
      * Documentation: https://www.instagram.com/developer/endpoints/users/
+     * Required scope: public_content
      *
      * @param accessToken Access token
      * @return Username with the given username
