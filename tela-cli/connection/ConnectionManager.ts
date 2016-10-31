@@ -1,5 +1,6 @@
 import {IConnection} from "./IConnection";
 import fs = require("fs");
+import os = require("os");
 import path = require("path");
 
 /**
@@ -16,7 +17,7 @@ export class ConnectionManager {
     private filename: string;
 
     constructor(filename?: string) {
-        this.filename = path.basename(filename || ConnectionManager.DEFAULT_FILENAME);
+        this.filename = path.join(os.homedir(), path.basename(filename || ConnectionManager.DEFAULT_FILENAME));
     }
 
     /**
