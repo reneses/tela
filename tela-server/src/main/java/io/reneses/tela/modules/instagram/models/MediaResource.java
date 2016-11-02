@@ -10,7 +10,7 @@ public class MediaResource {
     private int width, height;
 
     /**
-     * Getter for the field <size>url</size>.
+     * Getter for the field <code>url</code>.
      *
      * @return a {@link java.lang.String} object.
      */
@@ -19,7 +19,7 @@ public class MediaResource {
     }
 
     /**
-     * Setter for the field <size>url</size>.
+     * Setter for the field <code>url</code>.
      *
      * @param url a {@link java.lang.String} object.
      */
@@ -28,7 +28,7 @@ public class MediaResource {
     }
 
     /**
-     * Getter for the field <size>size</size>.
+     * Getter for the field <code>size</code>.
      *
      * @return a {@link java.lang.String} object.
      */
@@ -37,7 +37,7 @@ public class MediaResource {
     }
 
     /**
-     * Setter for the field <size>size</size>.
+     * Setter for the field <code>size</code>.
      *
      * @param size a {@link java.lang.String} object.
      */
@@ -46,7 +46,7 @@ public class MediaResource {
     }
 
     /**
-     * Getter for the field <size>width</size>.
+     * Getter for the field <code>width</code>.
      *
      * @return a int.
      */
@@ -55,7 +55,7 @@ public class MediaResource {
     }
 
     /**
-     * Setter for the field <size>width</size>.
+     * Setter for the field <code>width</code>.
      *
      * @param width a int.
      */
@@ -64,7 +64,7 @@ public class MediaResource {
     }
 
     /**
-     * Getter for the field <size>height</size>.
+     * Getter for the field <code>height</code>.
      *
      * @return a int.
      */
@@ -73,7 +73,7 @@ public class MediaResource {
     }
 
     /**
-     * Setter for the field <size>height</size>.
+     * Setter for the field <code>height</code>.
      *
      * @param height a int.
      */

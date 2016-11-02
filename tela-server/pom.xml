@@ -224,6 +224,15 @@
                 <version>2.10.4</version>
                 <configuration>
                     <show>package</show>
+                    <doclet>com.tarsec.javadoc.pdfdoclet.PDFDoclet</doclet>
+                    <docletPath>${project.basedir}/docs/pdfdoclet.jar</docletPath>
+                    <additionalparam>
+                         -api.title.page true
+                         -allow.printing true
+                         -create.links true
+                         -pdf ${project.basedir}/docs/javadoc.pdf
+                    </additionalparam>
+                    <useStandardDocletOptions>false</useStandardDocletOptions>
                 </configuration>
             </plugin>
             <plugin>
