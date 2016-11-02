@@ -1,25 +1,27 @@
 import {ConnectionManager} from "./connection/ConnectionManager";
 import {TelaApi} from "./api/TelaApi";
-import {IModule} from "./modules/IModule";
+import {Module} from "./modules/Module";
 import {InstagramModule} from "./modules/InstagramModule";
 import {IAction} from "./api/IAction";
+import {TwitterModule} from "./modules/TwitterModule";
 
 export class TelaCli {
 
     private static readonly DEFAULT_PORT = 80;
-    private modules: { [name: string]: IModule } = {};
+    private modules: { [name: string]: Module } = {};
     private connectionManager = new ConnectionManager();
     private telaApi: TelaApi;
 
     constructor() {
         this.addModule(new InstagramModule());
+        this.addModule(new TwitterModule());
         if (this.connectionManager.isConnected()) {
             let connection = this.connectionManager.get();
             this.telaApi = new TelaApi(connection.host, connection.port, connection.accessToken);
         }
     }
 
-    private addModule(module: IModule) {
+    private addModule(module: Module) {
         this.modules[module.name] = module;
     }
 
