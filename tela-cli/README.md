@@ -158,7 +158,7 @@ tela-cli unlink <module>
 
 #### Instagram
 
-The Instagram module requires the configuration properties `clientId` and `clientSecret`, which can be obtained creating an [Instagram Application](https://www.instagram.com/developer/clients/manage/).
+The Instagram module requires the configuration properties `clientId` and `clientSecret`, which can be obtained creating an [Instagram Application](https://www.instagram.com/developer/clients/manage/), with the redirect URI `http://127.0.0.1:8082`.
 
 ##### Setting Up
 
@@ -185,4 +185,32 @@ tela-cli execute instagram self
 
 # Search a user
 tela-cli execute instagram user username=themedizine
+```
+
+#### Twitter
+
+The Instagram module requires the configuration properties `apiKey` and `apiSecret`, which can be obtained creating a [Twitter Application](https://apps.twitter.com/), with the redirect URI `http://127.0.0.1:8082`.
+
+##### Setting Up
+
+```bash
+tela-cli connect <host> <port>
+tela-cli configure twitter apiKey <api_key>
+tela-cli configure twitter apiSecret <api_secret>
+tela-cli link twitter
+```
+
+##### Executing Actions
+
+Once the Twitter module has been set up, you can execute actions with:
+
+```bash
+tela-cli execute twitter <action> [<param1>=<value1> [<param2>=<value2> ...]]
+```
+
+For example:
+
+```bash
+# Obtain info about the logged user
+tela-cli execute twitter self
 ```

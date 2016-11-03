@@ -1,25 +1,27 @@
 import {ConnectionManager} from "./connection/ConnectionManager";
 import {TelaApi} from "./api/TelaApi";
-import {IModule} from "./modules/IModule";
+import {Module} from "./modules/Module";
 import {InstagramModule} from "./modules/InstagramModule";
 import {IAction} from "./api/IAction";
+import {TwitterModule} from "./modules/TwitterModule";
 
 export class TelaCli {
 
     private static readonly DEFAULT_PORT = 80;
-    private modules: { [name: string]: IModule } = {};
+    private modules: { [name: string]: Module } = {};
     private connectionManager = new ConnectionManager();
     private telaApi: TelaApi;
 
     constructor() {
         this.addModule(new InstagramModule());
+        this.addModule(new TwitterModule());
         if (this.connectionManager.isConnected()) {
             let connection = this.connectionManager.get();
             this.telaApi = new TelaApi(connection.host, connection.port, connection.accessToken);
         }
     }
 
-    private addModule(module: IModule) {
+    private addModule(module: Module) {
         this.modules[module.name] = module;
     }
 
@@ -162,6 +164,12 @@ export class TelaCli {
         });
     }
 
+    private filterInvalidParams(params: string[]): string[] {
+        return params.filter((param) => {
+            return !/^[a-zA-Z][a-zA-Z0-9]*=[^=]*$/g.test(param);
+        });
+    }
+
     /**
      * Execute an action
      *
@@ -170,17 +178,20 @@ export class TelaCli {
      * @param params
      */
     public execute(module: string, action: string, params: string[]) {
+        // Valdiate module and action
         if (!module || !action) {
             console.error("Incorrect parameters, usage: " +
                 "tela-cli execute <module> <action> [<param1>=<value1> [<param2>=<value2> ...]]");
             return;
         }
-        let paramsObj: { [param: string]: string} = {};
-        params.forEach((param) => {
-            let p = param.split("=");
-            paramsObj[p[0]] = p[1];
-        });
-        this.getApi().execute(module, action, paramsObj, (code, result) => {
+        // Validate the params
+        let invalidParams = this.filterInvalidParams(params);
+        if (invalidParams.length) {
+            console.error("The following parameters are not valid: ", invalidParams);
+            return;
+        }
+        // Execute the action
+        this.getApi().execute(module, action, params, (code, result) => {
             switch (code) {
                 case 200:
                     console.log(result);
@@ -212,17 +223,20 @@ export class TelaCli {
      * @param params
      */
     public schedule(delay: number, module: string, action: string, params: string[]) {
+        // Validate delay, module and action
         if (!delay || !module || !action) {
             console.error("Incorrect parameters, usage:  " +
                 "tela-cli schedule <delay> <module> <action> [<param1>=<value1> [<param2>=<value2> ...]]");
             return;
         }
-        let paramsObj: { [param: string]: string} = {};
-        params.forEach((param) => {
-            let p = param.split("=");
-            paramsObj[p[0]] = p[1];
-        });
-        this.getApi().schedule(delay, module, action, paramsObj, (code, result) => {
+        // Validate the params
+        let invalidParams = this.filterInvalidParams(params);
+        if (invalidParams.length) {
+            console.error("The following parameters are not valid: ", invalidParams);
+            return;
+        }
+        // Schedule
+        this.getApi().schedule(delay, module, action, params, (code, result) => {
             switch (code) {
                 case 200:
                     console.log(result);

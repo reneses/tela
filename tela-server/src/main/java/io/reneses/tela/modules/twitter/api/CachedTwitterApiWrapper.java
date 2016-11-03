@@ -27,52 +27,60 @@ class CachedTwitterApiWrapper extends TwitterApiWrapper {
         super(api, history);
     }
 
-    private String getUsernameFromAccessToken(String accessToken) throws TwitterException {
-        String username = accessTokenUsernameCache.getUsername(accessToken);
+    private String getUsernameFromAccessToken(String apiKey, String apiSecret, String token, String tokenSecret)
+            throws TwitterException {
+
+        String username = accessTokenUsernameCache.getUsername(token);
         if (username != null)
             return username;
-        return super.self(accessToken).getScreenName();
+        return super.self(apiKey, apiSecret, token, tokenSecret).getScreenName();
     }
 
     /** {@inheritDoc} */
     @Override
-    public User self(String accessToken) throws TwitterException {
-        if (history.isPresent(new HistoryEntry(TwitterTelaModule.NAME, "self", accessToken))) {
-            LOGGER.debug("[Cache] self({}) retrieved from the cache", accessToken);
-            return repository.find(getUsernameFromAccessToken(accessToken));
+    public User self(String apiKey, String apiSecret, String token, String tokenSecret) throws TwitterException {
+        if (history.isPresent(new HistoryEntry(TwitterTelaModule.NAME, "self", token))) {
+            LOGGER.debug("[Cache] self({}) retrieved from the cache", token);
+            return repository.find(getUsernameFromAccessToken(apiKey, apiSecret, token, tokenSecret));
         }
-        return super.self(accessToken);
+        return super.self(apiKey, apiSecret, token, tokenSecret);
     }
 
     /** {@inheritDoc} */
     @Override
-    public List<User> followers(String accessToken, String username, int limit) throws TwitterException {
+    public List<User> followers(String apiKey, String apiSecret, String token, String tokenSecret,
+                                String username, int limit) throws TwitterException {
+
         if (history.isPresent(new HistoryEntry(TwitterTelaModule.NAME, "followers", username, limit))) {
-            LOGGER.debug("[Cache] followers({}, {}, {}) retrieved from the cache", accessToken, username, limit);
+            LOGGER.debug("[Cache] followers({}, {}) retrieved from the cache", username, limit);
             return repository.findFollowers(username);
         }
-        return super.followers(accessToken, username, limit);
+        return super.followers(apiKey, apiSecret, token, tokenSecret, username, limit);
     }
 
     /** {@inheritDoc} */
     @Override
-    public List<User> following(String accessToken, String username, int limit) throws TwitterException {
+    public List<User> following(String apiKey, String apiSecret, String token, String tokenSecret,
+                                String username, int limit) throws TwitterException {
+
         if (history.isPresent(new HistoryEntry(TwitterTelaModule.NAME, "following", username, limit))) {
-            LOGGER.debug("[Cache] following({}, {}, {}) retrieved from the cache", accessToken, username, limit);
+            LOGGER.debug("[Cache] following({}, {}) retrieved from the cache", username, limit);
             return repository.findFollowing(username);
         }
-        return super.following(accessToken, username, limit);
+        return super.following(apiKey, apiSecret, token, tokenSecret, username, limit);
     }
 
     /** {@inheritDoc} */
     @Override
-    public List<User> friends(String accessToken, String username) throws TwitterException {
+    public List<User> friends(String apiKey, String apiSecret, String token,
+                              String tokenSecret, String username) throws TwitterException {
+
         HistoryEntry entry = new HistoryEntry(TwitterTelaModule.NAME, "friends", username);
         if (history.isPresent(entry)) {
-            LOGGER.debug("[Cache] friends({}, {}) retrieved from the cache", accessToken, username);
+            LOGGER.debug("[Cache] friends({}) retrieved from the cache", username);
             return repository.findFriends(username);
         }
-        return super.friends(accessToken, username);
+        return super.friends(apiKey, apiSecret, token, tokenSecret, username);
     }
 
 }

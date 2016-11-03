@@ -25,49 +25,49 @@ class TwitterApiWrapper extends AbstractTwitterApiWrapper {
 
     /** {@inheritDoc} */
     @Override
-    public User self(String accessToken) throws TwitterException {
-        User user = api.self(accessToken);
+    public User self(String apiKey, String apiSecret, String token, String tokenSecret) throws TwitterException {
+        User user = api.self(apiKey, apiSecret, token, tokenSecret);
         repository.create(user);
-        history.add(new HistoryEntry(TwitterTelaModule.NAME, "self", accessToken));
-        accessTokenUsernameCache.put(accessToken, user.getScreenName());
+        history.add(new HistoryEntry(TwitterTelaModule.NAME, "self", token));
+        accessTokenUsernameCache.put(token, user.getScreenName());
         return user;
     }
 
     /** {@inheritDoc} */
     @Override
-    public List<User> followers(String accessToken, String username, int limit) throws TwitterException {
-        List<User> followers = api.followers(accessToken, username, limit);
-        repository.setFollowers(followers, self(accessToken));
+    public List<User> followers(String apiKey, String apiSecret, String token, String tokenSecret, String username, int limit) throws TwitterException {
+        List<User> followers = api.followers(apiKey, apiSecret, token, tokenSecret, username, limit);
+        repository.setFollowers(followers, self(apiKey, apiSecret, token, tokenSecret));
         history.add(new HistoryEntry(TwitterTelaModule.NAME, "followers", username, limit));
         return followers;
     }
 
     /** {@inheritDoc} */
     @Override
-    public List<User> followers(String accessToken, String username) throws TwitterException {
-        return followers(accessToken, username, -1);
+    public List<User> followers(String apiKey, String apiSecret, String token, String tokenSecret, String username) throws TwitterException {
+        return followers(apiKey, apiSecret, token, tokenSecret, username, -1);
     }
 
     /** {@inheritDoc} */
     @Override
-    public List<User> following(String accessToken, String username, int limit) throws TwitterException {
-        List<User> following = api.following(accessToken, username, limit);
-        repository.setFollowing(self(accessToken), following);
+    public List<User> following(String apiKey, String apiSecret, String token, String tokenSecret, String username, int limit) throws TwitterException {
+        List<User> following = api.following(apiKey, apiSecret, token, tokenSecret, username, limit);
+        repository.setFollowing(self(apiKey, apiSecret, token, tokenSecret), following);
         history.add(new HistoryEntry(TwitterTelaModule.NAME, "following", username, limit));
         return following;
     }
 
     /** {@inheritDoc} */
     @Override
-    public List<User> following(String accessToken, String username) throws TwitterException {
-        return following(accessToken, username, -1);
+    public List<User> following(String apiKey, String apiSecret, String token, String tokenSecret, String username) throws TwitterException {
+        return following(apiKey, apiSecret, token, tokenSecret, username, -1);
     }
 
     /** {@inheritDoc} */
     @Override
-    public List<User> friends(String accessToken, String username) throws TwitterException {
-        following(accessToken, username);
-        followers(accessToken, username);
+    public List<User> friends(String apiKey, String apiSecret, String token, String tokenSecret, String username) throws TwitterException {
+        following(apiKey, apiSecret, token, tokenSecret, username);
+        followers(apiKey, apiSecret, token, tokenSecret, username);
         history.add(new HistoryEntry(TwitterTelaModule.NAME, "friends", username));
         return repository.findFriends(username);
     }

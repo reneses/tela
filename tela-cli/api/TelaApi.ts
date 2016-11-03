@@ -96,13 +96,10 @@ export class TelaApi {
      * @param params
      * @param callback
      */
-    public execute(module: string, action: string,
-                   params: {[param: string]: string},
+    public execute(module: string, action: string, params: string[],
                    callback: (code: number, result: string) => void) {
 
-        let url = this.getTelaUrl(`/action/${module}/${action}?`);
-        Object.keys(params).forEach((key) => url += key + "=" + params[key] + "&");
-
+        let url = this.getTelaUrl(`/action/${module}/${action}?`) + params.join("&");
         request(url, {auth: {bearer: this.accessToken}},
             (err: any, response: any, body: string) => callback(response.statusCode, body));
     };
@@ -116,14 +113,10 @@ export class TelaApi {
      * @param params
      * @param callback
      */
-    public schedule(delay: number,
-                    module: string, action: string,
-                    params: {[param: string]: string},
+    public schedule(delay: number, module: string, action: string, params: string[],
                     callback: (code: number, result: string) => void) {
 
-        let url = this.getTelaUrl(`/schedule/${module}/${action}?delay=${delay}`);
-        Object.keys(params).forEach((key) => url += "&" + key + "=" + params[key]);
-
+        let url = this.getTelaUrl(`/schedule/${module}/${action}?delay=${delay}&`) + params.join("&");
         request(url, {auth: {bearer: this.accessToken}},
             (err: any, response: any, body: string) => callback(response.statusCode, body));
     };

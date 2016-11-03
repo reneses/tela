@@ -19,56 +19,75 @@ interface TwitterApi {
      * Retrieve information about the logged user
      * Documentation: https://dev.twitter.com/rest/reference/get/account/verify_credentials
      *
-     * @param accessToken Access token
+     * @param apiKey Api Key
+     * @param apiSecret Api Secret
+     * @param token Token
+     * @param tokenSecret Token secret
      * @return Logged user
      * @throws TwitterException if any.
      */
-    User self(String accessToken) throws TwitterException;
+    User self(String apiKey, String apiSecret, String token, String tokenSecret) throws TwitterException;
 
     /**
      * Retrieve the followers of a user
      * Documentation: https://dev.twitter.com/rest/reference/get/followers/list
      *
-     * @param accessToken Access token
+     * @param apiKey Api Key
+     * @param apiSecret Api Secret
+     * @param token Token
+     * @param tokenSecret Token secret
      * @param username    Username
      * @param limit       Number of followers to retrieve
      * @return List of followers
      * @throws TwitterException if any.
      */
-    List<User> followers(String accessToken, String username, int limit) throws TwitterException;
+    List<User> followers(String apiKey, String apiSecret, String token, String tokenSecret,
+                         String username, int limit) throws TwitterException;
 
     /**
      * Retrieve the followers of a user
      * Documentation: https://dev.twitter.com/rest/reference/get/followers/list
      *
-     * @param accessToken Access token
+     * @param apiKey Api Key
+     * @param apiSecret Api Secret
+     * @param token Token
+     * @param tokenSecret Token secret
      * @param username    Username
      * @return List of followers
      * @throws TwitterException if any.
      */
-    List<User> followers(String accessToken, String username) throws TwitterException;
+    List<User> followers(String apiKey, String apiSecret, String token, String tokenSecret,
+                         String username) throws TwitterException;
 
     /**
      * Retrieve the user a user is following
      * Documentation: https://dev.twitter.com/rest/reference/get/friends/list
      *
-     * @param accessToken Access token
+     * @param apiKey Api Key
+     * @param apiSecret Api Secret
+     * @param token Token
+     * @param tokenSecret Token secret
      * @param username    Username
      * @param limit       Number of followers to retrieve
      * @return List of users the user is following
      * @throws TwitterException if any.
      */
-    List<User> following(String accessToken, String username, int limit) throws TwitterException;
+    List<User> following(String apiKey, String apiSecret, String token, String tokenSecret,
+                         String username, int limit) throws TwitterException;
 
     /**
      * Retrieve the user a user is following
      * Documentation: https://dev.twitter.com/rest/reference/get/friends/list
      *
-     * @param accessToken Access token
+     * @param apiKey Api Key
+     * @param apiSecret Api Secret
+     * @param token Token
+     * @param tokenSecret Token secret
      * @param username    Username
      * @return List of users the user is following
      * @throws TwitterException if any.
      */
-    List<User> following(String accessToken, String username) throws TwitterException;
+    List<User> following(String apiKey, String apiSecret, String token, String tokenSecret,
+                         String username) throws TwitterException;
 
 }
