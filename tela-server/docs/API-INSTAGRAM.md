@@ -16,11 +16,11 @@ Header        |	Examle                               | Required
 :------------:|:-------------------------------------:|:--------:
 Authorization	 | Authorization: Bearer \<access_token> | Yes
 
-#### Obtaining a Instagram Module Token
+#### Obtaining an Instagram Module Token
 
 In order to retrieve data from the official Instagram API, an Instagram access token (an Instagram module token on Tela) is required. 
 
-This is responsability of each client app, so that they are able to implement and integrate the authorization process as they want. You can read more about that in the official [Instagram documentation](https://www.instagram.com/developer/), particularly in the [client management](https://www.instagram.com/developer/clients/manage/) and [auth flow](https://www.instagram.com/developer/authentication/) sections.
+This is responsibility  of each client app, so that they are able to implement and integrate the authorization process as they want. You can read more about that in the official [Instagram documentation](https://www.instagram.com/developer/), particularly in the [client management](https://www.instagram.com/developer/clients/manage/) and [auth flow](https://www.instagram.com/developer/authentication/) sections.
 
 Important: by default, new applications are created in [Sandbox Mode](https://www.instagram.com/developer/sandbox/) until review, and therefore the results of the API will be limited to Sandbox Users.
 
@@ -255,7 +255,7 @@ GET /instagram/followers?limit=1
 ```
 GET /instagram/friends
 ```
-- **Description**: Get the friends (intersection of folowers and following) of the authorized user. 
+- **Description**: Get the friends (intersection of followers and following) of the authorized user. 
 - **Requires authorization**: Yes.
 - **Output**: Basic information of the friends of the authorized user.
 - **Schedulable**: Yes (minimum delay: 3600s).
@@ -272,7 +272,7 @@ GET /instagram/friends
     username: 'snoopdogg',
     id: 1574083,
     profile_picture: 'https://scontent.cdninstagram.com/snoop.jpg',
-    full_name: 'Snoop Dogg',
+    full_name: 'Snoop Dogg'
   }
 ]
 ```
@@ -316,4 +316,206 @@ Producing:
   "incoming_status": "followed_by",
   "target_user_is_private": false
 }
+```
+
+# Media Actions
+
+Actions related with information retrieval of media, comments and likes.
+
+### Self Media
+
+```
+GET /instagram/self-media
+```
+- **Description**: Get the latest media of the authorized user. 
+- **Requires authorization**: Yes.
+- **Output**: Latest media of the authorized user.
+- **Schedulable**: Yes (minimum delay: 3600s).
+- **Requires Instagram Scope**: `public_content`.
+
+#### Parameters
+Name     | Type    | Description                             | Required
+:-------:|:-------:|:---------------------------------------:|:---------:
+limit    | int     | Number of media to retrieve             | No
+
+#### Examples
+
+```
+GET /instagram/self-media?limit=1
+```
+```json
+[
+  {
+    "id": "1358943_477",
+    "caption": {
+      "id": 1786524624,
+      "text": "What a night!",
+      "created_time": 1477840385,
+      "from": {
+        "username": "snoopdogg",
+        "id": 1574083,
+        "profile_picture": "https://scontent.cdninstagram.com/snoop.jpg",
+        "full_name": "Snoop Dogg",      
+      }
+    },
+    "link": "https://www.instagram.com/p/BMMRE9dDGvf/",
+    "type": "image",
+    "filter": "Rise",
+    "user": {
+      "username": "snoopdogg",
+      "id": 1574083,
+      "profile_picture": "https://scontent.cdninstagram.com/snoop.jpg",
+      "full_name": "Snoop Dogg",     
+    },
+    "tags": [
+      "instapic"
+    ],
+    "location": null,
+    "images": {
+      "thumbnail": {
+        "url": "https://scontent.cdninstagram.com/s150x150/1.jpg",
+        "size": "thumbnail",
+        "width": 150,
+        "height": 150
+      },
+      "low_resolution": {
+        "url": "https://scontent.cdninstagram.com/s320x320/1.jpg",
+        "size": "low_resolution",
+        "width": 320,
+        "height": 320
+      },
+      "standard_resolution": {
+        "url": "https://scontent.cdninstagram.com/s640x640/1.jpg",
+        "size": "standard_resolution",
+        "width": 640,
+        "height": 640
+      }
+    },
+    "videos": {},
+    "comments": {
+      "data": [],
+      "count": 0
+    },
+    "likes": {
+      "data": [],
+      "count": 87
+    },
+    "created_time": 1477840385,
+    "users_in_photo": [
+      {
+        "position": {
+          "x": 0.2995169082125604,
+          "y": 0.2526978142827535
+        },
+        "user": {
+          "username": "Pedro",
+          "id": 389893,
+          "profile_picture": "https://pedro.jpg",
+          "full_name": "Dj Pedro"
+        }
+      },
+      {
+        "position": {
+          "x": 0.7141706678602431,
+          "y": 0.2455035971223022
+        },
+        "user": {
+          "username": "borja",
+          "id": 48333393,
+          "profile_picture": "https://borja.jpg",
+          "full_name": "Borja"
+        }
+      }
+    ],
+    "user_has_liked": false,
+    "is_video": false,
+    "is_image": true
+  }
+]
+```
+
+### Likes
+
+```
+GET /instagram/likes
+```
+- **Description**: Get the likes of a media. 
+- **Requires authorization**: Yes.
+- **Output**: Users that have liked the media.
+- **Schedulable**: Yes (minimum delay: 3600s).
+- **Requires Instagram Scope**: `public_content`.
+
+#### Parameters
+Name     | Type    | Description                   | Required
+:-------:|:-------:|:-----------------------------:|:---------:
+mediaId  | String  | ID of the media               | Yes
+
+#### Examples
+
+```
+GET /instagram/likes&mediaId=3948SD
+```
+```json
+[
+  {
+    "username": "snoopdogg",
+    "id": 1574083,
+    "profile_picture": "https://scontent.cdninstagram.com/snoop.jpg",
+    "full_name": "Snoop Dogg",      
+  },   
+  {
+    "username": "Pedro",
+    "id": 389893,
+    "profile_picture": "https://pedro.jpg",
+    "full_name": "Dj Pedro"
+  }
+]
+```
+
+### Comments
+
+```
+GET /instagram/comments
+```
+- **Description**: Get the comments of a media. 
+- **Requires authorization**: Yes.
+- **Output**: Comments of the media.
+- **Schedulable**: Yes (minimum delay: 3600s).
+- **Requires Instagram Scope**: `public_content`.
+
+#### Parameters
+Name     | Type    | Description                   | Required
+:-------:|:-------:|:-----------------------------:|:---------:
+mediaId  | String  | ID of the media               | Yes
+
+#### Examples
+
+```
+GET /instagram/comments&mediaId=3948SD
+```
+```json
+[
+  {
+    "id": 1786344,
+    "text": "Amazing!",
+    "created_time": 1477840385,
+    "from": {
+      "username": "snoopdogg",
+      "id": 1574083,
+      "profile_picture": "https://scontent.cdninstagram.com/snoop.jpg",
+      "full_name": "Snoop Dogg",   
+    }     
+  },
+  {
+    "id": 1786241,
+    "text": "Amazing!",
+    "created_time": 1477840385,
+    "from": {
+      "username": "Pedro",
+      "id": 389893,
+      "profile_picture": "https://pedro.jpg",
+      "full_name": "Dj Pedro"
+    } 
+  }
+]
 ```
