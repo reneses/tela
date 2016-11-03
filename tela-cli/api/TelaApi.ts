@@ -14,15 +14,25 @@ export class TelaApi {
         return url;
     };
 
+    private checkConnection(response: any) {
+        if (!response) {
+            console.log("It was not possible to connect to the server (Is Tela Running?)");
+            process.exit(-1);
+        }
+    }
+
     /**
      * Create a session in the Tela Server
      *
      * @param callback Callback to be executed, the access token retrieved will be passed as parameter
      */
     public createSession = function (callback: (accessToken: string) => void) {
-        request.post(this.getTelaUrl("/auth"), {form: {}}, (error: any, response: any, body: string) => {
+        let url = this.getTelaUrl("/auth");
+        request.post(url, {form: {}}, (error: any, response: any, body: string) => {
+            this.checkConnection(response);
             if (error || response.statusCode !== 200) {
                 callback(null);
+                return;
             }
             callback(body);
         });
@@ -34,13 +44,12 @@ export class TelaApi {
      * @param callback Callback to be executed
      */
     public deleteSession = function (callback: (errorMessage: string) => void) {
-        request.del(
-            this.getTelaUrl(`/auth`),
-            {auth: {bearer: this.accessToken}},
-            (err: any, response: any, body: string) => {
-                let errorMessage = err || response.statusCode !== 200 ? body : null;
-                callback(errorMessage);
-            });
+        let url = this.getTelaUrl(`/auth`);
+        request.del(url, {auth: {bearer: this.accessToken}}, (err: any, response: any, body: string) => {
+            this.checkConnection(response);
+            let errorMessage = err || response.statusCode !== 200 ? body : null;
+            callback(errorMessage);
+        });
     };
 
     /**
@@ -52,6 +61,7 @@ export class TelaApi {
     public help(module: string, callback: (help: IAction[]) => void) {
         let url = this.getTelaUrl("/help/" + (module || ""));
         request(url, (error: any, response: any, body: string) => {
+            this.checkConnection(response);
             callback(JSON.parse(body));
         });
     }
@@ -64,13 +74,12 @@ export class TelaApi {
      * @param callback
      */
     public addModuleToken(module: string, token: string, callback: (err: any) => void) {
-        request.post(
-            this.getTelaUrl(`/auth/${module}?`),
-            {
-                auth: {bearer: this.accessToken},
-                form: {token: token},
-            },
-            (error: any, response: any, body: string) => callback(error || response.statusCode !== 200));
+        let url = this.getTelaUrl(`/auth/${module}?`);
+        request.post(url, {auth: {bearer: this.accessToken}, form: {token: token}},
+            (error: any, response: any) => {
+                this.checkConnection(response);
+                callback(error || response.statusCode !== 200);
+            });
     }
 
     /**
@@ -80,12 +89,11 @@ export class TelaApi {
      * @param callback
      */
     public deleteModuleToken(module: string, callback: (err: any) => void) {
-        request.del(
-            this.getTelaUrl(`/auth/${module}`),
-            {
-                auth: {bearer: this.accessToken},
-            },
-            (error: any, response: any, body: string) => callback(error || response.statusCode !== 200));
+        let url = this.getTelaUrl(`/auth/${module}`);
+        request.del(url, {auth: {bearer: this.accessToken}}, (error: any, response: any) => {
+            this.checkConnection(response);
+            callback(error || response.statusCode !== 200);
+        });
     };
 
     /**
@@ -100,8 +108,10 @@ export class TelaApi {
                    callback: (code: number, result: string) => void) {
 
         let url = this.getTelaUrl(`/action/${module}/${action}?`) + params.join("&");
-        request(url, {auth: {bearer: this.accessToken}},
-            (err: any, response: any, body: string) => callback(response.statusCode, body));
+        request(url, {auth: {bearer: this.accessToken}}, (err: any, response: any, body: string) => {
+            this.checkConnection(response);
+            callback(response.statusCode, body);
+        });
     };
 
     /**
@@ -117,8 +127,10 @@ export class TelaApi {
                     callback: (code: number, result: string) => void) {
 
         let url = this.getTelaUrl(`/schedule/${module}/${action}?delay=${delay}&`) + params.join("&");
-        request(url, {auth: {bearer: this.accessToken}},
-            (err: any, response: any, body: string) => callback(response.statusCode, body));
+        request(url, {auth: {bearer: this.accessToken}}, (err: any, response: any, body: string) => {
+            this.checkConnection(response);
+            callback(response.statusCode, body);
+        });
     };
 
     /**
@@ -128,8 +140,10 @@ export class TelaApi {
      */
     public getScheduled(callback: (code: number, result: string) => void) {
         let url = this.getTelaUrl(`/schedule/`);
-        request(url, {auth: {bearer: this.accessToken}},
-            (err: any, response: any, body: string) => callback(response.statusCode, body));
+        request(url, {auth: {bearer: this.accessToken}}, (err: any, response: any, body: string) => {
+            this.checkConnection(response);
+            callback(response.statusCode, body);
+        });
     };
 
     /**
@@ -141,8 +155,8 @@ export class TelaApi {
     public cancelScheduled(scheduledActionId: number, callback: (errorMessage: string) => void) {
         request.del(
             this.getTelaUrl(`/schedule/${scheduledActionId}`),
-            {auth: {bearer: this.accessToken}},
-            (err: any, response: any, body: string) => {
+            {auth: {bearer: this.accessToken}}, (err: any, response: any, body: string) => {
+                this.checkConnection(response);
                 let errorMessage = err || response.statusCode !== 200 ? body : null;
                 callback(errorMessage);
             });
@@ -156,8 +170,8 @@ export class TelaApi {
     public cancelAllScheduled(callback: (errorMessage: string) => void) {
         request.del(
             this.getTelaUrl(`/schedule`),
-            {auth: {bearer: this.accessToken}},
-            (err: any, response: any, body: string) => {
+            {auth: {bearer: this.accessToken}}, (err: any, response: any, body: string) => {
+                this.checkConnection(response);
                 let errorMessage = err || response.statusCode !== 200 ? body : null;
                 callback(errorMessage);
             });
