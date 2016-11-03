@@ -57,6 +57,39 @@ GET /twitter/self
 }
 ```
 
+### User
+
+```
+GET /twitter/user
+```
+- **Description**: Get the information about a user. 
+- **Requires authorization**: Yes.
+- **Output**: Full information about a user.
+- **Schedulable**: Yes (minimum delay: 3600s).
+
+#### Parameters
+Name     | Type    | Description                             | Required
+:-------:|:-------:|:---------------------------------------:|:---------:
+username | String  | Username of the user to retrieve        | Yes
+
+
+#### Examples
+
+```
+GET /twitter/user?username=snoopdogg
+```
+```json
+{ 
+  screen_name: 'snoopdogg',
+  url: 'http://twitter.com/snoopdogg',
+  id: 1574083,
+  profile_image_url: 'https://twitter.com/snoop.jpg',
+  full_name: 'Snoop Dogg',
+  followers_count: 822,
+  friends_count: 420
+}
+```
+
 ### Following
 
 ```
