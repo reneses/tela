@@ -29,7 +29,7 @@ public class ScheduledAction {
     /**
      * Init the object
      *
-     * @param accessToken       Session
+     * @param accessToken   Session
      * @param delay         Delay (in seconds) for the execution
      * @param actionPrefix  Action prefix
      * @param actionName    Action name
@@ -37,8 +37,9 @@ public class ScheduledAction {
      * @param createdAt     Creation date of the scheduled action
      * @param nextExecution Datetime of the next execution
      */
-    private void init(String accessToken, int delay, String actionPrefix, String actionName, Map<String, String[]> params,
-                      LocalDateTime createdAt, LocalDateTime nextExecution) {
+    private void init(Integer id, String accessToken, int delay, String actionPrefix, String actionName,
+                      Map<String, String[]> params,LocalDateTime createdAt, LocalDateTime nextExecution) {
+
         this.accessToken = accessToken;
         this.delay = delay;
         this.moduleName = actionPrefix;
@@ -46,7 +47,7 @@ public class ScheduledAction {
         this.params = params;
         this.createdAt = createdAt;
         this.nextExecution = nextExecution;
-        this.id = hashCode();
+        this.id = id == null? hashCode() : id;
     }
 
     /**
@@ -59,42 +60,43 @@ public class ScheduledAction {
     /**
      * Full constructor
      *
-     * @param accessToken       Session
+     * @param id            Scheduled ID
+     * @param accessToken   Access token
      * @param delay         Delay (in seconds) for the execution
-     * @param moduleName  Action prefix
+     * @param moduleName    Action prefix
      * @param actionName    Action name
      * @param params        Action parameters
      * @param createdAt     Creation date of the scheduled action
      * @param nextExecution Datetime of the next execution
      */
-    public ScheduledAction(String accessToken, int delay, String moduleName, String actionName, Map<String, String[]> params,
+    public ScheduledAction(int id, String accessToken, int delay, String moduleName, String actionName, Map<String, String[]> params,
                            LocalDateTime createdAt, LocalDateTime nextExecution) {
-        init(accessToken, delay, moduleName, actionName, params, createdAt, nextExecution);
+        init(id, accessToken, delay, moduleName, actionName, params, createdAt, nextExecution);
     }
 
     /**
      * Constructor for first-time created objects
      * It initiates the created date and calculates the next execution
      *
-     * @param accessToken      Session
-     * @param delay        Delay (in seconds) for the execution
-     * @param moduleName Action prefix
-     * @param actionName   Action name
-     * @param params       Action parameters
+     * @param accessToken Session
+     * @param delay       Delay (in seconds) for the execution
+     * @param moduleName  Action prefix
+     * @param actionName  Action name
+     * @param params      Action parameters
      */
     public ScheduledAction(String accessToken, int delay, String moduleName, String actionName, Map<String, String[]> params) {
         LocalDateTime now = LocalDateTime.now();
-        init(accessToken, delay, moduleName, actionName, params, now, now.plusSeconds(delay));
+        init(null, accessToken, delay, moduleName, actionName, params, now, now.plusSeconds(delay));
     }
 
     /**
      * Constructor for first-time created objects without parameters
      * It initiates the created date and calculates the next execution
      *
-     * @param accessToken      Session
-     * @param delay        Delay (in seconds) for the execution
-     * @param moduleName Action prefix
-     * @param actionName   Action name
+     * @param accessToken Session
+     * @param delay       Delay (in seconds) for the execution
+     * @param moduleName  Action prefix
+     * @param actionName  Action name
      */
     public ScheduledAction(String accessToken, int delay, String moduleName, String actionName) {
         this(accessToken, delay, moduleName, actionName, new HashMap<>());
@@ -144,6 +146,7 @@ public class ScheduledAction {
     public void setCreatedAtAsLong(long createdAt) {
         this.createdAt = LocalDateTime.ofInstant(Instant.ofEpochMilli(createdAt), TimeZone.getDefault().toZoneId());
     }
+
     /**
      * getCreatedAtAsLong.
      *
@@ -163,6 +166,7 @@ public class ScheduledAction {
     public void setNextExecutionAsLong(long nextExecution) {
         this.nextExecution = LocalDateTime.ofInstant(Instant.ofEpochMilli(nextExecution), TimeZone.getDefault().toZoneId());
     }
+
     /**
      * getNextExecutionAsLong.
      *
@@ -304,7 +308,9 @@ public class ScheduledAction {
 
     //----------------------------------- OBJECT OVERRIDE -----------------------------------//
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
         String paramsString = params
@@ -316,7 +322,9 @@ public class ScheduledAction {
         return moduleName + "/" + actionName + " (" + delay + "s) " + paramsString;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -334,7 +342,9 @@ public class ScheduledAction {
         return true;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int hashCode() {
         int result = delay;

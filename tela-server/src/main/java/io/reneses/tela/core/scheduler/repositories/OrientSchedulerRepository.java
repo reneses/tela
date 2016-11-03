@@ -58,6 +58,7 @@ public class OrientSchedulerRepository implements SchedulerRepository {
      */
     ScheduledAction mapVertex(Vertex vertex) {
 
+        int id = vertex.getProperty(SchedulerOrientDatabaseExtension.TASK_ID);
         String prefix = vertex.getProperty(SchedulerOrientDatabaseExtension.TASK_MODULE);
         String name = vertex.getProperty(SchedulerOrientDatabaseExtension.TASK_NAME);
         int delay = vertex.getProperty(SchedulerOrientDatabaseExtension.TASK_DELAY);
@@ -72,7 +73,7 @@ public class OrientSchedulerRepository implements SchedulerRepository {
             params.put(paramName, paramValues.toArray(new String[paramValues.size()]));
         });
 
-        return new ScheduledAction(accessToken, delay, prefix, name, params, createdAt, nextExecution);
+        return new ScheduledAction(id, accessToken, delay, prefix, name, params, createdAt, nextExecution);
     }
 
     //----------------------------------- REPOSITORY FUNCTIONS -----------------------------------//
