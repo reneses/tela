@@ -47,13 +47,13 @@ GET /twitter/self
 ```
 ```json
 { 
-  screen_name: 'snoopdogg',
-  url: 'http://twitter.com/snoopdogg',
-  id: 1574083,
-  profile_image_url: 'https://twitter.com/snoop.jpg',
-  full_name: 'Snoop Dogg',
-  followers_count: 822,
-  friends_count: 420
+  "screen_name": "snoopdogg",
+  "url": "http://twitter.com/snoopdogg",
+  "id": 1574083,
+  "profile_image_url": "https://twitter.com/snoop.jpg",
+  "full_name": "Snoop Dogg",
+  "followers_count": 822,
+  "friends_count": 420
 }
 ```
 
@@ -80,13 +80,13 @@ GET /twitter/user?username=snoopdogg
 ```
 ```json
 { 
-  screen_name: 'snoopdogg',
-  url: 'http://twitter.com/snoopdogg',
-  id: 1574083,
-  profile_image_url: 'https://twitter.com/snoop.jpg',
-  full_name: 'Snoop Dogg',
-  followers_count: 822,
-  friends_count: 420
+  "screen_name": "snoopdogg",
+  "url": "http://twitter.com/snoopdogg",
+  "id": 1574083,
+  "profile_image_url": "https://twitter.com/snoop.jpg",
+  "full_name": "Snoop Dogg",
+  "followers_count": 822,
+  "friends_count": 420
 }
 ```
 
@@ -113,13 +113,13 @@ GET /twitter/following?limit=1
 ```json
 [
   { 
-    screen_name: 'snoopdogg',
-    url: 'http://twitter.com/snoopdogg',
-    id: 1574083,
-    profile_image_url: 'https://twitter.com/snoop.jpg',
-    full_name: 'Snoop Dogg',
-    followers_count: 822,
-    friends_count: 420
+    "screen_name": "snoopdogg",
+    "url": "http://twitter.com/snoopdogg",
+    "id": 1574083,
+    "profile_image_url": "https://twitter.com/snoop.jpg",
+    "full_name": "Snoop Dogg",
+    "followers_count": 822,
+    "friends_count": 420
   }
 ]
 ```
@@ -147,13 +147,13 @@ GET /twitter/followers?limit=1
 ```json
 [
   { 
-    screen_name: 'snoopdogg',
-    url: 'http://twitter.com/snoopdogg',
-    id: 1574083,
-    profile_image_url: 'https://twitter.com/snoop.jpg',
-    full_name: 'Snoop Dogg',
-    followers_count: 822,
-    friends_count: 420
+    "screen_name": "snoopdogg",
+    "url": "http://twitter.com/snoopdogg",
+    "id": 1574083,
+    "profile_image_url": "https://twitter.com/snoop.jpg",
+    "full_name": "Snoop Dogg",
+    "followers_count": 822,
+    "friends_count": 420
   }
 ]
 ```
@@ -176,13 +176,13 @@ GET /twitter/friends
 ```json
 [
   { 
-    screen_name: 'snoopdogg',
-    url: 'http://twitter.com/snoopdogg',
-    id: 1574083,
-    profile_image_url: 'https://twitter.com/snoop.jpg',
-    full_name: 'Snoop Dogg',
-    followers_count: 822,
-    friends_count: 420
+    "screen_name": "snoopdogg",
+    "url": "http://twitter.com/snoopdogg",
+    "id": 1574083,
+    "profile_image_url": "https://twitter.com/snoop.jpg",
+    "full_name": "Snoop Dogg",
+    "followers_count": 822,
+    "friends_count": 420
   }
 ]
 ```
