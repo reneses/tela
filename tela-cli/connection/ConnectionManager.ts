@@ -4,7 +4,7 @@ import os = require("os");
 import path = require("path");
 
 /**
- * IConnection utility
+ * Connection utility
  *
  * @param filename
  * @returns {{save: save, destroy: destroy, load: get}}
