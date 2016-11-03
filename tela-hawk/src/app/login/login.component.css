@@ -1,0 +1,60 @@
+main {
+    background: #3f729b linear-gradient(#3f729b, #3a5b80);
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+
+#login {
+    border: 2px solid white;
+    padding: 15px;
+    border-radius: 10px;
+    background-color: rgba(255,255,255,.3);
+    cursor: pointer;
+    display: flex;
+    text-decoration: none;
+    color: white;
+    box-shadow: 1px 1px 10px rgba(0,0,0,.7);
+}
+#login:hover {
+    background-color: rgba(255,255,255,.5);
+}
+
+#login > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#login > div > #logo {
+    margin-bottom: 10px;
+}
+#login > div > #logo > span {
+    cursor: pointer;
+}
+#login > img {
+    margin-left: 15px;
+    height: 70px;
+    width: auto;
+}
+
+h2 {
+    color: white;
+    font-weight: 300;
+    margin-top: 5px;
+    cursor: default;
+    font-size: .9em;
+}
+h2 > a {
+    color: white;
+    text-decoration: underline;
+}
+
+#message {
+    margin: -10px 0 10px;
+    color: white;
+    cursor: default;
+}

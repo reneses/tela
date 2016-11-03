@@ -1,0 +1,21 @@
+<div id="toolbar" class="ui fixed menu">
+    <div class="ui container">
+        <div href="#" class="header item borderless">
+            <a id="logo" href="#">
+                <span>H</span>
+                <span>A</span>
+                <span>W</span>
+                <span>K</span>
+            </a>
+        </div>
+        <a href="#" class="ui right simple dropdown item borderless" tabindex="0">
+            <div id="toolbar-user">
+                <img src="{{ picture }}" alt="{{ username }}">
+                <span>{{ username }}</span>
+            </div>
+            <div class="menu">
+                <div class="item" (click)="logOut()">Log out</div>
+            </div>
+        </a>
+    </div>
+</div>

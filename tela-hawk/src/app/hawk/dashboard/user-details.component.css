@@ -1,0 +1,8 @@
+.ui.grid.media-thumbnails {
+    margin-right: -.3rem;
+    margin-left: -.3rem;
+}
+.ui.grid.media-thumbnails>.column {
+    padding-left: .3rem;
+    padding-right: .3rem;
+}

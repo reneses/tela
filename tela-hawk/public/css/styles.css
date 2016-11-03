@@ -1,0 +1,77 @@
+/******************** LOGO *********************/
+#logo-wrapper {
+    padding: 5px;
+}
+
+#logo {
+    font-size: 1em;
+    font-family: 'Cousine', monospace;
+    cursor: pointer;
+}
+
+#logo > span {
+    color: #3f729b;
+    text-align: center;
+    background-color: white;
+    font-size: 2.25em;
+    margin-right: 1px;
+    display: inline-block;
+    height: 35px;
+    width: 35px;
+    line-height: 1.3em;
+
+}
+
+#logo > span:nth-child(1) {
+    box-shadow: 4px 4px 0 #fb3958;
+}
+
+#logo > span:nth-child(1):hover {
+    background-color: #fb3958;
+}
+
+#logo > span:nth-child(2) {
+    box-shadow: 4px 4px 0 #ffc838;
+}
+
+#logo > span:nth-child(2):hover {
+    background-color: #ffc838;
+}
+
+#logo > span:nth-child(3) {
+    box-shadow: 4px 4px 0 #6dc993;
+}
+
+#logo > span:nth-child(3):hover {
+    background-color: #6dc993;
+}
+
+#logo > span:nth-child(4) {
+    box-shadow: 4px 4px 0 #458eff;
+}
+
+#logo > span:nth-child(4):hover {
+    background-color: #458eff;
+}
+
+.ui.segment.marino,
+.ui.button.marino {
+    background-color: #3f729b;
+    color: white;
+}
+
+.ui.button.marino:hover,
+.ui.button.marino:active,
+.ui.button.marino.active,
+.ui.button.marino:focus {
+    background-color: #3a5b80;
+    color: white;
+}
+
+.full {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}

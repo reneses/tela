@@ -1,0 +1,5 @@
+<div class="ui main text container">
+    <div class="ui active centered inline loader" *ngIf="isUserLoading"></div>
+    <user-details *ngIf="!isLoadingUser" [user]="user"></user-details>
+    <chart [counts]="counts"></chart>
+</div>
