@@ -6,6 +6,7 @@ import com.github.scribejava.core.model.OAuth1AccessToken;
 import com.github.scribejava.core.model.OAuthRequest;
 import com.github.scribejava.core.model.Verb;
 import com.github.scribejava.core.oauth.OAuth10aService;
+import io.reneses.tela.modules.twitter.api.responses.UserResponse;
 import io.reneses.tela.modules.twitter.api.exceptions.TwitterException;
 import io.reneses.tela.modules.twitter.api.responses.UsersResponse;
 import io.reneses.tela.modules.twitter.models.User;
@@ -21,7 +22,7 @@ import java.util.List;
 class TwitterApiImpl implements TwitterApi {
 
     String oauthGetRequest(String apiKey, String apiSecret, String token, String tokenSecret,
-                                   String endpoint, String ... params) throws IOException {
+                           String endpoint, String... params) throws IOException {
 
         OAuth10aService service = new ServiceBuilder()
                 .apiKey(apiKey)
@@ -31,7 +32,7 @@ class TwitterApiImpl implements TwitterApi {
         OAuthRequest request = new OAuthRequest(Verb.GET, endpoint, service);
         if (params.length > 0) {
             for (int i = 0; i <= params.length / 2; i += 2)
-                request.addParameter(params[i], params[i+1]);
+                request.addParameter(params[i], params[i + 1]);
         }
         service.signRequest(accessToken, request);
         return request.send().getBody();
@@ -43,7 +44,7 @@ class TwitterApiImpl implements TwitterApi {
             throws TwitterException {
 
         try {
-            int limitToUse = limit > 0? limit : Integer.MAX_VALUE;
+            int limitToUse = limit > 0 ? limit : Integer.MAX_VALUE;
             List<User> users = new ArrayList<>();
             String nextCursor = cursor;
             while (true) {
@@ -51,18 +52,23 @@ class TwitterApiImpl implements TwitterApi {
                 String stringResponse = oauthGetRequest(
                         apiKey, apiSecret, token, tokenSecret, endpoint,
                         "screen_name", username,
-                        "count", limitToUse > 200? "200" : String.valueOf(limitToUse),
+                        "count", limitToUse > 200 ? "200" : String.valueOf(limitToUse),
                         "cursor", nextCursor,
                         "skip_status", "true",
                         "include_user_entities", "false");
 
                 UsersResponse response = new ObjectMapper().readValue(stringResponse, UsersResponse.class);
+                if (response.hasErrors()) {
+                    throw new TwitterException(response.getErrors().toString(), 400);
+                }
                 users.addAll(response.getUsers());
                 nextCursor = response.getNextCursor();
                 if (nextCursor == null || nextCursor.isEmpty() || users.size() >= limitToUse)
                     break;
             }
             return users.size() > limitToUse ? users.subList(0, limitToUse) : users;
+        } catch (TwitterException e) {
+            throw e;
         } catch (Exception e) {
             throw new TwitterException("Unknown:" + e.getMessage(), 500);
         }
@@ -78,9 +84,15 @@ class TwitterApiImpl implements TwitterApi {
     public User self(String apiKey, String apiSecret, String token, String tokenSecret) throws TwitterException {
         try {
             String endpoint = "https://api.twitter.com/1.1/account/verify_credentials.json";
-            String response = oauthGetRequest(apiKey, apiSecret, token, tokenSecret, endpoint,
-                    "skip_status", "true","include_user_entities", "false","include_email", "true");
-            return new ObjectMapper().readValue(response, User.class);
+            String stringResponse = oauthGetRequest(apiKey, apiSecret, token, tokenSecret, endpoint,
+                    "skip_status", "true", "include_user_entities", "false", "include_email", "true");
+            UserResponse response =  new ObjectMapper().readValue(stringResponse, UserResponse.class);
+            if (response.hasErrors()) {
+                throw new TwitterException(response.getErrors().toString(), 400);
+            }
+            return response.getUser();
+        } catch (TwitterException e) {
+            throw e;
         } catch (Exception e) {
             throw new TwitterException("Unknown:" + e.getMessage(), 500);
         }
@@ -95,9 +107,15 @@ class TwitterApiImpl implements TwitterApi {
 
         try {
             String endpoint = "https://api.twitter.com/1.1/users/show.json";
-            String response = oauthGetRequest(apiKey, apiSecret, token, tokenSecret, endpoint,
-                    "screen_name", username,"include_entities", "false");
-            return new ObjectMapper().readValue(response, User.class);
+            String stringResponse = oauthGetRequest(apiKey, apiSecret, token, tokenSecret, endpoint,
+                    "screen_name", username, "include_entities", "false");
+            UserResponse response =  new ObjectMapper().readValue(stringResponse, UserResponse.class);
+            if (response.hasErrors()) {
+                throw new TwitterException(response.getErrors().toString(), 400);
+            }
+            return response.getUser();
+        } catch (TwitterException e) {
+            throw e;
         } catch (Exception e) {
             throw new TwitterException("Unknown:" + e.getMessage(), 500);
         }

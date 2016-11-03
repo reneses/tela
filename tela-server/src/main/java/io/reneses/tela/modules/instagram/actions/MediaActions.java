@@ -2,6 +2,7 @@ package io.reneses.tela.modules.instagram.actions;
 
 import io.reneses.tela.core.dispatcher.annotations.Action;
 import io.reneses.tela.core.dispatcher.annotations.Module;
+import io.reneses.tela.core.dispatcher.annotations.Schedulable;
 import io.reneses.tela.modules.instagram.api.AbstractInstagramApiWrapper;
 import io.reneses.tela.modules.instagram.api.exceptions.InstagramException;
 import io.reneses.tela.modules.instagram.models.Comment;
@@ -14,7 +15,6 @@ import java.util.List;
  * Media actions
  */
 @Module("instagram")
-// TODO check cache
 public class MediaActions extends InstagramActions {
 
     /**

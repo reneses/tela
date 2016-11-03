@@ -39,6 +39,8 @@ class TwitterApiWrapper extends AbstractTwitterApiWrapper {
                      String username) throws TwitterException {
 
         User user = api.user(apiKey, apiSecret, token, tokenSecret, username);
+        if (user == null)
+            throw new TwitterException("The user does not exist", 404);
         repository.create(user);
         history.add(new HistoryEntry(TwitterTelaModule.NAME, "user", username));
         accessTokenUsernameCache.put(token, user.getScreenName());
