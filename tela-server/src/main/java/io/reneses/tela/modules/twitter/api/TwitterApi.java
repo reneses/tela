@@ -29,6 +29,20 @@ interface TwitterApi {
     User self(String apiKey, String apiSecret, String token, String tokenSecret) throws TwitterException;
 
     /**
+     * Retrieve information about a user
+     * Documentation: https://dev.twitter.com/rest/reference/get/account/verify_credentials
+     *
+     * @param apiKey Api Key
+     * @param apiSecret Api Secret
+     * @param token Token
+     * @param tokenSecret Token secret
+     * @param username Username
+     * @return User with the given username
+     * @throws TwitterException if any.
+     */
+    User user(String apiKey, String apiSecret, String token, String tokenSecret, String username) throws TwitterException;
+
+    /**
      * Retrieve the followers of a user
      * Documentation: https://dev.twitter.com/rest/reference/get/followers/list
      *

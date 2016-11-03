@@ -23,6 +23,13 @@ public class TwitterTestUtils {
                 anyString(), anyString(),
                 anyString(), anyString());
 
+        String userRes = IOUtils.toString(TwitterTestUtils.class.getResourceAsStream("/twitter/user.json"));
+        doReturn(userRes).when(twitterApi).oauthGetRequest(
+                eq("1"), eq("2"), eq("3"), eq("4"),
+                eq("https://api.twitter.com/1.1/users/show.json"),
+                eq("screen_name"), eq("uniovi"),
+                anyString(), anyString());
+
         String userRes11 = IOUtils.toString(TwitterTestUtils.class.getResourceAsStream("/twitter/relationship-1-1.json"));
         String userRes12 = IOUtils.toString(TwitterTestUtils.class.getResourceAsStream("/twitter/relationship-1-2.json"));
         String userRes2 = IOUtils.toString(TwitterTestUtils.class.getResourceAsStream("/twitter/relationship-2.json"));

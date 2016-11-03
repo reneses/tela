@@ -48,6 +48,11 @@ public class UserActionsTest {
     }
 
     @Test
+    public void user() throws Exception {
+        assertEquals(api.user("1", "2", "3","4", "uniovi"), actions.user("1:2:3:4", "uniovi"));
+    }
+
+    @Test
     public void followersWithoutLimit() throws Exception {
         assertEquals(api.followers("1", "2", "3","4",""), actions.followers("1:2:3:4", ""));
     }

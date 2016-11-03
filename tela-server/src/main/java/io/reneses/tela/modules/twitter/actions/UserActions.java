@@ -61,6 +61,21 @@ public class UserActions {
     }
 
     /**
+     * Retrieve information about tha user
+     *
+     * @param token Access token
+     * @param username Username
+     * @return User with the given username
+     * @throws TwitterException if any.
+     */
+    @Action(description = "Get the logged user", parameters = {"token", "username"})
+    @Schedulable(minimumDelay = 3600)
+    public User user(String token, String username) throws TwitterException {
+        String[] credentials = extractCredentials(token);
+        return api.user(credentials[0], credentials[1], credentials[2], credentials[3], username);
+    }
+
+    /**
      * Retrieve the user a user is following
      *
      * @param token Access token

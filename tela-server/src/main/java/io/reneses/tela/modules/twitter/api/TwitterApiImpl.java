@@ -51,7 +51,7 @@ class TwitterApiImpl implements TwitterApi {
                 String stringResponse = oauthGetRequest(
                         apiKey, apiSecret, token, tokenSecret, endpoint,
                         "screen_name", username,
-                        "count", String.valueOf(limitToUse),
+                        "count", limitToUse > 200? "200" : String.valueOf(limitToUse),
                         "cursor", nextCursor,
                         "skip_status", "true",
                         "include_user_entities", "false");
@@ -80,7 +80,23 @@ class TwitterApiImpl implements TwitterApi {
             String endpoint = "https://api.twitter.com/1.1/account/verify_credentials.json";
             String response = oauthGetRequest(apiKey, apiSecret, token, tokenSecret, endpoint,
                     "skip_status", "true","include_user_entities", "false","include_email", "true");
-            System.out.println(response);
+            return new ObjectMapper().readValue(response, User.class);
+        } catch (Exception e) {
+            throw new TwitterException("Unknown:" + e.getMessage(), 500);
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public User user(String apiKey, String apiSecret, String token, String tokenSecret,
+                     String username) throws TwitterException {
+
+        try {
+            String endpoint = "https://api.twitter.com/1.1/users/show.json";
+            String response = oauthGetRequest(apiKey, apiSecret, token, tokenSecret, endpoint,
+                    "screen_name", username,"include_entities", "false");
             return new ObjectMapper().readValue(response, User.class);
         } catch (Exception e) {
             throw new TwitterException("Unknown:" + e.getMessage(), 500);

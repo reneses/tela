@@ -46,6 +46,11 @@ public class TwitterApiWrapperTest {
     }
 
     @Test
+    public void user() throws Exception {
+        assertEquals(api.user("1","2","3","4", "uniovi"), apiWrapper.user("1","2","3","4", "uniovi"));
+    }
+
+    @Test
     public void followersWithoutLimit() throws Exception {
         assertEquals(api.followers("1","2","3","4", ""), apiWrapper.followers("1","2","3","4", ""));
     }

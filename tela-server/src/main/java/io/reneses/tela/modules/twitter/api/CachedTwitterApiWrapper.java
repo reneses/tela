@@ -48,6 +48,18 @@ class CachedTwitterApiWrapper extends TwitterApiWrapper {
 
     /** {@inheritDoc} */
     @Override
+    public User user(String apiKey, String apiSecret, String token, String tokenSecret,
+                     String username) throws TwitterException {
+
+        if (history.isPresent(new HistoryEntry(TwitterTelaModule.NAME, "user", username))) {
+            LOGGER.debug("[Cache] user({}) retrieved from the cache", username);
+            return repository.find(getUsernameFromAccessToken(apiKey, apiSecret, token, tokenSecret));
+        }
+        return super.user(apiKey, apiSecret, token, tokenSecret, username);
+    }
+
+    /** {@inheritDoc} */
+    @Override
     public List<User> followers(String apiKey, String apiSecret, String token, String tokenSecret,
                                 String username, int limit) throws TwitterException {
 

@@ -20,13 +20,20 @@ public class TwitterApiImplTest {
         api = TwitterTestUtils.mockTwitterApi();
     }
 
-
     @Test
     public void self() throws Exception {
         File file = new File(User.class.getResource("/twitter/self.json").toURI());
         User self = new ObjectMapper().readValue(file, User.class);
         User retrievedSelf = api.self("1","2","3","4");
         assertEquals(self, retrievedSelf);
+    }
+
+    @Test
+    public void user() throws Exception {
+        File file = new File(User.class.getResource("/twitter/user.json").toURI());
+        User user = new ObjectMapper().readValue(file, User.class);
+        User retrieved = api.user("1","2","3","4", "uniovi");
+        assertEquals(user, retrieved);
     }
 
     @Test

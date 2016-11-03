@@ -65,6 +65,26 @@ public class CachedTwitterApiWrapperTest {
     }
 
     @Test
+    public void user() throws Exception {
+
+        User self = api.user("1", "2", "3", "4", "uniovi");
+        verify(api, times(1)).user("1", "2", "3", "4", "uniovi");
+
+        // Cached
+        User result = apiWrapper.user("1", "2", "3", "4", "uniovi");
+        assertNotNull(result);
+        assertEquals(self, result);
+        verify(api, times(2)).user("1", "2", "3", "4", "uniovi");
+
+        // Cached
+        result = apiWrapper.user("1", "2", "3", "4", "uniovi");
+        assertNotNull(result);
+        assertEquals(self, result);
+        verify(api, times(2)).user("1", "2", "3", "4", "uniovi");
+
+    }
+
+    @Test
     public void followersWithLimit() throws Exception {
 
         User self = api.self("1", "2", "3", "4");

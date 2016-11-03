@@ -95,9 +95,11 @@ public class OrientUserRepository implements UserRepository {
     private List<User> findFollowRelationship(OrientGraphWrapper telaGraph, OrientBaseGraph graph, String screenName, Direction direction) {
         OrientVertex userVertex = findUserVertex(telaGraph, graph, screenName);
         List<User> relationship = new ArrayList<>();
-        for (Edge edge : userVertex.getEdges(direction, TwitterOrientDatabaseExtension.User.FOLLOWS)) {
-            Vertex vertex = edge.getVertex(direction.opposite());
-            relationship.add(mapVertex(vertex));
+        if (userVertex != null) {
+            for (Edge edge : userVertex.getEdges(direction, TwitterOrientDatabaseExtension.User.FOLLOWS)) {
+                Vertex vertex = edge.getVertex(direction.opposite());
+                relationship.add(mapVertex(vertex));
+            }
         }
         return relationship;
     }

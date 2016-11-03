@@ -35,6 +35,18 @@ class TwitterApiWrapper extends AbstractTwitterApiWrapper {
 
     /** {@inheritDoc} */
     @Override
+    public User user(String apiKey, String apiSecret, String token, String tokenSecret,
+                     String username) throws TwitterException {
+
+        User user = api.user(apiKey, apiSecret, token, tokenSecret, username);
+        repository.create(user);
+        history.add(new HistoryEntry(TwitterTelaModule.NAME, "user", username));
+        accessTokenUsernameCache.put(token, user.getScreenName());
+        return user;
+    }
+
+    /** {@inheritDoc} */
+    @Override
     public List<User> followers(String apiKey, String apiSecret, String token, String tokenSecret, String username, int limit) throws TwitterException {
         List<User> followers = api.followers(apiKey, apiSecret, token, tokenSecret, username, limit);
         repository.setFollowers(followers, self(apiKey, apiSecret, token, tokenSecret));
