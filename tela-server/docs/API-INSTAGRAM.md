@@ -50,17 +50,17 @@ GET /instagram/self
 ```
 ```json
 { 
-  username: 'snoopdogg',
-  bio: 'Snoop Snoop Snoop!',
-  website: 'http://reneses.io',
-  id: 1574083,
-  profile_picture: 'https://scontent.cdninstagram.com/snoop.jpg',
-  full_name: 'Snoop Dogg',
-  counts: { 
-    media: 412,
-    followed_by: 822,
-    follows: 420,
-    created_at: 1477910384251
+  "username": "snoopdogg",
+  "bio": "Snoop Snoop Snoop!",
+  "website": "http://reneses.io",
+  "id": 1574083,
+  "profile_picture": "https://scontent.cdninstagram.com/snoop.jpg",
+  "full_name": "Snoop Dogg",
+  "counts": { 
+    "media": 412,
+    "followed_by": 822,
+    "follows": 420,
+    "created_at": 1477910384251
   }
 }
 ```
@@ -88,10 +88,10 @@ GET /instagram/search?username=snoopdogg
 ```
 ```json
 { 
-  username: 'snoopdogg',
-  id: 1574083,
-  profile_picture: 'https://scontent.cdninstagram.com/snoop.jpg',
-  full_name: 'Snoop Dogg'
+  "username": "snoopdogg",
+  "id": 1574083,
+  "profile_picture": "https://scontent.cdninstagram.com/snoop.jpg",
+  "full_name": "Snoop Dogg"
 }
 ```
 
@@ -125,17 +125,17 @@ Producing:
 
 ```json
 { 
-  username: 'snoopdogg',
-  bio: 'Snoop Snoop Snoop!',
-  website: 'http://reneses.io',
-  id: 1574083,
-  profile_picture: 'https://scontent.cdninstagram.com/snoop.jpg',
-  full_name: 'Snoop Dogg',
-  counts: { 
-    media: 412,
-    followed_by: 822,
-    follows: 420,
-    created_at: 1477910384251
+  "username": "snoopdogg",
+  "bio": "Snoop Snoop Snoop!",
+  "website": "http://reneses.io",
+  "id": 1574083,
+  "profile_picture": "https://scontent.cdninstagram.com/snoop.jpg",
+  "full_name": "Snoop Dogg",
+  "counts": { 
+    "media": 412,
+    "followed_by": 822,
+    "follows": 420,
+    "created_at": 1477910384251
   }
 }
 ```
@@ -171,16 +171,16 @@ Producing:
 ```json
 [ 
   { 
-    media: 400,
-    followed_by: 800,
-    follows: 419,
-    created_at: 1477400384256
+    "media": 400,
+    "followed_by": 800,
+    "follows": 419,
+    "created_at": 1477400384256
   },
   { 
-    media: 412,
-    followed_by: 822,
-    follows: 420,
-    created_at: 1477910384251
+    "media": 412,
+    "followed_by": 822,
+    "follows": 420,
+    "created_at": 1477910384251
   }
 ]
 ```
@@ -210,10 +210,10 @@ GET /instagram/following?limit=1
 ```json
 [
   { 
-    username: 'snoopdogg',
-    id: 1574083,
-    profile_picture: 'https://scontent.cdninstagram.com/snoop.jpg',
-    full_name: 'Snoop Dogg',
+    "username": "snoopdogg",
+    "id": 1574083,
+    "profile_picture": "https://scontent.cdninstagram.com/snoop.jpg",
+    "full_name": "Snoop Dogg",
   }
 ]
 ```
@@ -242,10 +242,10 @@ GET /instagram/followers?limit=1
 ```json
 [
   { 
-    username: 'snoopdogg',
-    id: 1574083,
-    profile_picture: 'https://scontent.cdninstagram.com/snoop.jpg',
-    full_name: 'Snoop Dogg',
+    "username": "snoopdogg",
+    "id": 1574083,
+    "profile_picture": "https://scontent.cdninstagram.com/snoop.jpg",
+    "full_name": "Snoop Dogg",
   }
 ]
 ```
@@ -269,10 +269,10 @@ GET /instagram/friends
 ```json
 [
   { 
-    username: 'snoopdogg',
-    id: 1574083,
-    profile_picture: 'https://scontent.cdninstagram.com/snoop.jpg',
-    full_name: 'Snoop Dogg'
+    "username": "snoopdogg",
+    "id": 1574083,
+    "profile_picture": "https://scontent.cdninstagram.com/snoop.jpg",
+    "full_name": "Snoop Dogg"
   }
 ]
 ```
