@@ -38,11 +38,14 @@ public abstract class AbstractTwitterApiWrapper implements TwitterApi {
     /**
      * Retrieve the friends of a user (intersection between followers and following)
      *
-     * @param accessToken Access token
+     * @param apiKey Api Key
+     * @param apiSecret Api Secret
+     * @param token Token
+     * @param tokenSecret Token secret
      * @param username    Username
      * @return User friends
      * @throws TwitterException if any.
      */
-    public abstract List<User> friends(String accessToken, String username) throws TwitterException;
+    public abstract List<User> friends(String apiKey, String apiSecret, String token, String tokenSecret, String username) throws TwitterException;
 
 }

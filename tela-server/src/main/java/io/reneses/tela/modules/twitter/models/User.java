@@ -178,4 +178,18 @@ public class User {
         result = 31 * result + numberOfFollowing;
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", url='" + url + '\'' +
+                ", picture='" + picture + '\'' +
+                ", screenName='" + screenName + '\'' +
+                ", numberOfFollowers=" + numberOfFollowers +
+                ", numberOfFollowing=" + numberOfFollowing +
+                '}';
+    }
+
 }

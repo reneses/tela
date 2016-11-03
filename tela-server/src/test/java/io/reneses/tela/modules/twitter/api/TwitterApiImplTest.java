@@ -1,7 +1,6 @@
 package io.reneses.tela.modules.twitter.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.reneses.tela.modules.twitter.TwitterTestUtils;
 import io.reneses.tela.modules.twitter.api.responses.UsersResponse;
 import io.reneses.tela.modules.twitter.models.User;
 import org.junit.BeforeClass;
@@ -10,8 +9,7 @@ import org.junit.Test;
 import java.io.File;
 import java.util.List;
 
-import static org.junit.Assert.*;
-
+import static org.junit.Assert.assertEquals;
 
 public class TwitterApiImplTest {
 
@@ -19,14 +17,15 @@ public class TwitterApiImplTest {
 
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
-        api = new TwitterApiImpl(TwitterTestUtils.mockTwitterHttpClient());
+        api = TwitterTestUtils.mockTwitterApi();
     }
+
 
     @Test
     public void self() throws Exception {
         File file = new File(User.class.getResource("/twitter/self.json").toURI());
         User self = new ObjectMapper().readValue(file, User.class);
-        User retrievedSelf = api.self("");
+        User retrievedSelf = api.self("1","2","3","4");
         assertEquals(self, retrievedSelf);
     }
 
@@ -35,7 +34,7 @@ public class TwitterApiImplTest {
         File file = new File(User.class.getResource("/twitter/relationship-1-1.json").toURI());
         UsersResponse response = new ObjectMapper().readValue(file, UsersResponse.class);
         List<User> followers = response.getUsers().subList(0, 5);
-        List<User> retrievedUsers = api.followers("", "", 5);
+        List<User> retrievedUsers = api.followers("1","2","3","4", "", 5);
         assertEquals(followers.size(), retrievedUsers.size());
         assertEquals(followers, retrievedUsers);
     }
@@ -48,7 +47,7 @@ public class TwitterApiImplTest {
         UsersResponse response2 = new ObjectMapper().readValue(file2, UsersResponse.class);
         List<User> followers = response1.getUsers();
         followers.addAll(response2.getUsers());
-        List<User> retrievedUsers = api.followers("", "");
+        List<User> retrievedUsers = api.followers("1","2","3","4", "");
         assertEquals(followers.size(), retrievedUsers.size());
         assertEquals(followers, retrievedUsers);
     }
@@ -58,7 +57,7 @@ public class TwitterApiImplTest {
         File file = new File(User.class.getResource("/twitter/relationship-1-2.json").toURI());
         UsersResponse response = new ObjectMapper().readValue(file, UsersResponse.class);
         List<User> following = response.getUsers().subList(0, 5);
-        List<User> retrievedUsers = api.following("", "", 5);
+        List<User> retrievedUsers = api.following("1","2","3","4", "", 5);
         assertEquals(following.size(), retrievedUsers.size());
         assertEquals(following, retrievedUsers);
     }
@@ -71,7 +70,7 @@ public class TwitterApiImplTest {
         UsersResponse response2 = new ObjectMapper().readValue(file2, UsersResponse.class);
         List<User> following = response1.getUsers();
         following.addAll(response2.getUsers());
-        List<User> retrievedUsers = api.following("", "");
+        List<User> retrievedUsers = api.following("1","2","3","4", "");
         assertEquals(following.size(), retrievedUsers.size());
         assertEquals(following, retrievedUsers);
     }

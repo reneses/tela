@@ -5,7 +5,6 @@ import io.reneses.tela.core.cache.CacheManagerFactory;
 import io.reneses.tela.core.databases.orientdb.OrientGraphWrapperFactory;
 import io.reneses.tela.core.history.History;
 import io.reneses.tela.core.history.HistoryFactory;
-import io.reneses.tela.modules.twitter.TwitterTestUtils;
 import io.reneses.tela.modules.twitter.actions.UserActions;
 import io.reneses.tela.modules.twitter.database.extensions.TwitterOrientDatabaseExtension;
 import io.reneses.tela.modules.twitter.models.User;
@@ -32,7 +31,7 @@ public class UserActionsTest {
         CacheManagerFactory.setMemoryMode();
         History history = HistoryFactory.create();
 
-        api = new TwitterApiImpl(TwitterTestUtils.mockTwitterHttpClient());
+        api = TwitterTestUtils.mockTwitterApi();
         actions = new UserActions(new TwitterApiWrapper(api, history));
 
     }
@@ -45,34 +44,34 @@ public class UserActionsTest {
 
     @Test
     public void self() throws Exception {
-        assertEquals(api.self(""), actions.self(""));
+        assertEquals(api.self("1", "2", "3","4"), actions.self("1:2:3:4"));
     }
 
     @Test
     public void followersWithoutLimit() throws Exception {
-        assertEquals(api.followers("",""), actions.followers("", ""));
+        assertEquals(api.followers("1", "2", "3","4",""), actions.followers("1:2:3:4", ""));
     }
 
     @Test
     public void followersWithLimit() throws Exception {
-        assertEquals(api.followers("","",3), actions.followers("", "",3));
+        assertEquals(api.followers("1", "2", "3","4","",3), actions.followers("1:2:3:4", "",3));
     }
 
     @Test
     public void followingWithoutLimit() throws Exception {
-        assertEquals(api.following("",""), actions.following("", ""));
+        assertEquals(api.following("1", "2", "3","4",""), actions.following("1:2:3:4", ""));
     }
 
     @Test
     public void followingWithLimit() throws Exception {
-        assertEquals(api.following("","",3), actions.following("", "",3));
+        assertEquals(api.following("1", "2", "3","4","",3), actions.following("1:2:3:4", "",3));
     }
 
     @Test
     public void friends() throws Exception {
-        List<User> friends = api.followers("","");
-        friends.retainAll(api.following("", ""));
-        List<User> retrieved =  actions.friends("",api.self("").getScreenName());
+        List<User> friends = api.followers("1", "2", "3","4","");
+        friends.retainAll(api.following("1", "2", "3","4", ""));
+        List<User> retrieved =  actions.friends("1:2:3:4",api.self("1", "2", "3","4").getScreenName());
         assertEquals(friends.size(), retrieved.size());
         assertTrue(friends.containsAll(retrieved));
     }
