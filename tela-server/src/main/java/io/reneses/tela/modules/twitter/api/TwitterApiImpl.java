@@ -6,8 +6,8 @@ import com.github.scribejava.core.model.OAuth1AccessToken;
 import com.github.scribejava.core.model.OAuthRequest;
 import com.github.scribejava.core.model.Verb;
 import com.github.scribejava.core.oauth.OAuth10aService;
-import io.reneses.tela.modules.twitter.api.responses.UserResponse;
 import io.reneses.tela.modules.twitter.api.exceptions.TwitterException;
+import io.reneses.tela.modules.twitter.api.responses.UserResponse;
 import io.reneses.tela.modules.twitter.api.responses.UsersResponse;
 import io.reneses.tela.modules.twitter.models.User;
 

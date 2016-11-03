@@ -1,6 +1,5 @@
 package io.reneses.tela.modules.twitter.api.responses;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import io.reneses.tela.modules.twitter.api.models.ApiError;
