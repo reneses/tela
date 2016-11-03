@@ -1,0 +1,11 @@
+<div class="event">
+    <div class="label">
+        <img src="{{ user.picture }}">
+    </div>
+    <div class="content">
+        <div class="summary">
+            {{ user.fullName }} (<a href="https://www.instagram.com/{{ user.username }}">@{{ user.username }}</a>)
+        </div>
+    </div>
+    <button class="ui right floated button" (click)="detailUser(user.username)">Details</button>
+</div>

@@ -1,0 +1,28 @@
+<div class="ui main text container">
+    <div id="search" class="ui large fluid action input">
+        <input type="text" placeholder="Search..." #userToSearch>
+        <div class="ui marino button" (click)="search(userToSearch.value)">Find connections</div>
+    </div>
+    <div class="ui stacked segments">
+        <div class="ui large three buttons"
+             [class.top.attached]="showingFollowers || showingFollowing || showingFriends"
+             [class.attached]="showingFollowers || showingFollowing || showingFriends">
+                <button class="ui marino button" [class.active]="showingFollowers" (click)="showFollowers()">Followers</button>
+                <button class="ui marino button" [class.active]="showingFollowing" (click)="showFollowing()">Following</button>
+                <button class="ui marino button" [class.active]="showingFriends" (click)="showFriends()">Friends</button>
+        </div>
+        <div class="ui segment feed" *ngIf="showingFollowers || showingFollowing || showingFriends">
+            <div class="ui fluid icon input">
+                <input type="text" placeholder="Filter among the results" #query (keyup)="filterRelationship(query.value)">
+                <i class="search icon"></i>
+            </div>
+        </div>
+        <user-row
+                (detail)="search($event)"
+                *ngFor="let user of filteredResultUsers"
+                [user]="user">
+        </user-row>
+    </div>
+    <user-details *ngIf="showingSearch" [username]="searchUsername"></user-details>
+    <div class="ui active centered inline loader" *ngIf="loading"></div>
+</div>

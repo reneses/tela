@@ -1,0 +1,14 @@
+#toolbar {
+    background: #3f729b linear-gradient(#3f729b, #3a5b80);
+}
+#toolbar #toolbar-user {
+    color: white;
+}
+#toolbar #toolbar-user > img {
+    width: 30px;
+    display: inline-block;
+    border-radius: 100%;
+    margin-right: 5px;
+    vertical-align: middle;
+
+}
