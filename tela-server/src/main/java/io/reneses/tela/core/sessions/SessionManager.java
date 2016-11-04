@@ -18,7 +18,7 @@ public interface SessionManager {
 
     /**
      * Create new unique session adding a token
-     * This is shortcut for createOrUpdate() and then addToken()
+     * This is shortcut for createOrUpdate() and then addModuleToken()
      *
      * @return Session
      * @param module Module name
@@ -98,6 +98,6 @@ public interface SessionManager {
      * @param token   Module token
      * @throws SessionNotFoundException if the session does not exist.
      */
-    void addToken(Session session, String module, String token) throws SessionNotFoundException;
+    void addModuleToken(Session session, String module, String token) throws SessionNotFoundException;
 
 }

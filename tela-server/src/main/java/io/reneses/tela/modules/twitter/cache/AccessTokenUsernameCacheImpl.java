@@ -10,7 +10,7 @@ import io.reneses.tela.modules.twitter.TwitterTelaModule;
  */
 public class AccessTokenUsernameCacheImpl implements AccessTokenUsernameCache {
 
-    private static final String PREFIX = "twitter:token-username";
+    private static final String PREFIX = "token-username";
     private CacheManager cacheManager = CacheManagerFactory.create();
 
     private String getKey(String accessToken) {

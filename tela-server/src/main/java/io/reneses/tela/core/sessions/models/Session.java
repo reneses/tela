@@ -68,7 +68,7 @@ public class Session {
     }
 
     /**
-     * addToken.
+     * addModuleToken.
      *
      * @param module a {@link java.lang.String} object.
      * @param token a {@link java.lang.String} object.

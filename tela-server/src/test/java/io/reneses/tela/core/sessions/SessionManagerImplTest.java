@@ -119,8 +119,8 @@ public class SessionManagerImplTest {
     @Test
     public void deleteModuleTokenWithOtherTokens() throws Exception {
         Session session = sessionManager.create();
-        sessionManager.addToken(session, "test", "1");
-        sessionManager.addToken(session, "test2", "2");
+        sessionManager.addModuleToken(session, "test", "1");
+        sessionManager.addModuleToken(session, "test2", "2");
         sessionManager.deleteModuleToken(session, "test");
         assertTrue(sessionManager.existsByAccessToken(session.getAccessToken()));
         assertEquals("2", sessionManager.getModuleToken(session, "test2"));
@@ -153,20 +153,20 @@ public class SessionManagerImplTest {
     @Test
     public void deleteByModuleTokenOtherTokens() throws Exception {
         Session session = sessionManager.createWithModuleToken("test", "1");
-        sessionManager.addToken(session, "test2", "2");
+        sessionManager.addModuleToken(session, "test2", "2");
         assertTrue(sessionManager.deleteByModuleToken("test", "1"));
         assertFalse(sessionManager.existsByAccessToken(session.getAccessToken()));
     }
 
     @Test(expected = SessionNotFoundException.class)
     public void addTokenSessionNotExisting() throws Exception {
-        sessionManager.addToken(new Session(), "test", "2");
+        sessionManager.addModuleToken(new Session(), "test", "2");
     }
 
     @Test
     public void addTokenSession() throws Exception {
         Session session = sessionManager.create();
-        sessionManager.addToken(session, "test", "2");
+        sessionManager.addModuleToken(session, "test", "2");
         assertEquals("2", sessionManager.getModuleToken(session, "test"));
         assertEquals(session, sessionManager.findByModuleToken("test", "2"));
     }
@@ -175,7 +175,7 @@ public class SessionManagerImplTest {
     public void addTokenAlreadyExisting() throws Exception {
         Session s1 = sessionManager.createWithModuleToken("test", "1");
         Session s2 = sessionManager.create();
-        sessionManager.addToken(s2, "test", "1");
+        sessionManager.addModuleToken(s2, "test", "1");
         assertTrue(sessionManager.existsByAccessToken(s1.getAccessToken()));
         try {
             sessionManager.getModuleToken(s1, "test");

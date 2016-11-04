@@ -55,7 +55,7 @@ class ActionScanner extends AbstractActionScanner {
         String name = annotation.value();
         Module module = new Module(name);
         for (Method m : c.getMethods()) {
-            if (m.isAnnotationPresent(io.reneses.tela.core.dispatcher.annotations.Action.class))
+            if (m.isAnnotationPresent(io.reneses.tela.core.dispatcher.annotations.Action.class)) {
                 try {
                     Action action = new Action(m);
                     LOGGER.debug("Action loaded: {}/{} {}", module.getName(), action.getName(), action.getParameters().keySet());
@@ -63,6 +63,7 @@ class ActionScanner extends AbstractActionScanner {
                 } catch (Exception e) {
                     LOGGER.error("The method " + m.getDeclaringClass() + "." + m.getName() + " could not be init as an action", e);
                 }
+            }
         }
         return module;
     }

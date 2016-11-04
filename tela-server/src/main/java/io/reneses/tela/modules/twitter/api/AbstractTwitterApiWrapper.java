@@ -27,12 +27,10 @@ public abstract class AbstractTwitterApiWrapper implements TwitterApi {
      * @param history History
      */
     AbstractTwitterApiWrapper(TwitterApi api, History history) {
-
         this.api = api;
         this.history = history;
         this.repository = new OrientUserRepository();
         this.accessTokenUsernameCache = new AccessTokenUsernameCacheImpl();
-
     }
 
     /**

@@ -1,17 +1,14 @@
 package io.reneses.tela.core.scheduler;
 
 import io.reneses.tela.TestUtils;
-import io.reneses.tela.core.databases.orientdb.OrientGraphWrapperFactory;
 import io.reneses.tela.core.dispatcher.ActionDispatcher;
 import io.reneses.tela.core.dispatcher.ActionDispatcherFactory;
 import io.reneses.tela.core.dispatcher.exceptions.ActionNotDefinedException;
 import io.reneses.tela.core.dispatcher.exceptions.InvalidParameterTypeException;
 import io.reneses.tela.core.scheduler.models.ScheduledAction;
-import io.reneses.tela.core.scheduler.databases.extensions.SchedulerOrientDatabaseExtension;
 import io.reneses.tela.TestActions;
 import io.reneses.tela.core.scheduler.exceptions.ActionNotSchedulableException;
 import io.reneses.tela.core.sessions.SessionManager;
-import io.reneses.tela.core.sessions.SessionManagerFactory;
 import io.reneses.tela.core.sessions.models.Session;
 import io.reneses.tela.core.sessions.exceptions.SessionNotFoundException;
 import org.junit.After;
@@ -141,7 +138,7 @@ public class SchedulerImplTest {
         sessionManager.delete(session);
         Thread.sleep(2000);
         assertEquals(2, TestActions.getCount());
-        assertTrue(scheduler.getActions().isEmpty());
+        assertTrue(scheduler.getScheduledActions().isEmpty());
     }
 
     @Test
@@ -166,9 +163,9 @@ public class SchedulerImplTest {
     public void closeActionsPersists() throws Exception {
         ScheduledAction task = new ScheduledAction(session.getAccessToken(), 3, "test", "count");
         scheduler.schedule(task);
-        scheduler.getActions();
+        scheduler.getScheduledActions();
         scheduler.close();
-        scheduler.getActions();
+        scheduler.getScheduledActions();
         assertTrue(scheduler.contains(task));
     }
 }

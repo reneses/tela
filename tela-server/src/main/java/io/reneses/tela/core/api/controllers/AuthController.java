@@ -129,7 +129,7 @@ public class AuthController extends TelaController {
             if (token == null || token.isEmpty())
                 throw new RequiredParameterException("Token required");
             LOGGER.info("{}:{} [Auth] Edit session add '{}' token '{}'", request.getRemoteAddr(), session, module, token);
-            sessionManager.addToken(session, module, token);
+            sessionManager.addModuleToken(session, module, token);
             return buildResponse("Success");
 
         } catch (ApiException e) {

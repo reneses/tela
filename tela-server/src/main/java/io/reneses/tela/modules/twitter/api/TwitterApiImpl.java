@@ -21,7 +21,7 @@ import java.util.List;
  */
 class TwitterApiImpl implements TwitterApi {
 
-    String oauthGetRequest(String apiKey, String apiSecret, String token, String tokenSecret,
+    String oAuthGetRequest(String apiKey, String apiSecret, String token, String tokenSecret,
                            String endpoint, String... params) throws IOException {
 
         OAuth10aService service = new ServiceBuilder()
@@ -49,7 +49,7 @@ class TwitterApiImpl implements TwitterApi {
             String nextCursor = cursor;
             while (true) {
 
-                String stringResponse = oauthGetRequest(
+                String stringResponse = oAuthGetRequest(
                         apiKey, apiSecret, token, tokenSecret, endpoint,
                         "screen_name", username,
                         "count", limitToUse > 200 ? "200" : String.valueOf(limitToUse),
@@ -84,7 +84,7 @@ class TwitterApiImpl implements TwitterApi {
     public User self(String apiKey, String apiSecret, String token, String tokenSecret) throws TwitterException {
         try {
             String endpoint = "https://api.twitter.com/1.1/account/verify_credentials.json";
-            String stringResponse = oauthGetRequest(apiKey, apiSecret, token, tokenSecret, endpoint,
+            String stringResponse = oAuthGetRequest(apiKey, apiSecret, token, tokenSecret, endpoint,
                     "skip_status", "true", "include_user_entities", "false", "include_email", "true");
             UserResponse response =  new ObjectMapper().readValue(stringResponse, UserResponse.class);
             if (response.hasErrors()) {
@@ -107,7 +107,7 @@ class TwitterApiImpl implements TwitterApi {
 
         try {
             String endpoint = "https://api.twitter.com/1.1/users/show.json";
-            String stringResponse = oauthGetRequest(apiKey, apiSecret, token, tokenSecret, endpoint,
+            String stringResponse = oAuthGetRequest(apiKey, apiSecret, token, tokenSecret, endpoint,
                     "screen_name", username, "include_entities", "false");
             UserResponse response =  new ObjectMapper().readValue(stringResponse, UserResponse.class);
             if (response.hasErrors()) {

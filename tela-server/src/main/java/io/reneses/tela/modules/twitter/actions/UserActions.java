@@ -39,7 +39,7 @@ public class UserActions {
     private String[] extractCredentials(String token) throws TwitterException {
         String[] twitterCredentials = token.split(":");
         if (twitterCredentials.length != 4) {
-            throw new TwitterException("Illegal session", 401);
+            throw new TwitterException("Invalid Twitter module token", 401);
         }
         return twitterCredentials;
     }

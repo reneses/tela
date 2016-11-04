@@ -72,14 +72,14 @@ public interface Scheduler {
      * @param session Session
      * @return Scheduled actions with the given session
      */
-    List<ScheduledAction> getActions(Session session);
+    List<ScheduledAction> getScheduledActions(Session session);
 
     /**
      * Get all the scheduled actions
      *
      * @return Scheduled actions
      */
-    List<ScheduledAction> getActions();
+    List<ScheduledAction> getScheduledActions();
 
     /**
      * Cancel a scheduled action

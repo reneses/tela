@@ -34,9 +34,9 @@ class SchedulerImpl extends AbstractScheduler {
     /**
      * Scheduler constructor
      *
-     * @param dispatcher Action dispatcher
+     * @param dispatcher     Action dispatcher
      * @param sessionManager Session manager
-     * @param delay Scheduler delay (in seconds)
+     * @param delay          Scheduler delay (in seconds)
      */
     SchedulerImpl(ActionDispatcher dispatcher, SessionManager sessionManager, int delay) {
         super(dispatcher, sessionManager, delay);
@@ -46,7 +46,9 @@ class SchedulerImpl extends AbstractScheduler {
         LOGGER.info("[Scheduler] Scheduler initiated with a delay of {} seconds", getDelay());
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void close() {
         pool.shutdown();
@@ -65,10 +67,12 @@ class SchedulerImpl extends AbstractScheduler {
                 executeScheduled(task);
                 task.updateNextExecution();
                 repository.updateNextExecution(task);
-            } catch (ActionNotDefinedException | ActionNotSchedulableException | ModuleNotDefinedException | InvalidParameterTypeException e) {
+            } catch (ActionNotDefinedException | ActionNotSchedulableException |
+                    ModuleNotDefinedException | InvalidParameterTypeException e) {
                 throw new RuntimeException("The scheduled action " + task + " has been corrupted");
             } catch (SessionNotFoundException | ModuleTokenNotFoundException e) {
-                LOGGER.warn("[Scheduler] The session {} is not available anymore, any of its actions will be rescheduled", task.getAccessToken());
+                LOGGER.warn("[Scheduler] The session {} is not available anymore, any of its actions will be rescheduled",
+                        task.getAccessToken());
                 repository.deleteByAccessToken(task.getAccessToken());
             } catch (Exception e) {
                 LOGGER.error("[Scheduler] The scheduled action has raised an exception and will not be rescheduled again", e);
@@ -109,7 +113,9 @@ class SchedulerImpl extends AbstractScheduler {
         return dispatcher.dispatch(session, scheduledAction.getModuleName(), action.getName(), scheduledAction.getParams());
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public <T> T schedule(ScheduledAction action) throws Exception {
         T result = executeScheduled(action);
@@ -120,13 +126,17 @@ class SchedulerImpl extends AbstractScheduler {
         return result;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean contains(ScheduledAction action) {
         return repository.contains(action.getId());
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public ScheduledAction getScheduledAction(int actionId) throws ActionNotScheduledException {
         ScheduledAction action = repository.find(actionId);
@@ -135,19 +145,25 @@ class SchedulerImpl extends AbstractScheduler {
         return action;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public List<ScheduledAction> getActions(Session session) {
+    public List<ScheduledAction> getScheduledActions(Session session) {
         return repository.findByAccessToken(session.getAccessToken());
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public List<ScheduledAction> getActions() {
+    public List<ScheduledAction> getScheduledActions() {
         return repository.findAll();
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void cancel(Session session, ScheduledAction action) throws ActionNotScheduledException, ForbiddenSchedulerException {
         if (!session.getAccessToken().equals(action.getAccessToken()))
@@ -156,13 +172,17 @@ class SchedulerImpl extends AbstractScheduler {
             throw new ActionNotScheduledException(action);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void cancel(Session session, int actionId) throws ActionNotScheduledException, ForbiddenSchedulerException {
         cancel(session, getScheduledAction(actionId));
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void cancelAll(Session session) {
         repository.deleteByAccessToken(session.getAccessToken());

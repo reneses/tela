@@ -44,7 +44,7 @@ class SessionManagerImpl implements SessionManager {
             throw new IllegalArgumentException("The module token cannot be null");
         Session session = create();
         try {
-            addToken(session, module, moduleToken);
+            addModuleToken(session, module, moduleToken);
         } catch (SessionNotFoundException ignored) {
         }
         return session;
@@ -93,7 +93,7 @@ class SessionManagerImpl implements SessionManager {
 
     /** {@inheritDoc} */
     @Override
-    public void addToken(Session session, String module, String token) throws SessionNotFoundException {
+    public void addModuleToken(Session session, String module, String token) throws SessionNotFoundException {
         Session existingSession = findByModuleToken(module, token);
         if (existingSession != null)
             deleteModuleToken(existingSession, module);

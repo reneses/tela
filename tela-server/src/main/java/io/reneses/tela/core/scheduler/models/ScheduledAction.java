@@ -1,5 +1,6 @@
 package io.reneses.tela.core.scheduler.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -16,7 +17,6 @@ import java.util.stream.Collectors;
 public class ScheduledAction {
 
     private int id, delay;
-    private String accessToken;
     private Map<String, String[]> params;
     private LocalDateTime createdAt, nextExecution;
 
@@ -25,6 +25,9 @@ public class ScheduledAction {
 
     @JsonProperty("action")
     private String actionName;
+
+    @JsonIgnore
+    private String accessToken;
 
     /**
      * Init the object
@@ -105,24 +108,6 @@ public class ScheduledAction {
     //----------------------------------- OTHER -----------------------------------//
 
     /**
-     * Set the ID property
-     *
-     * @param id Scheduled action ID
-     */
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    /**
-     * Get the ID property
-     *
-     * @return Scheduled action ID
-     */
-    public int getId() {
-        return this.id;
-    }
-
-    /**
      * Update the date of the next execution
      */
     public void updateNextExecution() {
@@ -178,6 +163,24 @@ public class ScheduledAction {
     }
 
     //----------------------------------- SETTERS AND GETTERS -----------------------------------//
+
+    /**
+     * Set the ID property
+     *
+     * @param id Scheduled action ID
+     */
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    /**
+     * Get the ID property
+     *
+     * @return Scheduled action ID
+     */
+    public int getId() {
+        return this.id;
+    }
 
     /**
      * Getter for the field <code>delay</code>.

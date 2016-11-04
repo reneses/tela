@@ -16,7 +16,7 @@ public class TwitterTestUtils {
         TwitterApiImpl twitterApi = spy(TwitterApiImpl.class);
 
         String selfRes = IOUtils.toString(TwitterTestUtils.class.getResourceAsStream("/twitter/self.json"));
-        doReturn(selfRes).when(twitterApi).oauthGetRequest(
+        doReturn(selfRes).when(twitterApi).oAuthGetRequest(
                 eq("1"), eq("2"), eq("3"), eq("4"),
                 eq("https://api.twitter.com/1.1/account/verify_credentials.json"),
                 anyString(), anyString(),
@@ -24,7 +24,7 @@ public class TwitterTestUtils {
                 anyString(), anyString());
 
         String userRes = IOUtils.toString(TwitterTestUtils.class.getResourceAsStream("/twitter/user.json"));
-        doReturn(userRes).when(twitterApi).oauthGetRequest(
+        doReturn(userRes).when(twitterApi).oAuthGetRequest(
                 eq("1"), eq("2"), eq("3"), eq("4"),
                 eq("https://api.twitter.com/1.1/users/show.json"),
                 eq("screen_name"), eq("uniovi"),
@@ -34,7 +34,7 @@ public class TwitterTestUtils {
         String userRes12 = IOUtils.toString(TwitterTestUtils.class.getResourceAsStream("/twitter/relationship-1-2.json"));
         String userRes2 = IOUtils.toString(TwitterTestUtils.class.getResourceAsStream("/twitter/relationship-2.json"));
 
-        doReturn(userRes11).when(twitterApi).oauthGetRequest(
+        doReturn(userRes11).when(twitterApi).oAuthGetRequest(
                 eq("1"), eq("2"), eq("3"), eq("4"),
                 eq("https://api.twitter.com/1.1/followers/list.json"),
                 anyString(), anyString(),
@@ -43,7 +43,7 @@ public class TwitterTestUtils {
                 anyString(), anyString(),
                 anyString(), anyString());
 
-        doReturn(userRes2).when(twitterApi).oauthGetRequest(
+        doReturn(userRes2).when(twitterApi).oAuthGetRequest(
                 eq("1"), eq("2"), eq("3"), eq("4"),
                 eq("https://api.twitter.com/1.1/followers/list.json"),
                 anyString(), anyString(),
@@ -52,7 +52,7 @@ public class TwitterTestUtils {
                 anyString(), anyString(),
                 anyString(), anyString());
 
-        doReturn(userRes12).when(twitterApi).oauthGetRequest(
+        doReturn(userRes12).when(twitterApi).oAuthGetRequest(
                 eq("1"), eq("2"), eq("3"), eq("4"),
                 eq("https://api.twitter.com/1.1/friends/list.json"),
                 anyString(), anyString(),
@@ -61,7 +61,7 @@ public class TwitterTestUtils {
                 anyString(), anyString(),
                 anyString(), anyString());
 
-        doReturn(userRes2).when(twitterApi).oauthGetRequest(
+        doReturn(userRes2).when(twitterApi).oAuthGetRequest(
                 eq("1"), eq("2"), eq("3"), eq("4"),
                 eq("https://api.twitter.com/1.1/friends/list.json"),
                 anyString(), anyString(),

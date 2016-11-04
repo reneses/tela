@@ -53,7 +53,7 @@ class CachedTwitterApiWrapper extends TwitterApiWrapper {
 
         if (history.isPresent(new HistoryEntry(TwitterTelaModule.NAME, "user", username))) {
             LOGGER.debug("[Cache] user({}) retrieved from the cache", username);
-            return repository.find(getUsernameFromAccessToken(apiKey, apiSecret, token, tokenSecret));
+            return repository.find(username);
         }
         return super.user(apiKey, apiSecret, token, tokenSecret, username);
     }

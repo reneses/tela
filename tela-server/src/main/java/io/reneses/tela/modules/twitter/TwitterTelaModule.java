@@ -19,8 +19,7 @@ public class TwitterTelaModule extends TelaModule {
      */
     public TwitterTelaModule() {
         super(NAME);
-        Iterable<DatabaseExtension> extensions = Arrays.asList(new TwitterOrientDatabaseExtension());
-        setExtensions(extensions);
+        setExtensions(Arrays.asList(new TwitterOrientDatabaseExtension()));
     }
 
 }

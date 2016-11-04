@@ -95,7 +95,7 @@ public class SchedulerController extends TelaController {
 
             session = extractSession(authorization);
             LOGGER.info("{}:{} [Schedule] Get all scheduled", request.getRemoteAddr(), session);
-            List<ScheduledAction> tasks = scheduler.getActions(session);
+            List<ScheduledAction> tasks = scheduler.getScheduledActions(session);
             return buildResponse(tasks);
 
         } catch (ApiException e) {
