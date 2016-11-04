@@ -1,6 +1,7 @@
 package io.reneses.tela.core.databases.orientdb;
 
 import com.orientechnologies.orient.client.remote.OServerAdmin;
+import com.orientechnologies.orient.core.exception.OFileLockedByAnotherProcessException;
 import com.orientechnologies.orient.core.exception.OSecurityAccessException;
 import io.reneses.tela.core.databases.extensions.DatabaseExtension;
 import io.reneses.tela.core.databases.extensions.OrientDatabaseExtension;
@@ -55,8 +56,14 @@ public class OrientGraphWrapperFactory {
      * @param path Path to the database
      */
     public static void connectLocal(String path) {
-        LOGGER.info("[OrientDB] Initiating local database in {}", path);
-        singleton = new OrientGraphWrapperImpl(extensions, "plocal:" + path);
+        try {
+            LOGGER.info("[OrientDB] Initiating local database in {}", path);
+            singleton = new OrientGraphWrapperImpl(extensions, "plocal:" + path);
+        } catch (OFileLockedByAnotherProcessException e) {
+            LOGGER.error("[OrientDB] The local database is blocked by another program (Is Tela already running?)");
+            LOGGER.error("[Tela] Exiting...");
+            System.exit(-1);
+        }
     }
 
     private static void createRemote(String database, String host, int port, String user, String password) {

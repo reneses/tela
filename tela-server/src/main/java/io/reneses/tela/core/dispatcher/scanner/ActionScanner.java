@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Method;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * The function scanner is the component responsible of scanning the classes, extracting the actions, storing them,
@@ -58,10 +59,10 @@ class ActionScanner extends AbstractActionScanner {
             if (m.isAnnotationPresent(io.reneses.tela.core.dispatcher.annotations.Action.class)) {
                 try {
                     Action action = new Action(m);
-                    LOGGER.debug("Action loaded: {}/{} {}", module.getName(), action.getName(), action.getParameters().keySet());
+                    LOGGER.debug("[Dispatcher] Action loaded: {}/{} {}", module.getName(), action.getName(), action.getParameters().keySet());
                     module.addAction(action);
                 } catch (Exception e) {
-                    LOGGER.error("The method " + m.getDeclaringClass() + "." + m.getName() + " could not be init as an action", e);
+                    LOGGER.error("[Dispatcher] The method " + m.getDeclaringClass() + "." + m.getName() + " could not be init as an action", e);
                 }
             }
         }
@@ -75,7 +76,8 @@ class ActionScanner extends AbstractActionScanner {
     public Map<String, Module> scan() {
         List<Class<?>> classesToScan = collectClassesToScan();
         Map<String, Module> modules = new HashMap<>();
-        LOGGER.debug("Scanning classes: {}", classesToScan);
+        LOGGER.debug("[Dispatcher] Scanning classes: {}",
+                classesToScan.stream().map(Class::getSimpleName).collect(Collectors.toList()));
         classesToScan
                 .stream()
                 .filter(c -> c.isAnnotationPresent(io.reneses.tela.core.dispatcher.annotations.Module.class))
@@ -86,7 +88,7 @@ class ActionScanner extends AbstractActionScanner {
                     else
                         modules.put(module.getName(), module);
                 });
-        LOGGER.debug("Classes scanning finished, {} modules found: {}", modules.size(), modules.keySet());
+        LOGGER.debug("[Dispatcher] Classes scanning finished, {} modules found: {}", modules.size(), modules.keySet());
         return modules;
     }
 

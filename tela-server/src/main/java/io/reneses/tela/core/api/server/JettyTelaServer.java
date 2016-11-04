@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.servlet.DispatcherType;
 import java.net.BindException;
+import java.net.SocketException;
 import java.util.EnumSet;
 
 class JettyTelaServer extends AbstractTelaServer {
@@ -69,9 +70,9 @@ class JettyTelaServer extends AbstractTelaServer {
     @Override
     public JettyTelaServer start() {
         try {
-            LOGGER.info("[GLOBAL] Starting server at port {}", getPort());
+            LOGGER.info("[Tela] Starting server at port {}", getPort());
             server.start();
-            LOGGER.info("[GLOBAL] Server started at 127.0.0.1:{} / {}:{}", getPort(), getLocalIp(), getPort());
+            LOGGER.info("[Tela] Server started at 127.0.0.1:{} / {}:{}", getPort(), getLocalIp(), getPort());
             System.out.println("\n" +
                     "      ___           ___           ___       ___     \n" +
                     "     /\\  \\         /\\  \\         /\\__\\     /\\  \\    \n" +
@@ -86,15 +87,18 @@ class JettyTelaServer extends AbstractTelaServer {
                     "                   \\/__/         \\/__/     \\/__/    \n" +
                     "\n" +
                     "STARTED AT: 127.0.0.1:" + getPort() + " / " + getLocalIp() + ":" + getPort() + "\n");
-        } catch (BindException e) {
-            LOGGER.error("[GLOBAL] The port " + getPort() + " is already in use");
+        } catch (SocketException e) {
+            LOGGER.error("[Tela] The port " + getPort() + " is already in use");
+            LOGGER.error("[Tela] Exiting...");
             System.exit(-1);
         } catch (InterruptedException e) {
-            LOGGER.error("[GLOBAL] The server has been interrupted", e);
-            throw new RuntimeException("The server has been interrupted");
+            LOGGER.error("[Tela] The server has been interrupted", e);
+            LOGGER.error("[Tela] Exiting...");
+            System.exit(-1);
         } catch (Exception e) {
-            LOGGER.error("[GLOBAL] Unknown internal server problem", e);
-            throw new RuntimeException("Unknown internal server problem");
+            LOGGER.error("[Tela] Unknown internal server problem", e);
+            LOGGER.error("[Tela] Exiting...");
+            System.exit(-1);
         }
         return this;
     }
