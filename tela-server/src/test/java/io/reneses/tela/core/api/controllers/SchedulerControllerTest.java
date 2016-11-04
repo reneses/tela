@@ -83,10 +83,8 @@ public class SchedulerControllerTest {
 
         assertEquals("world", response.getResult());
         assertEquals(10, response.getAction().getDelay());
-        assertEquals(session1.getAccessToken(), response.getAction().getAccessToken());
         assertEquals("test", response.getAction().getModuleName());
         assertEquals("hello", response.getAction().getActionName());
-        assertEquals(session1.getAccessToken(), response.getAction().getAccessToken());
         assertTrue(response.getAction().getParams().isEmpty());
         assertNotNull(response.getAction().getId());
 
@@ -187,10 +185,8 @@ public class SchedulerControllerTest {
         assertEquals(1, actions.size());
 
         assertEquals(10, actions.get(0).getDelay());
-        assertEquals(session1.getAccessToken(), actions.get(0).getAccessToken());
         assertEquals("test", actions.get(0).getModuleName());
         assertEquals("hello", actions.get(0).getActionName());
-        assertEquals(session1.getAccessToken(), actions.get(0).getAccessToken());
         assertTrue(actions.get(0).getParams().isEmpty());
         assertNotNull(actions.get(0).getId());
 
