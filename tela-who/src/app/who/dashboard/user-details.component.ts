@@ -61,18 +61,6 @@ export class UserDetailsComponent implements OnChanges {
             );
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
     /**
      * Query the relationship of a user with the logged user
      *

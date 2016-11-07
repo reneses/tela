@@ -14,10 +14,8 @@ export class DashboardComponent {
 
     private token: string;
 
-    // The data is loading
     loading: boolean;
 
-    // Relationship properties
     following: User[];
     followers: User[];
     friends: User[];
@@ -29,9 +27,6 @@ export class DashboardComponent {
     showingFollowers: boolean;
     showingFriends: boolean;
 
-    // Search properties
-    // searchedUser:User;
-    // searchError:string;
     showingSearch: boolean;
     searchUsername: string;
 
@@ -46,23 +41,10 @@ export class DashboardComponent {
     constructor(private auth: AuthService, private tela: TelaService, private route: ActivatedRoute, private location: Location) {
         this.token = this.auth.getToken();
         this.hideAll();
-        // this.route.params
-        //     .map(params => params['username'])
-        //     .subscribe((username) => { if (username) alert(username); });
         let params = this.route.snapshot.params;
-
         if (params.hasOwnProperty('username'))
             this.search(params['username']);
-
-        //     .map(params => params['username'])
-        //     .subscribe((username) => { if (username) alert(username); });
     }
-
-    // constructor()
-    // {
-    //     this.id=_params.get('id');
-    // }
-
 
     /**
      * Hide all the components
