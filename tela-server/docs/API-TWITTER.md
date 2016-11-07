@@ -4,11 +4,11 @@ This manual documents all the endpoints of the API of the Twitter Tela Module.
 
 ## Response models
 
-The Tela Twitter API results completely follows the models of the ones provided by the Official Twitter API, which can be seen on their [API Endpoints documentation](https://dev.twitter.com/rest/public). Therefore, an existing application that uses the Twitter API can be directly switched to using Tela without major changes.
+The Tela Twitter API results completely mirrors the structure of the answers provided by the Official Twitter API, which can be seen on their [API Endpoints documentation](https://dev.twitter.com/rest/public). Therefore, an existing application that uses the Twitter API can be directly switched to using Tela without major changes.
 
-## Authorization
+## Authentication
 
-Some of the endpoints we will describe in this document require users to authorize themselves at the moment of the request with a Tela Access Token, with a Twitter Module Token associated to it. This is done using the `Authorization` header, along with a `Bearer` token:
+The endpoints we will describe in this document require users to authorize themselves at the moment of the request with a Tela Access Token, with a Twitter Module Token associated to it. This is done using the `Authorization` header, along with a `Bearer` token:
 
 #### Request Headers
 
@@ -20,7 +20,7 @@ Authorization	 | Authorization: Bearer \<access_token> | Yes
 
 In order to retrieve data from the official Twitter API, a Twitter access token (a Twitter module token on Tela) is required. 
 
-This is responsibility  of each client app, so that they are able to implement and integrate the authorization process as they want. You can read more about that in the official [Twitter documentation](https://dev.twitter.com/rest/public), particularly in the [client management](https://apps.twitter.com/app/new) and [auth flow](https://dev.twitter.com/oauth/application-only) sections.
+Obtaining a token responsibility  of each client app, so that they are able to implement and integrate the authentication process however they want. You can read more about that in the official [Twitter documentation](https://dev.twitter.com/rest/public), particularly in the [client management](https://apps.twitter.com/app/new) and [auth flow](https://dev.twitter.com/oauth/application-only) sections.
 
 #### Creating a Tela Session with the Twitter Module Token
 
@@ -36,7 +36,7 @@ Actions related with information retrieval of users.
 GET /twitter/self
 ```
 - **Description**: Get the information about the authorized user. 
-- **Requires authorization**: Yes.
+- **Requires authentication**: Yes.
 - **Output**: Full information about the logged user.
 - **Schedulable**: Yes (minimum delay: 3600s).
 
@@ -63,7 +63,7 @@ GET /twitter/self
 GET /twitter/user
 ```
 - **Description**: Get the information about a user. 
-- **Requires authorization**: Yes.
+- **Requires authentication**: Yes.
 - **Output**: Full information about a user.
 - **Schedulable**: Yes (minimum delay: 3600s).
 
@@ -96,7 +96,7 @@ GET /twitter/user?username=snoopdogg
 GET /twitter/following
 ```
 - **Description**: Get the users the authorized user is following. 
-- **Requires authorization**: Yes.
+- **Requires authentication**: Yes.
 - **Output**: Basic information of the users the authorized user is following.
 - **Schedulable**: Yes (minimum delay: 3600s).
 
@@ -130,7 +130,7 @@ GET /twitter/following?limit=1
 GET /twitter/followers
 ```
 - **Description**: Get the followers of the authorized user. 
-- **Requires authorization**: Yes.
+- **Requires authentication**: Yes.
 - **Output**: Basic information of the followers of the authorized user.
 - **Schedulable**: Yes (minimum delay: 3600s).
 
@@ -164,7 +164,7 @@ GET /twitter/followers?limit=1
 GET /twitter/friends
 ```
 - **Description**: Get the friends (intersection of followers and following) of the authorized user. 
-- **Requires authorization**: Yes.
+- **Requires authentication**: Yes.
 - **Output**: Basic information of the friends of the authorized user.
 - **Schedulable**: Yes (minimum delay: 3600s).
 

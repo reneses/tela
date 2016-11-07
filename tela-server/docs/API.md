@@ -2,7 +2,7 @@
 
 This manual documents all the endpoints of the API of the core of Tela.
 
-## Authorization
+## Authentication
 
 Some of the endpoints we will describe in this document require users to authorize themselves at the moment of the request. This is done using the `Authorization` header, along with a `Bearer` token:
 
@@ -24,7 +24,7 @@ The Auth API is in charge of creating, updating and deleting Tela sessions.
 POST /auth
 ```
 - **Description**: Create a session and send its access token back to the user. If the `module`and `token` parameters are supplied, it will directly store the given module token within the created session (shortcut for create + add token). 
-- **Requires authorization**: No.
+- **Requires authentication**: No.
 - **Output**: Tela access token.
 
 #### Parameters
@@ -62,7 +62,7 @@ DELETE /auth
 ```
 
 - **Description**: Delete a session, as well as all the module tokens stores with it.
-- **Requires authorization**: Yes.
+- **Requires authentication**: Yes.
 - **Output**: Success message.
 
 #### Example
@@ -81,7 +81,7 @@ DELETE /auth
 POST /auth/{module}
 ```
 - **Description**: Add a module token to the current session.
-- **Requires authorization**: Yes.
+- **Requires authentication**: Yes.
 - **Output**: Success message.
 
 #### Parameters
@@ -106,7 +106,7 @@ POST /auth/instagram?token=12345
 DELETE /auth/{module}
 ```
 - **Description:** Delete a specific module token.
-- **Requires authorization:** Yes.
+- **Requires authentication:** Yes.
 - **Output**: Success message.
 
 #### Parameters
@@ -132,7 +132,7 @@ The General API offers a test endpoint, as well as help about the installed modu
 GET /test
 ```
 - **Description**: Simple test endpoint. 
-- **Requires authorization**: No.
+- **Requires authentication**: No.
 - **Output**: OK message (in plain text).
 
 #### Example Response
@@ -150,7 +150,7 @@ OK
 GET /help/{module}
 ```
 - **Description**: Get the list of the available actions, as well as its information. 
-- **Requires authorization**: No.
+- **Requires authentication**: No.
 - **Output**: List of information about the actions of the provided module, or of all if none given.
 
 #### Parameters
@@ -214,7 +214,7 @@ GET /help/instagram
 GET /action/{module}/{action}
 ```
 - **Description**: Execute an action. 
-- **Requires authorization**: Yes.
+- **Requires authentication**: Yes.
 - **Output**: Result of the action.
 
 #### Parameters
@@ -275,7 +275,7 @@ The Scheduler API offers scheduling functionality.
 GET /schedule/{module}/{action}
 ```
 - **Description**: Schedule an action. 
-- **Requires authorization**: Yes.
+- **Requires authentication**: Yes.
 - **Output**: Scheduled action and result of the action.
 
 #### Parameters
@@ -329,7 +329,7 @@ GET /schedule/instagram/user?delay=4000&username=snoopdogg
 GET /schedule
 ```
 - **Description**: Get all the scheduled actions by the authorized user. 
-- **Requires authorization**: Yes.
+- **Requires authentication**: Yes.
 - **Output**: Scheduled actions.
 
 #### Example
@@ -357,7 +357,7 @@ GET /schedule
 DELETE /schedule/{scheduled}
 ```
 - **Description**: Cancel a scheduled action.
-- **Requires authorization**: Yes.
+- **Requires authentication**: Yes.
 - **Output**: Success message.
 
 #### Parameters
@@ -382,7 +382,7 @@ DELETE /schedule/523899944
 DELETE /schedule
 ```
 - **Description**: Cancel all the scheduled actions.
-- **Requires authorization**: Yes.
+- **Requires authentication**: Yes.
 - **Output**: Success message.
 
 #### Example

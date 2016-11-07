@@ -41,16 +41,16 @@ tela.start();
 
 Tela can be configured in the following ways (from higher to lower priority):
 
-1. Programmatically
-2. Setting the properties as system environmental variables
-3. Setting the properties in the `tela.properties` file
-4. If it is not present neither, it uses the default option
+1. Programmatically.
+2. Setting the properties as system environmental variables.
+3. Setting the properties in the `tela.properties` file.
+4. If it is not present neither, it uses the default option.
 
 If any configuration is present, Tela will use the default value.
 
 ### Programmatically Configuration
 
-The `Assembler.build()` method also admits a `Configuration` instance, which can be use in order to set properties programmatically. For example:
+The `Assembler.build()` method also admits a `Configuration` instance, which can be used to set properties programmatically. For example:
 
 ```java
 import io.reneses.tela.Assembler;
@@ -132,11 +132,11 @@ mvn clean install -DskipTests=true
 
 ## Running Tela
 
-At this point, you should already have a `tela.jar` file (and, optionally a `tela.properties` file), by default located at the folder `target/jar`.
+At this point, you should already have a `tela.jar` file (and, optionally a `tela.properties` file). By default they are generated at the folder `target/jar`.
 
 ### Docker
 
-The easies way to run **Tela** is by using [**Docker**](https://www.docker.com). Both the `Dockerfile` and `docker-compose.yml` are included in the project, so running it is as easy as:
+The easies way to run **Tela** is by using [**Docker** and Docker Compose](https://www.docker.com). Both the `Dockerfile` and `docker-compose.yml` are included in the project, so running it is as easy as:
 
 ```
 cmd /path/to/Tela
@@ -214,7 +214,7 @@ CACHE_MODE=redis
 ORIENTDB_MODE=remote
 # ... OrientDB configuration
 ```
-
+As it is shown in the following diagram:
 ![Deployment Diagram](deployment-diagram.png)
 
 ### Redis
@@ -237,7 +237,7 @@ docker run -p 6379:6379 redis
 docker run -p 2424:2424 -p 2480:2480 -e ORIENTDB_ROOT_PASSWORD=root orientdb
 ```
 
-If we are seeking maximum performance, a OrientDB server is advised. Its deployment can be easily with any cloud provider. For example, if we are using Amazon EC2, the script `scripts/install-orientdb-server.sh` will prepare everything for us (using `yum`, the commands for `apt-get` should be similar):
+If we are seeking maximum performance, a OrientDB server is advised. Its deployment can be easily with any cloud provider. For example, if we are using Amazon EC2, the script `scripts/install-orientdb-server.sh` will prepare everything for us (it uses `yum`, the commands for `apt-get` should be similar):
 
 ```bash
 #!/bin/bash
