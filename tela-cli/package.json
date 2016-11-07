@@ -1,7 +1,7 @@
 {
   "name": "tela-cli",
   "description": "Command line interface for the Tela Framework",
-  "version": "0.0.14",
+  "version": "1.0.0",
   "author": "Alvaro Reneses <alvaroreneses@gmail.com> (http://reneses.io)",
   "license": "MIT",
   "repository": {
