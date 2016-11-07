@@ -9,7 +9,7 @@ import {
 
 import {AppComponent} from './app.component';
 
-import {WhoComponent} from './hawk/hawk';
+import {HawkComponent} from './hawk/hawk';
 import {ToolbarComponent} from './hawk/toolbar/toolbar.component';
 import {DashboardComponent} from './hawk/dashboard/dashboard.component';
 import {LoginComponent} from './login/login.component';
@@ -30,7 +30,7 @@ import {GraphComponent} from "./hawk/dashboard/graph.component";
     ],
     declarations: [
         AppComponent,
-        WhoComponent,
+        HawkComponent,
         ToolbarComponent,
         DashboardComponent,
         UserDetailsComponent,

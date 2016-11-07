@@ -20,7 +20,9 @@ export class GraphComponent implements OnChanges {
             let following: number[] = [];
             let lastDate: string;
             console.log(this.counts);
-            this.counts.forEach(c => {
+            this.counts
+                .sort((c1, c2) => c1.createdAt.getTime() - c2.createdAt.getTime())
+                .forEach(c => {
                 let date = `${c.createdAt.getDay()}/${c.createdAt.getMonth()}/${c.createdAt.getFullYear()}`;
                 if (lastDate === date) {
                     dates.pop();
