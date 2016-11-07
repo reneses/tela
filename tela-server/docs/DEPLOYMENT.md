@@ -4,6 +4,10 @@ This document covers the process of building, configuring, packaging and running
 
 Although Tela has been tested on Windows, it is recommended to run it on Mac/UNIX.
 
+## Troubleshooting
+
+If you receive a `Exception in thread "main" java.lang.OutOfMemoryError: Direct buffer memory` error, increase the memory of the JVM or configure OrientDB as remote.
+
 ## Building your own Tela Server
 
 The Tela Framework contains a server already configured with two modules (Instagram & Twitter), which can be started by running the `main` method at `io.reneses.tela.App`.
