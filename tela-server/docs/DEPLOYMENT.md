@@ -2,6 +2,8 @@
 
 This document covers the process of building, configuring, packaging and running Tela.
 
+Although Tela has been tested on Windows, it is recommended to run it on Mac/UNIX.
+
 ## Building your own Tela Server
 
 The Tela Framework contains a server already configured with two modules (Instagram & Twitter), which can be started by running the `main` method at `io.reneses.tela.App`.
