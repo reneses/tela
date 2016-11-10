@@ -1,6 +1,16 @@
 # Tela Who?
 
-Tela Who? is a web application for companies, brands, and regular users, that allows them to obtain a better understanding about how a user is connected with them, so that they can improve their relationship and target similar users. ## Building
+Tela Who? is a web application for companies, brands, and regular users, that allows them to obtain a better understanding about how a user is connected with them, so that they can improve their relationship and target similar users. 
+
+Developed by [Álvaro Reneses](http://www.reneses.io) as his Final Degree Project (Software Engineering) at [University of Oviedo](http://www.uniovi.es).
+
+## Deployed version
+
+This application is deployed at: [https://tela-who.herokuapp.com](https://tela-who.herokuapp.com).
+
+However, as commented in the report, only sandbox users can access due to the restrictions of the [Instagram Sandbox Mode](https://www.instagram.com/developer/sandbox/). The application is currently waiting for Instagram approval; until then, you can be added as a sandbox user by contacting me at me@reneses.io.
+
+## Building
 
 **Tela Who?** building requires **npm** and **Webpack**.
 
