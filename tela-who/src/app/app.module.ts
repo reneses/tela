@@ -21,6 +21,7 @@ import {AuthService} from "./services/auth.service";
 import {TelaService} from "./services/tela.service";
 import {UserDetailsComponent} from "./who/dashboard/user-details.component";
 import {Config} from "./app.config";
+import {PrivacyComponent} from "./privacy/privacy.component";
 
 @NgModule({
     imports: [
@@ -37,6 +38,7 @@ import {Config} from "./app.config";
         UserDetailsComponent,
         LoginComponent,
         AuthComponent,
+        PrivacyComponent
     ],
     providers: [
         appRoutingProviders,

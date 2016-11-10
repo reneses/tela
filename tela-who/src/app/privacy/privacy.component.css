@@ -1,0 +1,20 @@
+main {
+    background: #3f729b linear-gradient(#3f729b, #3a5b80);
+    justify-content: center;
+    width: 100%;
+    min-height: 100%;
+    padding: 50px;
+}
+
+#privacy {
+    padding: 50px;
+    background-color: rgba(255,255,255,.8);
+    color: black;
+    box-shadow: 1px 1px 10px rgba(0,0,0,.7);
+}
+h2 {
+    color: black;
+    font-weight: 600;
+    margin-top: 2em;
+    font-size: 1.2em;
+}
