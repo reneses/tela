@@ -30,7 +30,7 @@ export class InstagramModule extends Module {
         let instagramUrl = "https://api.instagram.com/oauth/authorize/?"
             + "client_id=" + clientId
             + "&redirect_uri=" + encodeURI(redirectUri)
-            + "&scope=public_content&follower_list"
+            + "&scope=public_content+follower_list"
             + "&response_type=code";
 
         this.startAuthServer(port, (url: Url) => {
