@@ -26,7 +26,7 @@ export class TwitterModule extends Module {
 
         let port = 8082;
         let twitter = require("node-twitter-api")({
-            callback: "http://172.0.0.1:" + port,
+            callback: "http://127.0.0.1:" + port,
             consumerKey: apiKey,
             consumerSecret: apiSecret,
         });
