@@ -8,7 +8,9 @@ Tela is designed to be highly extensible by the use of functionality modules tha
 
 In addition to Tela, three more applications have been developed: “Tela CLI”, “Tela Who?” and “Tela Hawk”. These systems, which are based on Tela, offer different types of social network analysis for distinct target users; at the same time than they act as proof of concept for applications powered by Tela.
 
-Developed by [Álvaro Reneses](http://www.reneses.io) as his Final Degree Project (Software Engineering) at [University of Oviedo](http://www.uniovi.es).
+Developed by [Álvaro Reneses](http://www.reneses.io) as his Final Degree Project (Software Engineering) at [University of Oviedo](http://www.uniovi.es), being graded with a 10/10 and honors. 
+
+The written report has been included [in the repository](./final-degree-project.pdf).
 
 ## Components
 - **Tela**: [Readme](tela-server/README.md)
